@@ -1,0 +1,21 @@
+.decks{
+    @media print {
+        .right-column{
+            display: none;
+        }
+        .left-column{
+            width: 100%;
+        }
+    }
+
+    .print-sheet {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .print-sheet > * {
+        margin: 0;
+        flex-grow: 0;
+        flex-shrink: 0;
+    }
+}

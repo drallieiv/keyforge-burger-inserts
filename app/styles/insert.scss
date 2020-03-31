@@ -1,0 +1,84 @@
+// Burger Token Boxes
+
+// Thin : 37 Card Unsleeved
+$bt-thin-width: 64mm;
+$bt-thin-height: 90mm;
+$bt-thin-thick: 14mm;
+
+// Sleeved : 37 Card Sleeved 67mm x 95.5mm x 22.5mm
+$bt-fat-width: 67mm;
+$bt-fat-height: 95.5mm;
+$bt-fat-thick: 22.5mm;
+
+// Margin
+$cut-margin: 1mm;
+
+$icon-base-height: 8mm;
+
+.box-insert {
+    border: 1px solid black;
+    padding: 1px;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-evenly;
+
+    & > * { 
+        flex-grow: 0;
+        flex-shrink: 0;
+    }
+}
+
+
+.box-insert-side {
+    width: $bt-thin-height - 2 * $cut-margin;
+    height: $bt-thin-thick - 2 * $cut-margin;
+}
+
+.box-insert-top {
+    width: $bt-thin-width - 2 * $cut-margin;
+    height: $bt-thin-thick - 2 * $cut-margin;
+}
+
+.box-insert-front {
+    width: $bt-thin-width - 2 * $cut-margin;
+    height: $bt-thin-height - 2 * $cut-margin;
+}
+
+// DOK Styles
+
+.box-insert-side {
+    .dok-zone-main {
+        flex-basis: 50mm;
+        .dok-deck-name {
+            font-family: "Righteous", "Roboto";
+            font-weight: 400;
+            font-size: 3.5mm;
+        }
+    }
+    
+    .dok-zone-stat {
+        flex-basis: 9mm;
+        height: 100%;
+        overflow: hidden;
+    
+        font-family: "Righteous", "Roboto";
+        font-weight: 400;
+        font-size: 7mm;
+        .dok-sas-label {
+            font-size: 3mm;
+            position: relative;
+            left: 3mm;
+            bottom: 8mm;
+        }
+    }
+    
+    .dok-zone-houses {
+        flex-basis: 23mm;
+    }
+}
+
+.icon-house {
+  height: $icon-base-height;
+  margin: -0.7mm;
+}

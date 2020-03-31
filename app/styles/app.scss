@@ -1,0 +1,24 @@
+@import "settings";
+@import 'foundation-sites/foundation';
+@include foundation-everything;
+@import  'decks';
+@import  'insert';
+
+.main-body{
+    margin: 20px 10px;
+    .center-column {
+        width: 50%;
+        margin: auto;
+    }
+}
+
+@media print {
+    .top-bar {
+        display: none;
+    }
+
+    body{
+        // Full Page border
+        // border: 1px solid black;
+    }
+}
