@@ -1,6 +1,6 @@
 @import "settings";
 @import 'foundation-sites/foundation';
-@include foundation-everything;
+@include foundation-everything(true);
 @import  'decks';
 @import  'insert';
 
@@ -10,6 +10,10 @@
         width: 50%;
         margin: auto;
     }
+}
+
+.smallTitle {
+    font-weight: bold;
 }
 
 @media print {

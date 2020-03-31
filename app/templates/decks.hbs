@@ -10,7 +10,21 @@
             </div>
         </div>
         <div class="cell small-3 right-column">
-            Choose Options Here
+            <p class="smallTitle">Printing Options</p>
+            <p>
+                WIP
+            </p>
+            <p class="smallTitle">Decks Folders</p>
+            {{log "folders" this.folders}}
+            <div class="deck-folders-list">
+                {{#each @model.folders as |folder|}}
+                    <DeckFolder @folder={{folder}}/>
+                {{/each}} 
+            </div>
+            <p class="smallTitle">Import from Decks of Keyforge</p>
+            <div>
+                <p>Import from DOK csv file</p>
+            </div>
         </div>
     </div>
     
