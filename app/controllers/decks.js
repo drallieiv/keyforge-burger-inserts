@@ -2,9 +2,12 @@ import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
 import { action } from '@ember/object';
 import { all } from 'rsvp';
+import PrintOptions from 'burger-inserts/dto/print-options';
 
 export default class DecksController extends Controller {
   @service deckManager;
+
+  printOptions = new PrintOptions();
 
   get folderToPrint() {
     return this.model.folders.firstObject;
@@ -13,6 +16,16 @@ export default class DecksController extends Controller {
   get decksToPrint() {
     return this.folderToPrint.decks;
   }
+
+  /*  Print Options */
+
+  get sideShowSet() {
+    return this.printOptions.get('side_showSet');
+  }
+  set sideShowSet(checked) {
+    this.printOptions.set('side_showSet', checked);
+  }
+
 
   @action
   uploadDokCsv(file) {

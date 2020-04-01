@@ -3,17 +3,26 @@
     <div class="cell small-9 left-column">
       <div class="print-sheet">
         {{#each decksToPrint as |deck|}}
-        <BoxInsert @type='side' @deck={{deck}} />
+        <BoxInsert @type='side' @deck={{deck}} @printOptions={{printOptions}} />
         {{/each}}
       </div>
     </div>
     <div class="cell small-3 right-column">
       <p class="smallTitle">Printing Options</p>
-      <p>
-        WIP
-      </p>
+
+      <div class="print-option">
+        <div class="print-option-label">Show Set</div>
+        <div class="switch tiny">
+          <Input class="switch-input" id="option-side-showSet" @type="checkbox" name="showSet"
+            @checked={{this.sideShowSet}} />
+          <label class="switch-paddle" for="option-side-showSet">
+            <span class="switch-active" aria-hidden="true">Yes</span>
+            <span class="switch-inactive" aria-hidden="true">No</span>
+          </label>
+        </div>
+      </div>
+
       <p class="smallTitle">Decks Folders</p>
-      {{log "folders" this.folders}}
       <div class="deck-folders-list">
         {{#each @model.folders as |folder|}}
         <DeckFolder @folder={{folder}} />

@@ -1,25 +1,28 @@
-.decks{
-    @media print {
-        .right-column{
-            display: none;
-        }
-        .left-column{
-            width: 100%;
-        }
+.decks {
+  @media print {
+    .right-column {
+      display: none;
     }
-
-    .print-sheet {
-        display: flex;
-        flex-wrap: wrap;
+    .left-column {
+      width: 100%;
     }
+  }
 
-    .print-sheet > * {
-        margin: 0;
-        flex-grow: 0;
-        flex-shrink: 0;
+  .print-sheet {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .print-sheet > * {
+    margin: 0;
+    flex-grow: 0;
+    flex-shrink: 0;
+  }
+
+  .print-option {
+    display: flex;
+    .print-option-label {
+      flex-basis: 120px;
     }
-
-    .deck-folders-list {
-        margin-bottom: 1rem;
-    }    
+  }
 }

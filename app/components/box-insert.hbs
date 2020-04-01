@@ -1,22 +1,18 @@
 {{!-- Side Box Insert --}}
-<div class="box-insert box-insert-side">
-    {{!-- Name and extension --}}
-    <div class="dok-zone-main">
-        <div class="dok-extension">
-            <span class="dok-extension-icon"></span>
-            <span class="dok-extension-name"></span>
-        </div>
-        <div class="dok-deck-name">{{this.deck.name}}</div>
-    </div>
-    {{!-- SAS Stats --}}
-    <div class="dok-zone-stat">
-        {{this.deck.sasRating}} <span class="dok-sas-label">SAS</span>
-    </div>
-    {{!-- HOUSES --}}
-    <div class="dok-zone-houses">
-        {{#each this.deck.houses as |house|}}
-            <HouseIcon @houseName={{house}}/>
-        {{/each}}
-    </div>
-    
+<div class="box-insert box-insert-side{{unless this.showSet " no-set"}}">
+  {{!-- Name and extension --}}
+  <div class="dok-zone-set">
+    <Set @set={{this.deck.expansion}}></Set>
+  </div>
+  <div class="dok-zone-name">{{this.deck.name}}</div>
+  {{!-- SAS Stats --}}
+  <div class="dok-zone-stat">
+    {{this.deck.sasRating}} <span class="dok-sas-label">SAS</span>
+  </div>
+  {{!-- HOUSES --}}
+  <div class="dok-zone-houses">
+    {{#each this.deck.houses as |house|}}
+    <HouseIcon @houseName={{house}} />
+    {{/each}}
+  </div>
 </div>

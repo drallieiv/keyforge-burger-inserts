@@ -1,11 +1,11 @@
 // Burger Token Boxes
 
-// Thin : 37 Card Unsleeved
+// Thin        : 37 Card Unsleeved
 $bt-thin-width: 64mm;
 $bt-thin-height: 90mm;
 $bt-thin-thick: 14mm;
 
-// Sleeved : 37 Card Sleeved 67mm x 95.5mm x 22.5mm
+// Sleeved    : 37 Card Sleeved 67mm x 95.5mm x 22.5mm
 $bt-fat-width: 67mm;
 $bt-fat-height: 95.5mm;
 $bt-fat-thick: 22.5mm;
@@ -16,66 +16,84 @@ $cut-margin: 1mm;
 $icon-base-height: 8mm;
 
 .box-insert {
-    border: 1px solid black;
-    padding: 1px;
-    display: flex;
-    flex-wrap: nowrap;
-    align-items: center;
-    justify-content: space-evenly;
+  border: 1px solid black;
+  padding: 1px;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
 
-    & > * { 
-        flex-grow: 0;
-        flex-shrink: 0;
-    }
-}
+  font-family: "Righteous", "Roboto";
+  font-weight: 400;
 
-
-.box-insert-side {
-    width: $bt-thin-height - 2 * $cut-margin;
-    height: $bt-thin-thick - 2 * $cut-margin;
+  > * {
+    flex-grow: 0;
+    flex-shrink: 0;
+    padding: 0 0.5mm;
+  }
 }
 
 .box-insert-top {
-    width: $bt-thin-width - 2 * $cut-margin;
-    height: $bt-thin-thick - 2 * $cut-margin;
+  width: $bt-thin-width - 2 * $cut-margin;
+  height: $bt-thin-thick - 2 * $cut-margin;
 }
 
 .box-insert-front {
-    width: $bt-thin-width - 2 * $cut-margin;
-    height: $bt-thin-height - 2 * $cut-margin;
+  width: $bt-thin-width - 2 * $cut-margin;
+  height: $bt-thin-height - 2 * $cut-margin;
 }
 
 // DOK Styles
-
 .box-insert-side {
-    .dok-zone-main {
-        flex-basis: 50mm;
-        .dok-deck-name {
-            font-family: "Righteous", "Roboto";
-            font-weight: 400;
-            font-size: 3.5mm;
-        }
+  // 62mm x 12mm
+  $width: $bt-thin-height - 2 * $cut-margin;
+  $height: $bt-thin-thick - 2 * $cut-margin;
+
+  // Splitting Space
+  $set: 10mm;
+  $stat: 10mm;
+  $house: 24mm;
+  $margin: 1.5mm;
+
+  // Rules
+  width: $width;
+  height: $height;
+
+  .dok-zone-set {
+    flex-basis: $set;
+    font-size: 3.5mm;
+    text-align: center;
+  }
+
+  .dok-zone-name {
+    flex-grow: 1;
+    flex-shrink: 1;
+    font-size: 3.5mm;
+  }
+
+  .dok-zone-stat {
+    flex-basis: $stat;
+    height: 100%;
+    overflow: hidden;
+    font-size: 7mm;
+
+    .dok-sas-label {
+      font-size: 3mm;
+      position: relative;
+      left: 3mm;
+      bottom: 8mm;
     }
-    
-    .dok-zone-stat {
-        flex-basis: 9mm;
-        height: 100%;
-        overflow: hidden;
-    
-        font-family: "Righteous", "Roboto";
-        font-weight: 400;
-        font-size: 7mm;
-        .dok-sas-label {
-            font-size: 3mm;
-            position: relative;
-            left: 3mm;
-            bottom: 8mm;
-        }
+  }
+
+  .dok-zone-houses {
+    flex-basis: $house;
+  }
+
+  // Variant without the set displayed
+  &.no-set {
+    .dok-zone-set {
+      display: none;
     }
-    
-    .dok-zone-houses {
-        flex-basis: 23mm;
-    }
+  }
 }
 
 .icon-house {
