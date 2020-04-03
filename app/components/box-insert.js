@@ -11,4 +11,8 @@ export default class BoxInsertComponent extends Component {
   get deck() {
     return this.args.deck;
   }
+
+  get type() {
+    return this.args.insertType.id;
+  }
 }

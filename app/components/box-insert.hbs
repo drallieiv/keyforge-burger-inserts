@@ -1,18 +1,64 @@
-{{!-- Side Box Insert --}}
-<div class="box-insert box-insert-side{{unless this.showSet " no-set"}}">
-  {{!-- Name and extension --}}
-  <div class="dok-zone-set">
-    <Set @set={{this.deck.expansion}}></Set>
+{{#if (eq type "side")}}
+  {{! Side Box Insert }}
+  <div class="box-insert box-insert-side{{unless this.showSet " no-set"}}">
+    {{! Name and extension }}
+    <div class="dok-zone-set">
+      <Set @set={{this.deck.expansion}} />
+    </div>
+    <div class="dok-zone-name">
+      {{this.deck.name}}
+    </div>
+    {{! SAS Stats }}
+    <div class="dok-zone-stat">
+      {{this.deck.sasRating}}
+      <span class="dok-sas-label">
+        SAS
+      </span>
+    </div>
+    {{! HOUSES }}
+    <div class="dok-zone-houses">
+      {{#each this.deck.houses as |house|}}
+        <HouseIcon @houseName={{house}} />
+      {{/each}}
+    </div>
   </div>
-  <div class="dok-zone-name">{{this.deck.name}}</div>
-  {{!-- SAS Stats --}}
-  <div class="dok-zone-stat">
-    {{this.deck.sasRating}} <span class="dok-sas-label">SAS</span>
+{{/if}}
+
+{{#if (eq type "top")}}
+  {{! Top Box Insert }}
+  <div class="box-insert box-insert-top">
+    {{! Name and extension }}
+    <div class="dok-zone-top-left">
+      <div class="dok-zone-blank">
+        {{! Nothing here there is the Burger Logo }}
+      </div>
+      <div class="dok-zone-name">
+        {{this.deck.name}}
+      </div>
+    </div>
+    <div class="dok-zone-top-right">
+      {{! SAS Stats }}
+      <div class="dok-zone-stat">
+        {{this.deck.sasRating}}
+        <span class="dok-sas-label">
+          SAS
+        </span>
+      </div>
+      {{! HOUSES }}
+      <div class="dok-zone-houses">
+        {{#each this.deck.houses as |house|}}
+          <HouseIcon @houseName={{house}} />
+        {{/each}}
+      </div>
+    </div>
   </div>
-  {{!-- HOUSES --}}
-  <div class="dok-zone-houses">
-    {{#each this.deck.houses as |house|}}
-    <HouseIcon @houseName={{house}} />
-    {{/each}}
+{{/if}}
+
+{{#if (eq type "front")}}
+  {{! Front Box Insert }}
+  <div class="box-insert box-insert-front{{unless this.showSet " no-set"}}">
+    <div>
+      WIP TOP STYLE BOX
+    </div>
   </div>
-</div>
+{{/if}}

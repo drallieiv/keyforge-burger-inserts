@@ -33,8 +33,56 @@ $icon-base-height: 8mm;
 }
 
 .box-insert-top {
-  width: $bt-thin-width - 2 * $cut-margin;
-  height: $bt-thin-thick - 2 * $cut-margin;
+  // 88mm x 12mm
+  $width: $bt-thin-width - 2 * $cut-margin;
+  $height: $bt-thin-thick - 2 * $cut-margin;
+
+  // Rules
+  width: $width;
+  height: $height;
+
+  // Splitting Space X
+  $right: 24mm;
+  $left: $width - $right;
+  // Splitting Space Y Left
+  $name: 4.5mm;
+  $blank: $height - $name;
+  // Splitting Space Y Right
+  $rightMargin: 2mm;
+  $house: 6mm;
+  $stat: $height - $house - $rightMargin;
+
+  // $margin: 0.75mm; ?
+
+  .dok-zone-top-left {
+    flex-basis: $left;
+    width: $left;
+    display: flex;
+    flex-direction: column;
+    .dok-zone-blank {
+      flex-basis: $blank;
+    }
+    .dok-zone-name {
+      flex-basis: $name;
+      width: 100%;
+      font-size: 3.5mm;
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+  .dok-zone-top-right {
+    flex-basis: $right;
+    display: flex;
+    flex-direction: column;
+    .dok-zone-stat {
+      text-align: center;
+    }
+    .dok-zone-houses {
+      transform: scale(0.7) translateY(-6px);
+    }
+  }
 }
 
 .box-insert-front {

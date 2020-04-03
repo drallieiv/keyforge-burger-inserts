@@ -1,4 +1,6 @@
 .decks {
+  // Print Layout
+
   @media print {
     .right-column {
       display: none;
@@ -7,6 +9,8 @@
       width: 100%;
     }
   }
+
+  // Right Side : Deck Inserts
 
   .print-sheet {
     display: flex;
@@ -19,10 +23,20 @@
     flex-shrink: 0;
   }
 
+  // Right Side : Deck Options
+
+  .deck-options {
+    font-size: 0.75em;
+  }
+
   .print-option {
     display: flex;
+    margin: 0 0 0.5em;
     .print-option-label {
       flex-basis: 120px;
+    }
+    .print-option-select {
+      flex-basis: 180px;
     }
   }
 }

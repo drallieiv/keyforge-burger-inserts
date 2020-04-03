@@ -1,13 +1,39 @@
 import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
 import { action } from '@ember/object';
+import { tracked } from '@glimmer/tracking';
 import { all } from 'rsvp';
 import PrintOptions from 'burger-inserts/dto/print-options';
+
+const countries = [
+  { name: 'United States', flagUrl: '/flags/us.svg' },
+  { name: 'Spain', flagUrl: '/flags/es.svg' },
+  { name: 'Portugal', flagUrl: '/flags/pt.svg' },
+  { name: 'Russia', flagUrl: '/flags/ru.svg' },
+  { name: 'Latvia', flagUrl: '/flags/lv.svg' },
+  { name: 'Brazil', flagUrl: '/flags/br.svg' },
+  { name: 'United Kingdom', flagUrl: '/flags/gb.svg' },
+];
+
+const insertTypes = [
+  { id: 'side', name: 'Side Only', insertClass: 'box-insert-side' },
+  { id: 'top', name: 'Top Only', insertClass: 'box-insert-top' },
+  /*
+  { id: 'front', name: 'Front Only', insertClass: 'box-insert-front' },
+  { id: 'group', name: 'All Grouped', insertClass: 'box-insert-group' },
+  */
+];
 
 export default class DecksController extends Controller {
   @service deckManager;
 
   printOptions = new PrintOptions();
+
+  insertTypes = insertTypes;
+  // Side by default
+  @tracked insertType = insertTypes[0];
+
+  foo() { }
 
   get folderToPrint() {
     return this.model.folders.firstObject;
