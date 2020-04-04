@@ -5,21 +5,11 @@ import { tracked } from '@glimmer/tracking';
 import { all } from 'rsvp';
 import PrintOptions from 'burger-inserts/dto/print-options';
 
-const countries = [
-  { name: 'United States', flagUrl: '/flags/us.svg' },
-  { name: 'Spain', flagUrl: '/flags/es.svg' },
-  { name: 'Portugal', flagUrl: '/flags/pt.svg' },
-  { name: 'Russia', flagUrl: '/flags/ru.svg' },
-  { name: 'Latvia', flagUrl: '/flags/lv.svg' },
-  { name: 'Brazil', flagUrl: '/flags/br.svg' },
-  { name: 'United Kingdom', flagUrl: '/flags/gb.svg' },
-];
-
 const insertTypes = [
   { id: 'side', name: 'Side Only', insertClass: 'box-insert-side' },
   { id: 'top', name: 'Top Only', insertClass: 'box-insert-top' },
-  /*
   { id: 'front', name: 'Front Only', insertClass: 'box-insert-front' },
+  /*
   { id: 'group', name: 'All Grouped', insertClass: 'box-insert-group' },
   */
 ];
@@ -30,10 +20,10 @@ export default class DecksController extends Controller {
   printOptions = new PrintOptions();
 
   insertTypes = insertTypes;
-  // Side by default
-  @tracked insertType = insertTypes[0];
 
-  foo() { }
+  // Default Type : side
+  @tracked insertType = insertTypes[2];
+
 
   get folderToPrint() {
     return this.model.folders.firstObject;
@@ -45,6 +35,16 @@ export default class DecksController extends Controller {
 
   /*  Print Options */
 
+  get showSideOptions() {
+    return this.insertType.id === 'side';
+  }
+  get showTopOptions() {
+    return this.insertType.id === 'top';
+  }
+  get showFrontOptions() {
+    return this.insertType.id === 'front';
+  }
+
   get sideShowSet() {
     return this.printOptions.get('side_showSet');
   }
@@ -52,6 +52,24 @@ export default class DecksController extends Controller {
     this.printOptions.set('side_showSet', checked);
   }
 
+  get frontShowSet() {
+    return this.printOptions.get('front_showSet');
+  }
+  set frontShowSet(checked) {
+    this.printOptions.set('front_showSet', checked);
+  }
+
+  get frontShowHeader() {
+    return this.printOptions.get('front_showHeader');
+  }
+  set frontShowHeader(checked) {
+    this.printOptions.set('front_showHeader', checked);
+  }
+
+  @action
+  clearDecks() {
+    this.deckManager.removeAllDecks();
+  }
 
   @action
   uploadDokCsv(file) {
@@ -68,7 +86,6 @@ export default class DecksController extends Controller {
           let importedDeck = this.deckManager.getDeckFromCsv(deckData);
           let savePromise = this.deckManager.saveOrUpdate(importedDeck).then((deck) => {
             if (targetFolder.decks.find((d) => d.id === deck.id) === undefined) {
-              console.debug('add new deck to folder');
               targetFolder.decks.pushObject(deck);
             }
           });
@@ -77,8 +94,9 @@ export default class DecksController extends Controller {
 
         all(deckCreationPromises).then(() => {
           // Update Folder Size
-          console.debug('All Decks added to folder')
           targetFolder.save();
+          // Force Refresh
+          this.set('model.folders', this.get('model.folders'));
         });
       })
     }

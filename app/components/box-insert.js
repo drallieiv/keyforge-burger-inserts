@@ -4,8 +4,22 @@ import { computed } from '@ember/object';
 
 export default class BoxInsertComponent extends Component {
 
-  get showSet() {
+  showSpecialCount = false;
+
+  get sideShowSet() {
     return this.args.printOptions.get('side_showSet');
+  }
+
+  get frontShowSet() {
+    return this.args.printOptions.get('front_showSet');
+  }
+
+  get frontShowHeader() {
+    return this.args.printOptions.get('front_showHeader');
+  }
+
+  get frontShowFooter() {
+    return this.args.printOptions.get('front_showFooter');
   }
 
   get deck() {
@@ -15,4 +29,6 @@ export default class BoxInsertComponent extends Component {
   get type() {
     return this.args.insertType.id;
   }
+
+
 }

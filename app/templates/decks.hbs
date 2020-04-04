@@ -2,19 +2,16 @@
   <div class="grid-x">
     <div class="cell small-9 left-column deck-inserts">
       <div class="print-sheet">
-        {{#each decksToPrint as |deck|}}
-          <BoxInsert
-            @type="side"
-            @deck={{deck}}
-            @printOptions={{printOptions}}
-            @insertType={{insertType}}
-          />
+        {{#each this.decksToPrint as |deck|}}
+        <div class="print-sheet-block">
+          <BoxInsert @type="side" @deck={{deck}} @printOptions={{this.printOptions}} @insertType={{this.insertType}} />
+        </div>
         {{/each}}
       </div>
     </div>
     <div class="cell small-3 right-column deck-options">
       <p class="smallTitle">
-        Printing Options
+        Templates
       </p>
 
       <div class="print-option">
@@ -22,59 +19,59 @@
           Insert Type
         </div>
         <div class="print-option-select">
-          <PowerSelect
-            @options={{this.insertTypes}}
-            @selected={{this.insertType}}
-            @destination="insertTypes-list"
-            @onChange={{action (mut this.insertType)}} as |type|
-          >
+          <PowerSelect @options={{this.insertTypes}} @selected={{this.insertType}} @destination="insertTypes-list"
+            @onChange={{fn (mut this.insertType)}} as |type|>
             {{type.name}}
           </PowerSelect>
           <div id="insertTypes-list"></div>
         </div>
       </div>
 
-      <div class="print-option">
-        <div class="print-option-label">
-          Show Set on side
-        </div>
-        <div class="switch tiny">
-          <Input
-            class="switch-input"
-            id="option-side-showSet"
-            name="showSet"
-            @type="checkbox"
-            @checked={{this.sideShowSet}}
-          />
-          <label class="switch-paddle" for="option-side-showSet">
-            <span class="switch-active" aria-hidden="true">
-              Yes
-            </span>
-            <span class="switch-inactive" aria-hidden="true">
-              No
-            </span>
-          </label>
-        </div>
-      </div>
+      <p class="smallTitle">
+        Printing Options
+      </p>
+
+      {{#if this.showSideOptions}}
+      <PrintOptionToggle 
+        @label="Show set on side" 
+        @id="option-side-showSet" 
+        @name="sideShowSet"
+        @checked={{this.sideShowSet}}
+      />
+      {{/if}}
+
+      {{#if this.showFrontOptions}}
+      <PrintOptionToggle 
+        @label="Show header on front" 
+        @id="option-header-showSet" 
+        @name="frontShowHeader"
+        @checked={{this.frontShowHeader}}
+      />
+      <PrintOptionToggle 
+        @label="Show set on front" 
+        @id="option-front-showSet" 
+        @name="frontShowSet"
+        @checked={{this.frontShowSet}}
+      />
+      {{/if}}
 
       <p class="smallTitle">
         Decks Folders
       </p>
       <div class="deck-folders-list">
         {{#each @model.folders as |folder|}}
-          <DeckFolder @folder={{folder}} />
+        <DeckFolder @folder={{folder}} />
         {{/each}}
       </div>
+      <a href="" class="button" {{on "click" (fn this.clearDecks)}}>
+        Remove all decks
+      </a>
       <p class="smallTitle">
         Import Decks Data
       </p>
       <div>
-        <FileUpload
-          @name="dokCsvUpload"
-          @accept="text/csv"
-          @onfileadd={{action "uploadDokCsv"}} as |queue|
-        >
-          <a class="button">
+        <FileUpload @name="dokCsvUpload" @accept="text/csv" @onfileadd={{fn this.uploadDokCsv}}>
+          <a class="button" tabindex=0>
             Load DoK csv file
           </a>
         </FileUpload>

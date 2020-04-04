@@ -15,9 +15,12 @@ $cut-margin: 1mm;
 
 $icon-base-height: 8mm;
 
+$base-padding-x: 0.5mm;
+$main-padding: 0;
+
 .box-insert {
   border: 1px solid black;
-  padding: 1px;
+  padding: $main-padding;
   display: flex;
   flex-wrap: nowrap;
   align-items: center;
@@ -28,7 +31,146 @@ $icon-base-height: 8mm;
   > * {
     flex-grow: 0;
     flex-shrink: 0;
-    padding: 0 0.5mm;
+    padding: 0 $base-padding-x;
+  }
+
+  &.box-insert-front {
+    border: none;
+    > * {
+      border: 0.2mm solid black;
+    }
+  }
+}
+
+// DOK Styles
+
+.box-insert-front {
+  // 88mm x 62mm
+  $width: $bt-thin-width - 2 * $cut-margin;
+  $height: $bt-thin-height - 2 * $cut-margin;
+
+  // Rules
+  width: $width;
+  height: $height;
+
+  // Splitting Space Y. Main will extend
+  $header: 12mm;
+  $footer: 6mm;
+
+  // Header Split, Name will extend
+  $set: 9mm;
+  $hr: 18mm;
+  // Header Right Split
+  $rightMargin: 2mm;
+  $house: 6mm;
+  $stat: $header - 2 * $main-padding - $house - $rightMargin;
+
+  // Main Split
+  // Footer Split
+  $sasDate: 17mm;
+
+  flex-direction: column;
+
+  > * {
+    width: 100%;
+  }
+
+  // Optional Borders
+  &.no-borders {
+    .dok-zone-front-header {
+      .dok-zone-set,
+      .dok-zone-name {
+        border-right: none;
+      }
+    }
+  }
+
+  // Header Part
+  .dok-zone-front-header {
+    $setFontSize: 3mm;
+    $nameFontSize: 3mm;
+    $nameLineClip: 3;
+
+    flex-basis: $header;
+    height: $header;
+    display: flex;
+
+    .dok-zone-set {
+      flex-basis: $set;
+      width: $set;
+      flex-shrink: 0;
+      border-right: 1px solid black;
+      margin-right: 2px;
+      position: relative;
+      > * {
+        font-size: $setFontSize;
+        text-align: center;
+        position: absolute;
+        top: ($header / 2) - $setFontSize * .8;
+        width: 100%;
+      }
+    }
+
+    .dok-zone-name {
+      flex-grow: 1;
+      
+      font-size: $nameFontSize;
+      line-height: $nameFontSize;
+      margin: auto; // Vertical center
+
+      overflow: hidden;
+      padding: 0.5mm 0;
+      // Ellipsis for Chrome Only
+      display: -webkit-box;
+      -webkit-line-clamp: $nameLineClip;
+      -webkit-box-orient: vertical;
+    }
+
+    .dok-zone-header-right {
+      flex-basis: $hr;
+      flex-shrink: 0;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      border-left: 1px solid black;
+      margin-left: 2px;
+      .dok-zone-stat {
+        flex-basis: $stat;
+        height: $stat;
+        text-align: center;
+      }
+      .dok-zone-houses {
+        flex-basis: $house;
+        height: $house;
+        text-align: center;
+      }
+    }
+  }
+
+  // Main Part
+  .dok-zone-front-main {
+    flex-grow: 1;
+    display: flex;
+  }
+
+  // Footer
+  .dok-zone-front-footer {
+    flex-basis: $footer;
+    display: flex;
+    > * {
+      flex-grow: 1;
+    }
+    .dok-SAS-info {
+      flex-grow: 0;
+      flex-basis: $sasDate;
+      display: flex;
+      > * {
+        font-size: 2.5mm;
+        margin: auto;
+        text-align: center;
+        flex-grow: 1;
+      }
+    }
   }
 }
 
@@ -42,21 +184,22 @@ $icon-base-height: 8mm;
   height: $height;
 
   // Splitting Space X
-  $right: 24mm;
-  $left: $width - $right;
+  $right: 18mm;
+  $left: $width - 2 * $main-padding - 2 * $base-padding-x - $right;
   // Splitting Space Y Left
-  $name: 4.5mm;
-  $blank: $height - $name;
+  $name: 5mm;
+  $blank: $height - 2 * $main-padding - $name;
   // Splitting Space Y Right
   $rightMargin: 2mm;
   $house: 6mm;
-  $stat: $height - $house - $rightMargin;
+  $stat: $height - 2 * $main-padding - $house - $rightMargin;
 
   // $margin: 0.75mm; ?
 
   .dok-zone-top-left {
     flex-basis: $left;
     width: $left;
+    height: 100%;
     display: flex;
     flex-direction: column;
     .dok-zone-blank {
@@ -74,23 +217,23 @@ $icon-base-height: 8mm;
   }
   .dok-zone-top-right {
     flex-basis: $right;
+    width: $right;
+    height: 100%;
     display: flex;
     flex-direction: column;
     .dok-zone-stat {
+      flex-basis: $stat;
+      height: $stat;
       text-align: center;
     }
     .dok-zone-houses {
-      transform: scale(0.7) translateY(-6px);
+      flex-basis: $house;
+      height: $house;
+      text-align: center;
     }
   }
 }
 
-.box-insert-front {
-  width: $bt-thin-width - 2 * $cut-margin;
-  height: $bt-thin-height - 2 * $cut-margin;
-}
-
-// DOK Styles
 .box-insert-side {
   // 62mm x 12mm
   $width: $bt-thin-height - 2 * $cut-margin;
@@ -146,5 +289,6 @@ $icon-base-height: 8mm;
 
 .icon-house {
   height: $icon-base-height;
-  margin: -0.7mm;
+  max-height: 100%;
+  margin: 0 -0.7mm; // closer to each other
 }

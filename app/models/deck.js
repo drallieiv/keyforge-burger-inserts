@@ -1,4 +1,4 @@
-import Model, { attr } from '@ember-data/model';
+import Model, { attr, hasMany } from '@ember-data/model';
 
 export default class DeckModel extends Model {
   // Copy of DoK API/Export data format
@@ -38,4 +38,5 @@ export default class DeckModel extends Model {
   @attr('string') masterVaultLink;
   @attr('string') lastSASUpdate;
 
+  @hasMany('deck-folder') folders;
 }

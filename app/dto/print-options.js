@@ -6,6 +6,9 @@ export default class PrintOptions {
   constructor() {
     this._options = {
       side_showSet: true,
+      front_showSet: true,
+      front_showHeader: true,
+      front_showFooter: true,
     }
   }
 

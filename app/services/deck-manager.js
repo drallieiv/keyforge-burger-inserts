@@ -67,7 +67,6 @@ export default class DeckManagerService extends Service {
   saveOrUpdate(deck) {
 
     return this.store.findRecord('deck', deck.id).then((savedDeck) => {
-      console.log('Update deck ' + deck.id);
       savedDeck.sasRating = deck.sasRating;
       savedDeck.synergyRating = deck.synergyRating;
       savedDeck.antisynergyRating = deck.antisynergyRating;
@@ -89,7 +88,6 @@ export default class DeckManagerService extends Service {
       savedDeck.lastSASUpdate = deck.lastSASUpdate;
       return savedDeck.save();
     }).catch(() => {
-      console.log('Add deck ' + deck.id);
       let newDeck = this.store.createRecord('deck', deck);
       return newDeck.save();
     });
@@ -97,5 +95,21 @@ export default class DeckManagerService extends Service {
 
   getDecksFolders() {
     return this.store.findAll('deckFolder');
+  }
+
+  removeAllDecks() {
+    return this.store.findAll('deckFolder').then(function (record) {
+      record.content.forEach(function (folder) {
+        folder.decks = [];
+        folder.save();
+      });
+    }).then(() => {
+      return this.store.findAll('deck').then(function (record) {
+        record.content.forEach(function (deck) {
+          deck.deleteRecord();
+          deck.save();
+        });
+      });
+    });
   }
 }

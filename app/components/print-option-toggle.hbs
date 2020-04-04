@@ -1,0 +1,16 @@
+<div class="print-option">
+  <div class="print-option-label">
+    {{@label}}
+  </div>
+  <div class="switch tiny">
+    <Input class="switch-input" id="{{@id}}" name="{{@name}}" @type="checkbox" @checked={{@checked}} />
+    <label class="switch-paddle" for="{{@id}}">
+      <span class="switch-active" aria-hidden="true">
+        Yes
+      </span>
+      <span class="switch-inactive" aria-hidden="true">
+        No
+      </span>
+    </label>
+  </div>
+</div>

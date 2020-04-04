@@ -1,64 +1,104 @@
-{{#if (eq type "side")}}
-  {{! Side Box Insert }}
-  <div class="box-insert box-insert-side{{unless this.showSet " no-set"}}">
-    {{! Name and extension }}
-    <div class="dok-zone-set">
-      <Set @set={{this.deck.expansion}} />
+{{#if (eq this.type "side")}}
+{{! Side Box Insert }}
+<div class="box-insert box-insert-side{{unless this.showSet " no-set"}}">
+  {{! Name and extension }}
+  <div class="dok-zone-set">
+    <Set @set={{this.deck.expansion}} />
+  </div>
+  <div class="dok-zone-name">
+    {{this.deck.name}}
+  </div>
+  {{! SAS Stats }}
+  <div class="dok-zone-stat">
+    {{this.deck.sasRating}}
+    <span class="dok-sas-label">SAS</span>
+  </div>
+  {{! HOUSES }}
+  <div class="dok-zone-houses">
+    {{#each this.deck.houses as |house|}}
+    <HouseIcon @houseName={{house}} />
+    {{/each}}
+  </div>
+</div>
+{{/if}}
+
+{{#if (eq this.type "top")}}
+{{! Top Box Insert }}
+<div class="box-insert box-insert-top">
+  {{! Name and extension }}
+  <div class="dok-zone-top-left">
+    <div class="dok-zone-blank">
+      {{! Nothing here there is the Burger Logo }}
     </div>
     <div class="dok-zone-name">
       {{this.deck.name}}
     </div>
-    {{! SAS Stats }}
-    <div class="dok-zone-stat">
-      {{this.deck.sasRating}}
-      <span class="dok-sas-label">
-        SAS
-      </span>
-    </div>
+  </div>
+  <div class="dok-zone-top-right">
     {{! HOUSES }}
     <div class="dok-zone-houses">
       {{#each this.deck.houses as |house|}}
-        <HouseIcon @houseName={{house}} />
+      <HouseIcon @houseName={{house}} />
       {{/each}}
     </div>
+    {{! SAS Stats }}
+    <div class="dok-zone-stat">
+      {{this.deck.sasRating}}
+      <span class="dok-sas-label">SAS</span>
+    </div>
   </div>
+</div>
 {{/if}}
 
-{{#if (eq type "top")}}
-  {{! Top Box Insert }}
-  <div class="box-insert box-insert-top">
+{{#if (eq this.type "front")}}
+{{! Front Box Insert }}
+<div class="box-insert box-insert-front borders">
+  {{#if this.frontShowHeader}}
+  <div class="dok-zone-front-header">
     {{! Name and extension }}
-    <div class="dok-zone-top-left">
-      <div class="dok-zone-blank">
-        {{! Nothing here there is the Burger Logo }}
-      </div>
-      <div class="dok-zone-name">
-        {{this.deck.name}}
+    {{#if this.frontShowSet}}
+    <div class="dok-zone-set">
+      <div>
+        <Set @set={{this.deck.expansion}} />
       </div>
     </div>
-    <div class="dok-zone-top-right">
-      {{! SAS Stats }}
-      <div class="dok-zone-stat">
-        {{this.deck.sasRating}}
-        <span class="dok-sas-label">
-          SAS
-        </span>
-      </div>
+    {{/if}}
+    <div class="dok-zone-name">
+      {{this.deck.name}}
+    </div>
+    <div class="dok-zone-header-right">
       {{! HOUSES }}
       <div class="dok-zone-houses">
         {{#each this.deck.houses as |house|}}
-          <HouseIcon @houseName={{house}} />
+        <HouseIcon @houseName={{house}} />
         {{/each}}
+      </div>
+      {{! SAS Stats }}
+      <div class="dok-zone-stat">
+        {{this.deck.sasRating}}
+        <span class="dok-sas-label">SAS</span>
       </div>
     </div>
   </div>
-{{/if}}
-
-{{#if (eq type "front")}}
-  {{! Front Box Insert }}
-  <div class="box-insert box-insert-front{{unless this.showSet " no-set"}}">
-    <div>
-      WIP TOP STYLE BOX
-    </div>
+  {{/if}}
+  <div class="dok-zone-front-main">
+    [WIP]
   </div>
+  <div class="dok-zone-front-footer">
+    <div class="flexfill"></div>
+    {{! SAS update date }}
+    <div class="dok-SAS-info">
+      <div>{{this.deck.lastSASUpdate}}</div>
+    </div>
+    {{#if this.showSpecialCount}}
+    {{! Maverick / Legacy / Anomaly }}
+    <div class="dok-special-count">
+      <div class="stat-icon maverick">
+        <div class="legend">Maverick</div>
+      </div>
+      <div class="stat-value">[X]</div>
+    </div>
+    {{/if}}
+  </div>
+</div>
 {{/if}}

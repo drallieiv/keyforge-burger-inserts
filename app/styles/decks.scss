@@ -1,3 +1,6 @@
+
+
+
 .decks {
   // Print Layout
 
@@ -8,13 +11,19 @@
     .left-column {
       width: 100%;
     }
+    .print-sheet-block {
+      page-break-inside: avoid;
+    }
   }
 
   // Right Side : Deck Inserts
 
   .print-sheet {
-    display: flex;
-    flex-wrap: wrap;
+    display: block;
+  }
+
+  .print-sheet-block {
+    float: left;
   }
 
   .print-sheet > * {
@@ -27,6 +36,11 @@
 
   .deck-options {
     font-size: 0.75em;
+    padding: 0.5em;
+  }
+
+  .deck-folders-list {
+    margin: 0 0 1rem 0;
   }
 
   .print-option {
@@ -37,6 +51,9 @@
     }
     .print-option-select {
       flex-basis: 180px;
+    }
+    .switch.tiny {
+      height: 0.5em;
     }
   }
 }
