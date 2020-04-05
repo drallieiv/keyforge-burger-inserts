@@ -74,6 +74,15 @@ export default class DecksController extends Controller {
     this.printOptions.set('front_showHeader', checked);
   }
 
+  get frontShowFooter() {
+    return this.printOptions.get('front_showFooter');
+  }
+  set frontShowFooter(checked) {
+    this.printOptions.set('front_showFooter', checked);
+  }
+
+  
+
   @action
   setInsertType(type) {
     console.log("Change Insert Type", type);

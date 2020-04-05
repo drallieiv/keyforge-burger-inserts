@@ -18,7 +18,7 @@ export default class PrintOptions {
         side_showSet: true,
         front_showSet: true,
         front_showHeader: true,
-        front_showFooter: true,
+        front_showFooter: false,
       }
     }
   }

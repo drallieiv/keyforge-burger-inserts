@@ -3,6 +3,8 @@ import Component from '@glimmer/component';
 export default class HouseIconComponent extends Component {
 
   baseIconPath = "assets/icons/";
+  pngFolder="png/";
+  houseFolder="house/";
 
   colorIcons = {
     "Brobnar": "house_brobnar.png",
@@ -24,6 +26,8 @@ export default class HouseIconComponent extends Component {
       iconFilename = "house_default.png";
     }
 
-    return this['baseIconPath'] + iconFilename;
+    let basePath = this.baseIconPath + this.pngFolder + this.houseFolder;
+
+    return basePath + iconFilename;
   }
 }

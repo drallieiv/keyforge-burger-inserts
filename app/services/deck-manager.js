@@ -30,8 +30,8 @@ export default class DeckManagerService extends Service {
       antisynergyRating: csvData['Antisynergy Rating'],
       sasPercentile: csvData['Sas Percentile'],
       rawAercScore: csvData['Raw Aerc Score'],
-      amberControl: csvData['Amber Control'],
-      expectedAmber: csvData['Expected Amber'],
+      aemberControl: csvData['Amber Control'],
+      expectedAember: csvData['Expected Amber'],
       aemberProtection: csvData['Aember Protection'],
       artifactControl: csvData['Artifact Control'],
       creatureControl: csvData['Creature Control'],
@@ -98,40 +98,25 @@ export default class DeckManagerService extends Service {
     return this.store.findAll('deckFolder');
   }
 
-  
-
   removeAllDecks() {
-    return this.store.findAll('deck').then(function (decks) {
+    return this.store.findAll('deck').then((decks) => {
+      let deckDeletePromises = [];
       decks.forEach((deck) => {
-        console.log('deck to remove', deck);
-        deck.deleteRecord();
-        deck.save();
+        // Remove link between decks and folder
+        let removeLinkPromises = [];
+        deck.folders.forEach((folder) => {
+          folder.decks.removeObject(deck);
+          removeLinkPromises.push(folder.save());
+        });
+
+        deckDeletePromises.push(all(removeLinkPromises).then(() => {
+          // Remove the deck itself
+          return deck.destroyRecord();
+        }));
+      })
+      return all(deckDeletePromises).then(() => {
+        this.store.unloadAll('deck');
       })
     });
-
-
-    /*
-    return this.store.findAll('deckFolder').then(function (record) {
-      let clearFolderPromise = [];
-      record.content.forEach(function (folder) {
-        console.log("Requested Clearing folder " + folder.name);
-        folder.decks = [];
-        clearFolderPromise.pushObject(folder.save());
-      });
-      return all(clearFolderPromise).then(() => {
-        console.log("All Folders Cleared")
-      });
-    }).then(() => {
-      console.log("Then Remove the decks")
-
-      return this.store.findAll('deck').then(function (record) {
-        record.content.forEach(function (deck) {
-          deck.deleteRecord();
-          deck.save();
-        });
-      });
-
-    });
-    */
   }
 }

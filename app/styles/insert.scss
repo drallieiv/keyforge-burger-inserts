@@ -35,7 +35,6 @@ $main-padding: 0;
   }
 
   &.box-insert-front {
-    border: none;
     > * {
       border: 0.2mm solid black;
     }
@@ -70,6 +69,7 @@ $main-padding: 0;
   $sasDate: 17mm;
 
   flex-direction: column;
+  overflow-y: hidden;
 
   > * {
     width: 100%;
@@ -151,6 +151,74 @@ $main-padding: 0;
   .dok-zone-front-main {
     flex-grow: 1;
     display: flex;
+    padding: 0;
+    font-size: 3mm;
+    .dok-zone-front-colgroup2 {
+      flex-grow: 2;
+      flex-basis: 0;
+      display: flex;
+      flex-direction: column;
+      border-right: 1px solid black;
+      .dok-zone-front-colgroup2-top{
+        display: flex;
+        border-bottom: 1px solid black;
+        flex-basis: 60mm;
+      }
+    }
+    .dok-zone-front-col {
+      display: flex;
+      flex-grow: 1;
+      flex-basis: 0; // thirds
+      border-right: 1px solid black;
+      flex-direction: column;
+      &:last-child{
+        border-right: none;
+      }
+      > * {
+        flex-grow: 1;
+      }
+    }
+    .dok-stats-group-wrapper{
+      padding: 0.5mm;
+
+      border-bottom: 1px solid black;
+      &:last-child{
+        border-bottom: none;
+      }
+
+      display: flex;
+      flex-direction: column;
+
+      &.card-types, &.aember {
+        flex-grow: 3;
+      }
+      &.sas, &.speed {
+        flex-grow: 2;
+      }
+
+      &.board, &.extra {
+        flex-grow: 3;
+      }
+      &.misc {
+        flex-grow: 2;
+      }
+
+      .dok-stats-group-legend {
+        text-transform: uppercase;
+        text-align: center;
+        font-size: 0.6rem;
+        flex-grow: 0;
+      }
+      .dok-stats-group-data{
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        // Have Card Data closer
+        .dok-stat {
+          margin-bottom: -6.8mm;
+        }
+      }
+    }
   }
 
   // Footer
@@ -189,6 +257,7 @@ $main-padding: 0;
   // Splitting Space Y Left
   $name: 5mm;
   $blank: $height - 2 * $main-padding - $name;
+  $set: 10mm;
   // Splitting Space Y Right
   $rightMargin: 2mm;
   $house: 6mm;
@@ -204,6 +273,16 @@ $main-padding: 0;
     flex-direction: column;
     .dok-zone-blank {
       flex-basis: $blank;
+      display: flex;
+      .flexfill{
+        flex-grow: 1;
+      }
+      .dok-zone-set{
+        flex-basis: $set;
+        flex-grow: 0;
+        font-size: 3.5mm;
+        text-align: center;
+      }
     }
     .dok-zone-name {
       flex-basis: $name;
@@ -286,6 +365,30 @@ $main-padding: 0;
     }
   }
 }
+
+.dok-stat{
+  $iconSize: 4mm;
+  flex-grow: 1;
+  .dok-stat-info {
+    display: flex;
+    justify-content: center;
+  }
+  .dok-stat-icon {
+    width: $iconSize;
+    height: $iconSize;
+    background-image: url("icons/svg/stat/other.svg");
+    background-size: cover;
+  }
+  .dok-stat-value {
+    flex-basis: 8mm;
+    line-height: $iconSize;
+    text-align: center;
+  }
+  .legend{
+    font-size: 2mm;
+  }
+}
+
 
 .icon-house {
   height: $icon-base-height;

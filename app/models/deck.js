@@ -10,8 +10,8 @@ export default class DeckModel extends Model {
   @attr('number') antisynergyRating;
   @attr('number') sasPercentile
   @attr('number') rawAercScore;
-  @attr('number') amberControl;
-  @attr('number') expectedAmber;
+  @attr('number') aemberControl;
+  @attr('number') expectedAember;
   @attr('number') aemberProtection;
   @attr('number') artifactControl;
   @attr('number') creatureControl;
@@ -38,5 +38,5 @@ export default class DeckModel extends Model {
   @attr('string') masterVaultLink;
   @attr('string') lastSASUpdate;
 
-  @hasMany('deck-folder', { async: true, dependent: 'destroy' }) folders;
+  @hasMany('deck-folder', { async: true }) folders;
 }
