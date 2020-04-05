@@ -54,7 +54,7 @@ $main-padding: 0;
 
   // Splitting Space Y. Main will extend
   $header: 12mm;
-  $footer: 6mm;
+  $footer: 4mm;
 
   // Header Split, Name will extend
   $set: 9mm;
@@ -208,15 +208,24 @@ $main-padding: 0;
         text-align: center;
         font-size: 0.6rem;
         flex-grow: 0;
+        margin-top: -0.8mm; // Closer to border top
       }
+
       .dok-stats-group-data{
         flex-grow: 1;
         display: flex;
         flex-direction: column;
-        // Have Card Data closer
+        
         .dok-stat {
-          margin-bottom: -6.8mm;
+          margin: 0;
+          display: flex;
+          flex-direction: column;
         }
+      }
+
+      // Special closer for card type
+      &.card-types .dok-stats-group-data .dok-stat {
+        margin-bottom: -1.9mm;
       }
     }
   }
@@ -239,6 +248,15 @@ $main-padding: 0;
         flex-grow: 1;
       }
     }
+  }
+
+  .notes-legend {
+    text-transform: uppercase;
+    text-align: left;
+    padding: 0 1mm;
+    font-size: 0.6rem;
+    flex-grow: 0;
+    margin-top: -0.4mm; // Closer to border top
   }
 }
 
@@ -366,29 +384,7 @@ $main-padding: 0;
   }
 }
 
-.dok-stat{
-  $iconSize: 4mm;
-  flex-grow: 1;
-  .dok-stat-info {
-    display: flex;
-    justify-content: center;
-  }
-  .dok-stat-icon {
-    width: $iconSize;
-    height: $iconSize;
-    background-image: url("icons/svg/stat/other.svg");
-    background-size: cover;
-  }
-  .dok-stat-value {
-    flex-basis: 8mm;
-    line-height: $iconSize;
-    text-align: center;
-  }
-  .legend{
-    font-size: 2mm;
-  }
-}
-
+@import "dok-stat";
 
 .icon-house {
   height: $icon-base-height;
