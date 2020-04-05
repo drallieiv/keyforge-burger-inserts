@@ -17,13 +17,21 @@ const insertTypes = [
 export default class DecksController extends Controller {
   @service deckManager;
 
-  printOptions = new PrintOptions();
+  @service preferences;
+
+  printOptions;
 
   insertTypes = insertTypes;
+  @tracked insertType;
 
-  // Default Type : side
-  @tracked insertType = insertTypes[2];
-
+  constructor() {
+    super(...arguments);
+    console.log('DecksController Constructor');
+    this.printOptions = this.preferences.printOptions;
+    console.log('printOptions', this.printOptions);
+    let insertTypeId = this.preferences.get('insertTypeId', 'side');
+    this.insertType = insertTypes.filter(type => (type.id == insertTypeId)).firstObject;
+  }
 
   get folderToPrint() {
     return this.model.folders.firstObject;
@@ -44,7 +52,7 @@ export default class DecksController extends Controller {
   get showFrontOptions() {
     return this.insertType.id === 'front';
   }
-
+  
   get sideShowSet() {
     return this.printOptions.get('side_showSet');
   }
@@ -66,6 +74,13 @@ export default class DecksController extends Controller {
     this.printOptions.set('front_showHeader', checked);
   }
 
+  @action
+  setInsertType(type) {
+    console.log("Change Insert Type", type);
+    this.preferences.set('insertTypeId', type.id);
+    this.insertType = type;
+  }
+  
   @action
   clearDecks() {
     this.deckManager.removeAllDecks();

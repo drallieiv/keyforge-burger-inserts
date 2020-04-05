@@ -1,6 +1,6 @@
 {{#if (eq this.type "side")}}
 {{! Side Box Insert }}
-<div class="box-insert box-insert-side{{unless this.showSet " no-set"}}">
+<div class="box-insert box-insert-side{{unless this.sideShowSet " no-set"}}">
   {{! Name and extension }}
   <div class="dok-zone-set">
     <Set @set={{this.deck.expansion}} />

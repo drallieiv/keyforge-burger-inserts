@@ -20,7 +20,7 @@
         </div>
         <div class="print-option-select">
           <PowerSelect @options={{this.insertTypes}} @selected={{this.insertType}} @destination="insertTypes-list"
-            @onChange={{fn (mut this.insertType)}} as |type|>
+            @onChange={{fn this.setInsertType}} as |type|>
             {{type.name}}
           </PowerSelect>
           <div id="insertTypes-list"></div>
@@ -47,12 +47,14 @@
         @name="frontShowHeader"
         @checked={{this.frontShowHeader}}
       />
+      {{#if this.frontShowHeader}}
       <PrintOptionToggle 
         @label="Show set on front" 
         @id="option-front-showSet" 
         @name="frontShowSet"
         @checked={{this.frontShowSet}}
       />
+      {{/if}}
       {{/if}}
 
       <p class="smallTitle">
@@ -63,7 +65,7 @@
         <DeckFolder @folder={{folder}} />
         {{/each}}
       </div>
-      <a class="button" {{on "click" (fn this.clearDecks)}}>
+      <a class="button" role="button" {{on "click" (fn this.clearDecks)}}>
         Remove all decks
       </a>
       <p class="smallTitle">
@@ -71,7 +73,7 @@
       </p>
       <div>
         <FileUpload @name="dokCsvUpload" @accept="text/csv" @onfileadd={{fn this.uploadDokCsv}}>
-          <a class="button" tabindex=0>
+          <a class="button" role="button" tabindex="0">
             Load DoK csv file
           </a>
         </FileUpload>
