@@ -38,5 +38,5 @@ export default class DeckModel extends Model {
   @attr('string') masterVaultLink;
   @attr('string') lastSASUpdate;
 
-  @hasMany('deck-folder') folders;
+  @hasMany('deck-folder', { async: true, dependent: 'destroy' }) folders;
 }

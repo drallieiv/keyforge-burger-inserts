@@ -1,5 +1,6 @@
 import Service from '@ember/service';
 import { inject as service } from '@ember/service';
+import { all } from 'rsvp';
 
 export default class DeckManagerService extends Service {
   @service store;
@@ -97,19 +98,40 @@ export default class DeckManagerService extends Service {
     return this.store.findAll('deckFolder');
   }
 
+  
+
   removeAllDecks() {
+    return this.store.findAll('deck').then(function (decks) {
+      decks.forEach((deck) => {
+        console.log('deck to remove', deck);
+        deck.deleteRecord();
+        deck.save();
+      })
+    });
+
+
+    /*
     return this.store.findAll('deckFolder').then(function (record) {
+      let clearFolderPromise = [];
       record.content.forEach(function (folder) {
+        console.log("Requested Clearing folder " + folder.name);
         folder.decks = [];
-        folder.save();
+        clearFolderPromise.pushObject(folder.save());
+      });
+      return all(clearFolderPromise).then(() => {
+        console.log("All Folders Cleared")
       });
     }).then(() => {
+      console.log("Then Remove the decks")
+
       return this.store.findAll('deck').then(function (record) {
         record.content.forEach(function (deck) {
           deck.deleteRecord();
           deck.save();
         });
       });
+
     });
+    */
   }
 }

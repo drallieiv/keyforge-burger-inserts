@@ -13,12 +13,16 @@ export default class HouseIconComponent extends Component {
     "Shadows": "house_shadows.png",
     "Untamed": "house_untamed.png",
     "StarAlliance": "house_staralliance.png",
+    "Saurian": "house_saurian.png",
   };
 
   get imgSrc() {
     let houseName = this.args.houseName;
 
     let iconFilename = this['colorIcons'][houseName];
+    if(iconFilename === undefined){
+      iconFilename = "house_default.png";
+    }
 
     return this['baseIconPath'] + iconFilename;
   }
