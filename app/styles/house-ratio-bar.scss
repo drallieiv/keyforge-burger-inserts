@@ -1,0 +1,14 @@
+$border-style: 1px solid black;
+.house-ratio-bar {
+  height: 1mm;
+  width: 100%;
+  display: flex;
+  border: $border-style;
+  .house {
+    border-right: $border-style;
+    flex-grow: 1;
+    &:last-child {
+      border-right: none;
+    }
+  }
+}

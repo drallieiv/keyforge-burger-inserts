@@ -53,9 +53,9 @@ export default class DeckManagerService extends Service {
       cardArchiveCount: csvData['Card Archive Count'],
       totalPower: csvData['Total Power'],
       totalArmor: csvData['Total Armor'],
-      doKLink: csvData['DoK Link'],
+      dokLink: csvData['DoK Link'],
       masterVaultLink: csvData['Master Vault Link'],
-      lastSASUpdate: csvData['Last SAS Update'],
+      lastSasUpdate: csvData['Last SAS Update'],
     };
 
     return deckData;
@@ -74,7 +74,7 @@ export default class DeckManagerService extends Service {
       savedDeck.sasPercentile = deck.sasPercentile;
       savedDeck.rawAercScore = deck.rawAercScore;
       savedDeck.amberControl = deck.amberControl;
-      savedDeck.expectedAmber = deck.expectedAmber;
+      savedDeck.expectedAember = deck.expectedAember;
       savedDeck.aemberProtection = deck.aemberProtection;
       savedDeck.artifactControl = deck.artifactControl;
       savedDeck.creatureControl = deck.creatureControl;
@@ -86,7 +86,7 @@ export default class DeckManagerService extends Service {
       savedDeck.house1SAS = deck.house1SAS;
       savedDeck.house2SAS = deck.house2SAS;
       savedDeck.house3SAS = deck.house3SAS;
-      savedDeck.lastSASUpdate = deck.lastSASUpdate;
+      savedDeck.lastSasUpdate = deck.lastSasUpdate;
       return savedDeck.save();
     }).catch(() => {
       let newDeck = this.store.createRecord('deck', deck);

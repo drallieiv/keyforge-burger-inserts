@@ -72,13 +72,15 @@
       {{this.deck.name}}
     </div>
     <div class="dok-zone-header-right">
-      {{! HOUSES }}
+      {{!-- HOUSES --}}
       <div class="dok-zone-houses">
         {{#each this.deck.houses as |house|}}
         <HouseIcon @houseName={{house}} />
         {{/each}}
+        {{!-- SAS Repartition--}}
+        <HouseRatioBar @data={{this.housesRatioBarData}}/>
       </div>
-      {{! SAS Stats }}
+      {{!-- SAS Stats --}}
       <div class="dok-zone-stat">
         {{this.deck.sasRating}}
         <span class="dok-sas-label">SAS</span>
@@ -182,7 +184,7 @@
     <div class="flexfill"></div>
     {{! SAS update date }}
     <div class="dok-SAS-info">
-      <div>{{this.deck.lastSASUpdate}}</div>
+      <div>{{this.deck.lastSasUpdate}}</div>
     </div>
   </div>
   {{/if}}

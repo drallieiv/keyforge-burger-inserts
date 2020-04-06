@@ -1,3 +1,6 @@
+@import "dok-stat";
+@import "house-ratio-bar";
+
 // Burger Token Boxes
 
 // Thin        : 37 Card Unsleeved
@@ -54,14 +57,14 @@ $main-padding: 0;
 
   // Splitting Space Y. Main will extend
   $header: 12mm;
-  $footer: 4mm;
+  $footer: 3mm;
 
   // Header Split, Name will extend
   $set: 9mm;
   $hr: 18mm;
   // Header Right Split
   $rightMargin: 2mm;
-  $house: 6mm;
+  $house: 7mm;
   $stat: $header - 2 * $main-padding - $house - $rightMargin;
 
   // Main Split
@@ -143,6 +146,7 @@ $main-padding: 0;
         flex-basis: $house;
         height: $house;
         text-align: center;
+        padding-left: $base-padding-x;
       }
     }
   }
@@ -242,7 +246,7 @@ $main-padding: 0;
       flex-basis: $sasDate;
       display: flex;
       > * {
-        font-size: 2.5mm;
+        font-size: 2mm;
         margin: auto;
         text-align: center;
         flex-grow: 1;
@@ -257,6 +261,10 @@ $main-padding: 0;
     font-size: 0.6rem;
     flex-grow: 0;
     margin-top: -0.4mm; // Closer to border top
+  }
+
+  .dok-zone-stat {
+    font-size: 3.5mm;
   }
 }
 
@@ -384,10 +392,12 @@ $main-padding: 0;
   }
 }
 
-@import "dok-stat";
-
 .icon-house {
   height: $icon-base-height;
   max-height: 100%;
   margin: 0 -0.7mm; // closer to each other
+}
+
+.box-insert-front .icon-house {
+  height: $icon-base-height - 2mm;
 }

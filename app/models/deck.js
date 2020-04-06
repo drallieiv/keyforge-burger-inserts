@@ -34,9 +34,9 @@ export default class DeckModel extends Model {
   @attr('number') totalPower;
   @attr('number') totalArmor;
 
-  @attr('string') doKLink;
+  @attr('string') dokLink;
   @attr('string') masterVaultLink;
-  @attr('string') lastSASUpdate;
+  @attr('string') lastSasUpdate;
 
   @hasMany('deck-folder', { async: true }) folders;
 }

@@ -30,5 +30,8 @@ export default class BoxInsertComponent extends Component {
     return this.args.insertType.id;
   }
 
+  get housesRatioBarData() {
+    return [this.args.deck.house1SAS, this.args.deck.house2SAS, this.args.deck.house3SAS];
+  }
 
 }
