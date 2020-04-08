@@ -457,3 +457,31 @@ $main-padding: 0;
 .box-insert-front .icon-house {
   height: $icon-base-height - 2mm;
 }
+
+// Color For sets
+.box-insert-side,.box-insert-top{
+  .dok-zone-set {
+    position: relative;
+    height: 100%;
+    > div {
+      margin: 0;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      -ms-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  $setSaturation: 100%;
+  $setLuminance: 70%;
+  .dok-zone-set.set-cota {
+    background-color: hsl(0,$setSaturation,$setLuminance);
+  }
+  .dok-zone-set.set-aoa {
+    background-color: hsl(201,$setSaturation,$setLuminance);
+  }
+  .dok-zone-set.set-wc {
+    background-color: hsl(296,$setSaturation,$setLuminance);
+  }
+}

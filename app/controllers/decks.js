@@ -91,6 +91,15 @@ export default class DecksController extends Controller {
     this.printOptions.set('front_showFooter', checked);
   }
 
+  get showSetColor() {
+    return this.printOptions.get('showSetColor');
+  }
+  set showSetColor(checked) {
+    this.printOptions.set('showSetColor', checked);
+  }
+
+  
+
   @action
   setInsertType(type) {
     this.preferences.set('insertTypeId', type.id);

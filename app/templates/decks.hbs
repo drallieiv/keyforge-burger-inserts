@@ -79,6 +79,16 @@
       />
       {{/if}}
 
+      {{#if (or this.showSideOptions this.showTopOptions)}}
+      <PrintOptionToggle 
+        @label="Show color on set" 
+        @id="option-showSetColor" 
+        @name="showSetColor"
+        @checked={{this.showSetColor}}
+      />
+      {{/if}}
+      
+
       <p class="smallTitle">
         Decks Folders
       </p>

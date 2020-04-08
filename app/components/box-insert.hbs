@@ -2,9 +2,7 @@
 {{! Side Box Insert }}
 <div class="box-insert box-insert-side{{unless this.sideShowSet " no-set"}} {{@deckboxFormat.boxClass}}">
   {{! Name and extension }}
-  <div class="dok-zone-set">
-    <Set @set={{this.deck.expansion}} />
-  </div>
+  <Set @set={{this.deck.expansion}} @printOptions={{@printOptions}}/>
   <div class="dok-zone-name">
     {{this.deck.name}}
   </div>
@@ -31,9 +29,7 @@
       <div class="flexfill">
         {{! Nothing here there is the Burger Logo }}
       </div>
-      <div class="dok-zone-set">
-        <Set @set={{this.deck.expansion}} />
-      </div>
+      <Set @set={{this.deck.expansion}} @printOptions={{@printOptions}}/>
     </div>
     <div class="dok-zone-name">
       {{this.deck.name}}
@@ -62,11 +58,7 @@
   <div class="dok-zone-front-header">
     {{! Name and extension }}
     {{#if this.frontShowSet}}
-    <div class="dok-zone-set">
-      <div>
-        <Set @set={{this.deck.expansion}} />
-      </div>
-    </div>
+    <Set @set={{this.deck.expansion}} @printOptions={{@printOptions}}/>
     {{/if}}
     <div class="dok-zone-name">
       {{this.deck.name}}
