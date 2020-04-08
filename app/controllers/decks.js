@@ -14,6 +14,12 @@ const insertTypes = [
   */
 ];
 
+const deckboxFormats = [
+  { id: 'BT_slim', name: 'Burger Tokens Unsleeved', boxClass: 'bt-slim' },
+  { id: 'BT_large', name: 'Burger Tokens Sleeved', boxClass: 'bt-large' },
+  { id: 'BT_xlarge', name: 'Burger Tokens Double Sleeved', boxClass: 'bt-xlarge' },
+]
+
 export default class DecksController extends Controller {
   @service deckManager;
 
@@ -24,13 +30,17 @@ export default class DecksController extends Controller {
   insertTypes = insertTypes;
   @tracked insertType;
 
+  deckboxFormats = deckboxFormats;
+  @tracked deckboxFormat;
+
   constructor() {
     super(...arguments);
-    console.log('DecksController Constructor');
+    // Load From Preferences
     this.printOptions = this.preferences.printOptions;
-    console.log('printOptions', this.printOptions);
     let insertTypeId = this.preferences.get('insertTypeId', 'side');
     this.insertType = insertTypes.filter(type => (type.id == insertTypeId)).firstObject;
+    let deckboxFormatId = this.preferences.get('deckboxFormatId', 'BT_slim');
+    this.deckboxFormat = deckboxFormats.filter(format => (format.id == deckboxFormatId)).firstObject;
   }
 
   get folderToPrint() {
@@ -81,13 +91,16 @@ export default class DecksController extends Controller {
     this.printOptions.set('front_showFooter', checked);
   }
 
-  
-
   @action
   setInsertType(type) {
-    console.log("Change Insert Type", type);
     this.preferences.set('insertTypeId', type.id);
     this.insertType = type;
+  }
+
+  @action
+  setDeckboxFormat(format) {
+    this.preferences.set('deckboxFormatId', format.id);
+    this.deckboxFormat = format;
   }
   
   @action

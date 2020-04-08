@@ -4,7 +4,10 @@
       <div class="print-sheet">
         {{#each this.decksToPrint as |deck|}}
         <div class="print-sheet-block">
-          <BoxInsert @type="side" @deck={{deck}} @printOptions={{this.printOptions}} @insertType={{this.insertType}} />
+          <BoxInsert @type="side" @deck={{deck}} 
+            @printOptions={{this.printOptions}} 
+            @insertType={{this.insertType}} 
+            @deckboxFormat={{this.deckboxFormat}}/>
         </div>
         {{/each}}
       </div>
@@ -13,6 +16,19 @@
       <p class="smallTitle">
         Templates
       </p>
+
+      <div class="print-option">
+        <div class="print-option-label">
+          Deckbox Format
+        </div>
+        <div class="print-option-select">
+          <PowerSelect @options={{this.deckboxFormats}} @selected={{this.deckboxFormat}} @destination="deckboxFormats-list"
+            @onChange={{fn this.setDeckboxFormat}} as |box|>
+            {{box.name}}
+          </PowerSelect>
+          <div id="deckboxFormats-list"></div>
+        </div>
+      </div>
 
       <div class="print-option">
         <div class="print-option-label">

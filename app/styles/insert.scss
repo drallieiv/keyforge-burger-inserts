@@ -6,12 +6,17 @@
 // Thin        : 37 Card Unsleeved
 $bt-thin-width: 64mm;
 $bt-thin-height: 90mm;
-$bt-thin-thick: 14mm;
+$bt-thin-depth: 14mm;
 
 // Sleeved    : 37 Card Sleeved 67mm x 95.5mm x 22.5mm
-$bt-fat-width: 67mm;
-$bt-fat-height: 95.5mm;
-$bt-fat-thick: 22.5mm;
+$bt-large-width: 67mm;
+$bt-large-height: 95.5mm;
+$bt-large-depth: 22.5mm;
+
+// Double Sleeved    : 37 Card Sleeved 67mm x 95.5mm x 27mm
+$bt-xlarge-width: 67mm;
+$bt-xlarge-height: 95.5mm;
+$bt-xlarge-depth: 27mm;
 
 // Margin
 $cut-margin: 1mm;
@@ -271,7 +276,7 @@ $main-padding: 0;
 .box-insert-top {
   // 88mm x 12mm
   $width: $bt-thin-width - 2 * $cut-margin;
-  $height: $bt-thin-thick - 2 * $cut-margin;
+  $height: $bt-thin-depth - 2 * $cut-margin;
 
   // Rules
   width: $width;
@@ -289,11 +294,12 @@ $main-padding: 0;
   $house: 6mm;
   $stat: $height - 2 * $main-padding - $house - $rightMargin;
 
-  // $margin: 0.75mm; ?
+  $nameLineClip: 1;
 
   .dok-zone-top-left {
-    flex-basis: $left;
-    width: $left;
+    flex-basis: 0;
+    width: 0;
+    flex-grow: 1;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -311,13 +317,18 @@ $main-padding: 0;
       }
     }
     .dok-zone-name {
+      $fontSize: 3.5mm;
       flex-basis: $name;
       width: 100%;
-      font-size: 3.5mm;
+      font-size: $fontSize;
+      max-height: $fontSize * $nameLineClip * 4;
+      line-height: 4.3mm;
       flex: 1;
-      white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: $nameLineClip;
+      -webkit-box-orient: vertical;
     }
   }
   .dok-zone-top-right {
@@ -342,7 +353,7 @@ $main-padding: 0;
 .box-insert-side {
   // 62mm x 12mm
   $width: $bt-thin-height - 2 * $cut-margin;
-  $height: $bt-thin-thick - 2 * $cut-margin;
+  $height: $bt-thin-depth - 2 * $cut-margin;
 
   // Splitting Space
   $set: 10mm;
@@ -368,15 +379,16 @@ $main-padding: 0;
 
   .dok-zone-stat {
     flex-basis: $stat;
-    height: 100%;
     overflow: hidden;
     font-size: 7mm;
+    position: relative;
+    line-height: $height;
 
     .dok-sas-label {
       font-size: 3mm;
-      position: relative;
-      left: 3mm;
-      bottom: 8mm;
+      position: absolute;
+      left: 4mm;
+      bottom: -4mm;
     }
   }
 
@@ -389,6 +401,50 @@ $main-padding: 0;
     .dok-zone-set {
       display: none;
     }
+  }
+}
+
+// Other Sizes
+
+.box-insert.bt-large {
+  &.box-insert-front {
+    $width: $bt-large-width - 2 * $cut-margin;
+    $height: $bt-large-height - 2 * $cut-margin;
+    width: $width;
+    height: $height;
+  }
+  &.box-insert-top {
+    $width: $bt-large-width - 2 * $cut-margin;
+    $height:  $bt-large-depth - 2 * $cut-margin;
+    width: $width;
+    height: $height;
+  }
+  &.box-insert-side {
+    $width: $bt-large-height - 2 * $cut-margin;
+    $height: $bt-large-depth - 2 * $cut-margin;
+    width: $width;
+    height: $height;
+  }
+}
+
+.box-insert.bt-xlarge {
+  &.box-insert-front {
+    $width: $bt-xlarge-width - 2 * $cut-margin;
+    $height: $bt-xlarge-height - 2 * $cut-margin;
+    width: $width;
+    height: $height;
+  }
+  &.box-insert-top {
+    $width: $bt-xlarge-width - 2 * $cut-margin;
+    $height:  $bt-xlarge-depth - 2 * $cut-margin;
+    width: $width;
+    height: $height;
+  }
+  &.box-insert-side {
+    $width: $bt-xlarge-height - 2 * $cut-margin;
+    $height: $bt-xlarge-depth - 2 * $cut-margin;
+    width: $width;
+    height: $height;
   }
 }
 
