@@ -6,18 +6,18 @@ import { all } from 'rsvp';
 import PrintOptions from 'burger-inserts/dto/print-options';
 
 const insertTypes = [
-  { id: 'side', name: 'Side Only', insertClass: 'box-insert-side' },
-  { id: 'top', name: 'Top Only', insertClass: 'box-insert-top' },
-  { id: 'front', name: 'Front Only', insertClass: 'box-insert-front' },
-  /*
-  { id: 'group', name: 'All Grouped', insertClass: 'box-insert-group' },
-  */
+  { id: 'side', name: 'Side Only'},
+  { id: 'top', name: 'Top Only'},
+  { id: 'front', name: 'Front Only'},
+  { id: 'front_top', name: 'Front and Top'},
+  { id: 'front_side', name: 'Front and Side'},
+  { id: 'all', name: 'Front, Top and Side'},
 ];
 
 const deckboxFormats = [
   { id: 'BT_slim', name: 'Burger Tokens Unsleeved', boxClass: 'bt-slim' },
   { id: 'BT_large', name: 'Burger Tokens Sleeved', boxClass: 'bt-large' },
-  { id: 'BT_xlarge', name: 'Burger Tokens Double Sleeved', boxClass: 'bt-xlarge' },
+  { id: 'BT_xlarge', name: 'Burger Tokens Dbl. Slv.', boxClass: 'bt-xlarge' },
 ]
 
 export default class DecksController extends Controller {
@@ -54,13 +54,13 @@ export default class DecksController extends Controller {
   /*  Print Options */
 
   get showSideOptions() {
-    return this.insertType.id === 'side';
+    return ['side', 'front_side', 'all'].includes(this.insertType.id);
   }
   get showTopOptions() {
-    return this.insertType.id === 'top';
+    return ['top', 'front_top', 'all'].includes(this.insertType.id);
   }
   get showFrontOptions() {
-    return this.insertType.id === 'front';
+    return ['front', 'front_top', 'front_side', 'all'].includes(this.insertType.id);
   }
   
   get sideShowSet() {
@@ -112,6 +112,16 @@ export default class DecksController extends Controller {
     this.printOptions.set('showSetColor', checked);
   }
   
+  get printSheetBlockSpaced() {
+    return this.printOptions.get('spacePrintBlock');
+  }
+  set printSheetBlockSpaced(checked) {
+    this.printOptions.set('spacePrintBlock', checked);
+  }
+
+  get printSheetBlockStyle() {
+    return this.printSheetBlockSpaced ? 'space' : 'no-space';
+  }
 
   @action
   setInsertType(type) {

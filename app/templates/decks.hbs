@@ -3,7 +3,7 @@
     <div class="cell small-9 left-column deck-inserts">
       <div class="print-sheet">
         {{#each this.decksToPrint as |deck|}}
-        <div class="print-sheet-block">
+        <div class="print-sheet-block {{this.printSheetBlockStyle}}">
           <BoxInsert @type="side" @deck={{deck}} 
             @printOptions={{this.printOptions}} 
             @insertType={{this.insertType}} 
@@ -46,6 +46,15 @@
       <p class="smallTitle">
         Printing Options
       </p>
+
+      {{#if this.showSideOptions}}
+      <PrintOptionToggle 
+        @label="Print with spacing" 
+        @id="option-print-spaced" 
+        @name="printSheetBlockSpaced"
+        @checked={{this.printSheetBlockSpaced}}
+      />
+      {{/if}}
 
       {{#if this.showSideOptions}}
       <PrintOptionToggle 

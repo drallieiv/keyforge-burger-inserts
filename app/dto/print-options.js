@@ -22,6 +22,7 @@ export default class PrintOptions {
         front_HouseBarUseColor: true,
         front_showFooter: false,
         front_showSetColor: false,
+        spacePrintBlock: false,
       }
     }
   }

@@ -23,4 +23,43 @@
       @housesRatioBarData={{this.housesRatioBarData}}
     />
   {{/if}}
+
+  {{#if (eq this.type "front_top")}}
+    <div class="layoutFrontAndTop">
+      <BoxInsertTop
+        @deck={{this.deck}}
+        @printOptions={{@printOptions}}
+        @deckboxFormat={{@deckboxFormat}}
+      />
+      <BoxInsertFront
+        @deck={{this.deck}}
+        @printOptions={{@printOptions}}
+        @deckboxFormat={{@deckboxFormat}}
+        @housesRatioBarData={{this.housesRatioBarData}}
+      />
+    </div>
+  {{/if}}
+
+    {{#if (eq this.type "all")}}
+    <div class="layoutAll {{@deckboxFormat.boxClass}}">
+      <BoxInsertSide
+        @deck={{this.deck}}
+        @printOptions={{@printOptions}}
+        @deckboxFormat={{@deckboxFormat}}
+      />
+      <BoxInsertTop
+        @deck={{this.deck}}
+        @printOptions={{@printOptions}}
+        @deckboxFormat={{@deckboxFormat}}
+      />
+      <BoxInsertFront
+        @deck={{this.deck}}
+        @printOptions={{@printOptions}}
+        @deckboxFormat={{@deckboxFormat}}
+        @housesRatioBarData={{this.housesRatioBarData}}
+      />
+    </div>
+  {{/if}}
+
+
 {{/if}}

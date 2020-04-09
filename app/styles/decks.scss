@@ -24,6 +24,9 @@
 
   .print-sheet-block {
     float: left;
+    &.space {
+      margin: 2mm;
+    }
   }
 
   .print-sheet > * {
