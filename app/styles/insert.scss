@@ -406,6 +406,14 @@ $main-padding: 0;
 
 // Other Sizes
 
+.box-insert.bt-slim {
+  &.box-insert-top {
+    .dok-zone-top-left .dok-zone-name {
+      font-size: 2.7mm;
+    }
+  }
+}
+
 .box-insert.bt-large {
   &.box-insert-front {
     $width: $bt-large-width - 2 * $cut-margin;

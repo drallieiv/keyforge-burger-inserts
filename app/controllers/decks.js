@@ -84,6 +84,20 @@ export default class DecksController extends Controller {
     this.printOptions.set('front_showHeader', checked);
   }
 
+  get frontShowHouseBar() {
+    return this.printOptions.get('front_ShowHouseBar');
+  }
+  set frontShowHouseBar(checked) {
+    this.printOptions.set('front_ShowHouseBar', checked);
+  }  
+
+  get frontHouseBarColor() {
+    return this.printOptions.get('front_HouseBarUseColor');
+  }
+  set frontHouseBarColor(checked) {
+    this.printOptions.set('front_HouseBarUseColor', checked);
+  }  
+
   get frontShowFooter() {
     return this.printOptions.get('front_showFooter');
   }
@@ -97,7 +111,6 @@ export default class DecksController extends Controller {
   set showSetColor(checked) {
     this.printOptions.set('showSetColor', checked);
   }
-
   
 
   @action

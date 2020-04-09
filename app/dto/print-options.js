@@ -18,6 +18,8 @@ export default class PrintOptions {
         side_showSet: true,
         front_showSet: true,
         front_showHeader: true,
+        front_ShowHouseBar: true,
+        front_HouseBarUseColor: true,
         front_showFooter: false,
         front_showSetColor: false,
       }

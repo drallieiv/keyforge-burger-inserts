@@ -1,0 +1,28 @@
+{{! Top Box Insert }}
+<div class="box-insert box-insert-top {{@deckboxFormat.boxClass}}">
+  {{! Name and extension }}
+  <div class="dok-zone-top-left">
+    <div class="dok-zone-blank">
+      <div class="flexfill">
+        {{! Nothing here there is the Burger Logo }}
+      </div>
+      <Set @set={{@deck.expansion}} @printOptions={{@printOptions}}/>
+    </div>
+    <div class="dok-zone-name">
+      {{@deck.name}}
+    </div>
+  </div>
+  <div class="dok-zone-top-right">
+    {{! HOUSES }}
+    <div class="dok-zone-houses">
+      {{#each @deck.houses as |house|}}
+      <HouseIcon @houseName={{house}} />
+      {{/each}}
+    </div>
+    {{! SAS Stats }}
+    <div class="dok-zone-stat">
+      {{@deck.sasRating}}
+      <span class="dok-sas-label">SAS</span>
+    </div>
+  </div>
+</div>

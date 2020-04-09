@@ -1,4 +1,7 @@
-<div {{did-update this.resizeHouses @data}} class="house-ratio-bar">
+<div 
+  {{did-update this.resizeHouses @data @useColor this.colorConfig}} 
+  {{did-insert this.resizeHouses @data @useColor this.colorConfig}} 
+  class="house-ratio-bar">
   <div class="house house1"></div>
   <div class="house house2"></div>
   <div class="house house3"></div>

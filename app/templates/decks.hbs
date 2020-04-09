@@ -70,6 +70,21 @@
         @name="frontShowSet"
         @checked={{this.frontShowSet}}
       />
+     <PrintOptionToggle 
+        @label="Show SAS house split bar" 
+        @id="option-front-showHouseBar" 
+        @name="frontShowHouseBar"
+        @checked={{this.frontShowHouseBar}}
+      />
+      {{#if this.frontShowHouseBar}}
+        <PrintOptionToggle 
+          @label="Use color in house split bar" 
+          @id="option-front-houseBarColor" 
+          @name="frontHouseBarColor"
+          @checked={{this.frontHouseBarColor}}
+        />
+      {{/if}}
+      
       {{/if}}
       <PrintOptionToggle 
         @label="Show footer on front" 

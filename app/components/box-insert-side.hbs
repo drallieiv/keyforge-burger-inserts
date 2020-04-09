@@ -1,0 +1,19 @@
+{{! Side Box Insert }}
+<div class="box-insert box-insert-side{{unless this.sideShowSet " no-set"}} {{@deckboxFormat.boxClass}}">
+  {{! Name and extension }}
+  <Set @set={{@deck.expansion}} @printOptions={{@printOptions}}/>
+  <div class="dok-zone-name">
+    {{@deck.name}}
+  </div>
+  {{! SAS Stats }}
+  <div class="dok-zone-stat">
+    {{@deck.sasRating}}
+    <span class="dok-sas-label">SAS</span>
+  </div>
+  {{! HOUSES }}
+  <div class="dok-zone-houses">
+    {{#each @deck.houses as |house|}}
+    <HouseIcon @houseName={{house}} />
+    {{/each}}
+  </div>
+</div>
