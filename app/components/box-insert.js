@@ -6,10 +6,6 @@ export default class BoxInsertComponent extends Component {
 
   showSpecialCount = false;
 
-  get sideShowSet() {
-    return this.args.printOptions.get('side_showSet');
-  }
-
   get deck() {
     return this.args.deck;
   }
@@ -19,7 +15,7 @@ export default class BoxInsertComponent extends Component {
   }
 
   get housesRatioBarData() {
-    return [this.args.deck.house1SAS, this.args.deck.house2SAS, this.args.deck.house3SAS];
+    return [parseFloat(this.args.deck.house1SAS), parseFloat(this.args.deck.house2SAS), parseFloat(this.args.deck.house3SAS)];
   }
 
   get deckLoaded() {
