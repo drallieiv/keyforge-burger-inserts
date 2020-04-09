@@ -8,8 +8,7 @@
   .dok-stat-icon {
     width: $iconSize;
     height: $iconSize;
-    background-image: url("icons/svg/stat/other.svg");
-    background-size: cover;
+    content: url("icons/svg/stat/other.svg");
   }
   .dok-stat-value {
     flex-basis: 8mm;
@@ -26,61 +25,61 @@
   .dok-stat-icon {
 
     &.creatures {
-      background-image: url("icons/svg/stat/creature.svg");
+      content: url("icons/svg/stat/creature.svg");
     }
     &.actions {
-      background-image: url("icons/svg/stat/action.svg");
+      content: url("icons/svg/stat/action.svg");
     }
     &.artifacts {
-      background-image: url("icons/svg/stat/artifact.svg");
+      content: url("icons/svg/stat/artifact.svg");
     }
     &.upgrades {
-      background-image: url("icons/svg/stat/upgrade.svg");
+      content: url("icons/svg/stat/upgrade.svg");
     }
     &.synergy {
-      background-image: url("icons/svg/stat/synergy.svg");
+      content: url("icons/svg/stat/synergy.svg");
     }
     &.antiSynergy {
-      background-image: url("icons/svg/stat/anti-synergy.svg");
+      content: url("icons/svg/stat/anti-synergy.svg");
     }
     &.aemberControl {
-      background-image: url("icons/svg/stat/amber-control.svg");
+      content: url("icons/svg/stat/amber-control.svg");
     }
     &.expectedAember {
-      background-image: url("icons/svg/stat/expected-amber.svg");
+      content: url("icons/svg/stat/expected-amber.svg");
     }
     &.aemberProtection {
-      background-image: url("icons/svg/stat/amber-protection.svg");
+      content: url("icons/svg/stat/amber-protection.svg");
     }
     &.efficiency {
-      background-image: url("icons/svg/stat/efficiency.svg");
+      content: url("icons/svg/stat/efficiency.svg");
     }
     &.disruption {
-      background-image: url("icons/svg/stat/disruption.svg");
+      content: url("icons/svg/stat/disruption.svg");
     }
     &.artifactControl {
-      background-image: url("icons/svg/stat/artifact-control.svg");
+      content: url("icons/svg/stat/artifact-control.svg");
     }
     &.creatureControl {
-      background-image: url("icons/svg/stat/creature-control.svg");
+      content: url("icons/svg/stat/creature-control.svg");
     }
     &.effectivePower {
-      background-image: url("icons/svg/stat/power.svg");
+      content: url("icons/svg/stat/power.svg");
     }
     &.houseCheating {
-      background-image: url("icons/svg/stat/house-cheating.svg");
+      content: url("icons/svg/stat/house-cheating.svg");
     }
     &.other {
-      background-image: url("icons/svg/stat/other.svg");
+      content: url("icons/svg/stat/other.svg");
     }
     &.rawAmber {
-      background-image: url("icons/svg/stat/amber-icon.svg");
+      content: url("icons/svg/stat/amber-icon.svg");
     }
     &.keyCheat {
-      background-image: url("icons/svg/stat/key-cheat-icon.svg");
+      content: url("icons/svg/stat/key-cheat-icon.svg");
     }
     &.archive {
-      background-image: url("icons/svg/stat/archive-icon.svg");
+      content: url("icons/svg/stat/archive-icon.svg");
     }
   }
 }
