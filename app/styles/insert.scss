@@ -535,7 +535,39 @@ $main-padding: 0;
       transform: rotate(-90deg) translate(-($height+$depth)/2, -($height+$depth)/2+0.2mm);
     }
   }
+}
 
+.layoutFrontAndSide{
+  position: relative;
+  .box-insert-side {
+    position: absolute;
+  }
 
-
+  &.bt-slim {
+    $depth: $bt-thin-depth - 2 * $cut-margin;
+    $height: $bt-thin-height - 2 * $cut-margin;
+    $width: $bt-thin-width - 2 * $cut-margin;
+    padding-left: $depth;
+    .box-insert-side {
+      transform: rotate(-90deg) translate(-($height - $depth)/2, -($height+$depth)/2);
+    }
+  }
+  &.bt-large {
+    $depth: $bt-large-depth - 2 * $cut-margin;
+    $height: $bt-large-height - 2 * $cut-margin;
+    $width: $bt-large-width - 2 * $cut-margin;
+    padding-left: $depth;
+    .box-insert-side {
+      transform: rotate(-90deg) translate(-($height - $depth)/2, -($height+$depth)/2+0.1mm);
+    }
+  }
+  &.bt-xlarge {
+    $depth: $bt-xlarge-depth - 2 * $cut-margin;
+    $height: $bt-xlarge-height - 2 * $cut-margin;
+    $width: $bt-xlarge-width - 2 * $cut-margin;
+    padding-left: $depth;
+    .box-insert-side {
+      transform: rotate(-90deg) translate(-($height - $depth)/2, -($height+$depth)/2+0.2mm);
+    }
+  }
 }
