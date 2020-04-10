@@ -108,13 +108,13 @@ $main-padding: 0;
       width: $set;
       flex-shrink: 0;
       border-right: 1px solid black;
+      margin-left: -2px;
       margin-right: 2px;
       position: relative;
       > * {
         font-size: $setFontSize;
         text-align: center;
         position: absolute;
-        top: ($header / 2) - $setFontSize * .8;
         width: 100%;
       }
     }
@@ -469,7 +469,7 @@ $main-padding: 0;
 }
 
 // Color For sets
-.box-insert-side,.box-insert-top{
+.box-insert-side,.box-insert-top,.box-insert-front{
   .dok-zone-set {
     position: relative;
     height: 100%;
@@ -484,7 +484,12 @@ $main-padding: 0;
   }
 
   $setSaturation: 100%;
-  $setLuminance: 70%;
+  // Pastel
+  // $setLuminance: 70%;
+  // Dark
+  $setLuminance: 30%;
+  .dok-zone-set {color: white;}
+
   .dok-zone-set.set-cota {
     background-color: hsl(0,$setSaturation,$setLuminance);
   }
@@ -518,7 +523,7 @@ $main-padding: 0;
     $width: $bt-large-width - 2 * $cut-margin;
     padding-left: $depth;
     .box-insert-side {
-      transform: rotate(-90deg) translate(-($height+$depth)/2, -($height+$depth)/2);
+      transform: rotate(-90deg) translate(-($height+$depth)/2, -($height+$depth)/2+0.1mm);
     }
   }
   &.bt-xlarge {
@@ -527,7 +532,7 @@ $main-padding: 0;
     $width: $bt-xlarge-width - 2 * $cut-margin;
     padding-left: $depth;
     .box-insert-side {
-      transform: rotate(-90deg) translate(-($height+$depth)/2, -($height+$depth)/2);
+      transform: rotate(-90deg) translate(-($height+$depth)/2, -($height+$depth)/2+0.2mm);
     }
   }
 

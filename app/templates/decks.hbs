@@ -47,14 +47,19 @@
         Printing Options
       </p>
 
-      {{#if this.showSideOptions}}
       <PrintOptionToggle 
         @label="Print with spacing" 
         @id="option-print-spaced" 
         @name="printSheetBlockSpaced"
         @checked={{this.printSheetBlockSpaced}}
       />
-      {{/if}}
+
+      <PrintOptionToggle 
+        @label="Use color icons for houses" 
+        @id="option-print-housecolor" 
+        @name="useHouseIconFullColor"
+        @checked={{this.useHouseIconFullColor}}
+      />
 
       {{#if this.showSideOptions}}
       <PrintOptionToggle 

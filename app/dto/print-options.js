@@ -23,6 +23,7 @@ export default class PrintOptions {
         front_showFooter: false,
         front_showSetColor: false,
         spacePrintBlock: false,
+        houseIconsStyle: 'full', // or 'line'
       }
     }
   }

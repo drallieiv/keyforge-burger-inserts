@@ -123,6 +123,13 @@ export default class DecksController extends Controller {
     return this.printSheetBlockSpaced ? 'space' : 'no-space';
   }
 
+  get useHouseIconFullColor() {
+    return this.printOptions.get('houseIconsStyle') === 'full';
+  }
+  set useHouseIconFullColor(checked) {
+    this.printOptions.set('houseIconsStyle', checked ? 'full' : 'line');
+  }
+
   @action
   setInsertType(type) {
     this.preferences.set('insertTypeId', type.id);

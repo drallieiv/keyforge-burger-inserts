@@ -2,20 +2,18 @@ import Component from '@glimmer/component';
 
 export default class HouseIconComponent extends Component {
 
-  baseIconPath = "assets/icons/";
-  pngFolder="png/";
-  houseFolder="house/";
-
+  baseIconPath = 'assets/icons/svg/house/';
+  
   colorIcons = {
-    "Brobnar": "house_brobnar.png",
-    "Logos": "house_logos.png",
-    "Sanctum": "house_sanctum.png",
-    "Mars": "house_mars.png",
-    "Dis": "house_dis.png",
-    "Shadows": "house_shadows.png",
-    "Untamed": "house_untamed.png",
-    "StarAlliance": "house_staralliance.png",
-    "Saurian": "house_saurian.png",
+    'Brobnar': 'Brobnar.svg',
+    'Logos': 'Logos.svg',
+    'Sanctum': 'Sanctum.svg',
+    'Mars': 'Mars.svg',
+    'Dis': 'Dis.svg',
+    'Shadows': 'Shadows.svg',
+    'Untamed': 'Untamed.svg',
+    'StarAlliance': 'StarAlliance.svg',
+    'Saurian': 'Saurian.svg',
   };
 
   get imgSrc() {
@@ -23,10 +21,11 @@ export default class HouseIconComponent extends Component {
 
     let iconFilename = this['colorIcons'][houseName];
     if(iconFilename === undefined){
-      iconFilename = "house_default.png";
+      iconFilename = 'house_default.svg';
     }
-
-    let basePath = this.baseIconPath + this.pngFolder + this.houseFolder;
+    let style = this.args.printOptions.get('houseIconsStyle') || 'full';
+ 
+    let basePath = this.baseIconPath + style + '/';
 
     return basePath + iconFilename;
   }

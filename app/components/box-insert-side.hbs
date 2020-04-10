@@ -13,7 +13,7 @@
   {{! HOUSES }}
   <div class="dok-zone-houses">
     {{#each @deck.houses as |house|}}
-    <HouseIcon @houseName={{house}} />
+    <HouseIcon @houseName={{house}} @printOptions={{@printOptions}}/>
     {{/each}}
   </div>
 </div>
