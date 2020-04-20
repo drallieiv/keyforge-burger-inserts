@@ -488,15 +488,17 @@ $main-padding: 0;
   // $setLuminance: 70%;
   // Dark
   $setLuminance: 30%;
-  .dok-zone-set {color: white;}
 
   .dok-zone-set.set-cota {
+    color: white;
     background-color: hsl(0,$setSaturation,$setLuminance);
   }
   .dok-zone-set.set-aoa {
+    color: white;
     background-color: hsl(201,$setSaturation,$setLuminance);
   }
   .dok-zone-set.set-wc {
+    color: white;
     background-color: hsl(296,$setSaturation,$setLuminance);
   }
 }
