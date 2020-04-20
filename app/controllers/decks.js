@@ -3,7 +3,6 @@ import { inject as service } from '@ember/service';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 import { all } from 'rsvp';
-import PrintOptions from 'burger-inserts/dto/print-options';
 
 const insertTypes = [
   { id: 'side', name: 'Side Only'},

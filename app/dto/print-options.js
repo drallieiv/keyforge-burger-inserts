@@ -1,5 +1,4 @@
 import { tracked } from '@glimmer/tracking';
-import { inject as service } from '@ember/service';
 
 export default class PrintOptions {
    
@@ -32,7 +31,7 @@ export default class PrintOptions {
     this._options[key] = value;
 
     // trigger an update
-    this._options = this._options;
+    this.set('_options', this.get('_options'));
 
     // Save preferences
     this.preferences.printOptions = this;
