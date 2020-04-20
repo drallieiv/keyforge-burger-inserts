@@ -2,12 +2,12 @@ import Component from '@glimmer/component';
 
 export default class SetComponent extends Component {
 
-  baseIconPath = "assets/icons/";
+  baseIconPath = 'assets/icons/';
 
   setNames = {
-    "CALL_OF_THE_ARCHONS": {short: "CotA", class:'set-cota'},
-    "AGE_OF_ASCENSION": {short: "AoA", class:'set-aoa'},
-    "WORLDS_COLLIDE": {short: "WC", class:'set-wc'},
+    'CALL_OF_THE_ARCHONS': {short: 'CotA', class:'set-cota'},
+    'AGE_OF_ASCENSION': {short: 'AoA', class:'set-aoa'},
+    'WORLDS_COLLIDE': {short: 'WC', class:'set-wc'},
   };
 
   get short() {

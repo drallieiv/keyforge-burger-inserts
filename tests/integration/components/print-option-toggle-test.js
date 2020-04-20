@@ -9,18 +9,10 @@ module('Integration | Component | print-option-toggle', function(hooks) {
   test('it renders', async function(assert) {
     // Set any properties with this.set('myProperty', 'value');
     // Handle any actions with this.set('myAction', function(val) { ... });
+    let id = 'inputId';
+    this.set('id', id);
+    await render(hbs`<PrintOptionToggle @id={{id}}/>`);
 
-    await render(hbs`<PrintOptionToggle />`);
-
-    assert.equal(this.element.textContent.trim(), '');
-
-    // Template block usage:
-    await render(hbs`
-      <PrintOptionToggle>
-        template block text
-      </PrintOptionToggle>
-    `);
-
-    assert.equal(this.element.textContent.trim(), 'template block text');
+    assert.ok(this.element.querySelectorAll('input#'+id).length > 0);
   });
 });

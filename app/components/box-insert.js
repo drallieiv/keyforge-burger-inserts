@@ -17,7 +17,7 @@ export default class BoxInsertComponent extends Component {
   }
 
   get deckLoaded() {
-    return this.args.deck.name !== undefined;
+    return this.args.deck !== undefined && this.args.deck.name !== undefined;
   }
 
 }

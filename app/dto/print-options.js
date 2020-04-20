@@ -20,7 +20,7 @@ export default class PrintOptions {
         front_ShowHouseBar: true,
         front_HouseBarUseColor: true,
         front_showFooter: false,
-        front_showSetColor: false,
+        showSetColor: false,
         spacePrintBlock: false,
         houseIconsStyle: 'full', // or 'line'
       }
@@ -31,7 +31,8 @@ export default class PrintOptions {
     this._options[key] = value;
 
     // trigger an update
-    this.set('_options', this.get('_options'));
+    let currentOptions = this._options;
+    this._options = currentOptions;
 
     // Save preferences
     this.preferences.printOptions = this;

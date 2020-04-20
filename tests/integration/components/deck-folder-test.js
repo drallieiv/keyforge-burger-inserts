@@ -6,21 +6,11 @@ import { hbs } from 'ember-cli-htmlbars';
 module('Integration | Component | deck-folder', function(hooks) {
   setupRenderingTest(hooks);
 
-  test('it renders', async function(assert) {
-    // Set any properties with this.set('myProperty', 'value');
-    // Handle any actions with this.set('myAction', function(val) { ... });
+  test('Show folder name and count', async function(assert) {
+    this.set('folder', {name:'DeckName', count:42});
 
-    await render(hbs`<DeckFolder />`);
+    await render(hbs`<DeckFolder @folder={{folder}} />`);
 
-    assert.equal(this.element.textContent.trim(), '');
-
-    // Template block usage:
-    await render(hbs`
-      <DeckFolder>
-        template block text
-      </DeckFolder>
-    `);
-
-    assert.equal(this.element.textContent.trim(), 'template block text');
+    assert.equal(this.element.textContent.trim(), 'DeckName (42)');
   });
 });

@@ -13,14 +13,5 @@ module('Integration | Component | box-insert', function(hooks) {
     await render(hbs`<BoxInsert />`);
 
     assert.equal(this.element.textContent.trim(), '');
-
-    // Template block usage:
-    await render(hbs`
-      <BoxInsert>
-        template block text
-      </BoxInsert>
-    `);
-
-    assert.equal(this.element.textContent.trim(), 'template block text');
   });
 });

@@ -7,20 +7,11 @@ module('Integration | Component | house-ratio-bar', function(hooks) {
   setupRenderingTest(hooks);
 
   test('it renders', async function(assert) {
-    // Set any properties with this.set('myProperty', 'value');
-    // Handle any actions with this.set('myAction', function(val) { ... });
-
-    await render(hbs`<HouseRatioBar />`);
+    this.set('useColor', true);
+    let data = [0.2, 0.5, 0.3];
+    this.set('housesRatioBarData', data);
+    await render(hbs`<HouseRatioBar @data={{this.housesRatioBarData}} @useColor={{this.useColor}}/>`);
 
     assert.equal(this.element.textContent.trim(), '');
-
-    // Template block usage:
-    await render(hbs`
-      <HouseRatioBar>
-        template block text
-      </HouseRatioBar>
-    `);
-
-    assert.equal(this.element.textContent.trim(), 'template block text');
   });
 });

@@ -17,6 +17,9 @@ export default class HouseRatioBarComponent extends Component {
     let houseData = options[0];
     let useColor = options[1];
     let colorConfig = options[2];
+    if(!houseData || houseData.length == 0) {
+      return;
+    }
     let totalSas = houseData.reduce((a, b) => a + b, 0);
     let ratios = houseData.map((sas) => Math.round(sas / totalSas * 100));
 
