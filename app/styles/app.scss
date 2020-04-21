@@ -28,4 +28,12 @@
   }
 }
 
+.help {
+  img {
+    border: 1px solid black;
+    filter: drop-shadow(3px 3px 1px black);
+    margin-bottom: 1rem;
+  }
+}
+
 @import "ember-power-select";
