@@ -23,7 +23,7 @@ export default class DeckManagerService extends Service {
     let deckData = {
       id: deckId,
       name: csvData['Name'],
-      houses: csvData['Houses'].split(','),
+      houses: this.parseHouses(csvData['Houses']),
       expansion: csvData['Expansion'],
       sasRating: csvData['Sas Rating'],
       synergyRating: csvData['Synergy Rating'],
@@ -65,6 +65,32 @@ export default class DeckManagerService extends Service {
     return masterVaultLink.match("[^/]+$")[0];
   }
 
+  parseHouses(houseList) {
+    // Old format, comma separated.
+    // New format, pipe separated no space.
+
+    // IE Polyfill in case
+    if (!String.prototype.includes) {
+      String.prototype.includes = function(search, start) {
+        'use strict';
+    
+        if (search instanceof RegExp) {
+          throw TypeError('first argument must not be a RegExp');
+        } 
+        if (start === undefined) { start = 0; }
+        return this.indexOf(search, start) !== -1;
+      };
+    }
+    if(houseList.includes("|")){
+      return houseList.split("|").map((h)=> h.trim());
+    } else if(houseList.includes(",")){
+      return houseList.split(",").map((h)=> h.trim())
+    } else {
+      console.error("Failed to parse houses",houseList);
+      return [];
+    }
+  }
+  
   saveOrUpdate(deck) {
 
     return this.store.findRecord('deck', deck.id).then((savedDeck) => {

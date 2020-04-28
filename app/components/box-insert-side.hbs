@@ -15,5 +15,9 @@
     {{#each @deck.houses as |house|}}
     <HouseIcon @houseName={{house}} @printOptions={{@printOptions}}/>
     {{/each}}
+    {{#if this.showHouseBar}}
+      {{!-- SAS Repartition--}}
+      <HouseRatioBar @data={{@housesRatioBarData}} @useColor={{this.houseBarUseColor}}/>
+    {{/if}}
   </div>
 </div>

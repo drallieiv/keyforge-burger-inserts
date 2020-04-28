@@ -21,7 +21,7 @@ export default class HouseIconComponent extends Component {
 
     let iconFilename = this['colorIcons'][houseName];
     if(iconFilename === undefined){
-      iconFilename = 'house_default.svg';
+      iconFilename = 'Default.svg';
     }
     let style = this.args.printOptions.get('houseIconsStyle') || 'full';
  

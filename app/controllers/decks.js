@@ -177,6 +177,20 @@ export default class DecksController extends Controller {
     }
   }
 
+  @action
+  allColor() {
+    this.set('useHouseIconFullColor', true);
+    this.set('frontHouseBarColor', true);
+    this.set('showSetColor', true);
+  }
+
+  @action
+  allBlackAndWhite() {
+    this.set('useHouseIconFullColor', false);
+    this.set('frontHouseBarColor', false);
+    this.set('showSetColor', false);
+  }
+
   csvToJs(csv, splitter = ',', eol = '\n') {
     // From https://greywyvern.com/?post=258
     String.prototype.splitCSV = function (sep) {

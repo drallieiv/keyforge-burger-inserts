@@ -54,13 +54,6 @@
         @checked={{this.printSheetBlockSpaced}}
       />
 
-      <PrintOptionToggle 
-        @label="Use color icons for houses" 
-        @id="option-print-housecolor" 
-        @name="useHouseIconFullColor"
-        @checked={{this.useHouseIconFullColor}}
-      />
-
       {{#if this.showSideOptions}}
       <PrintOptionToggle 
         @label="Show set on side" 
@@ -71,52 +64,71 @@
       {{/if}}
 
       {{#if this.showFrontOptions}}
+        <PrintOptionToggle 
+          @label="Show header on front" 
+          @id="option-header-showSet" 
+          @name="frontShowHeader"
+          @checked={{this.frontShowHeader}}
+        />
+        {{#if this.frontShowHeader}}
+        <PrintOptionToggle 
+          @label="Show set on front" 
+          @id="option-front-showSet" 
+          @name="frontShowSet"
+          @checked={{this.frontShowSet}}
+        />
+        {{/if}}
+        <PrintOptionToggle 
+          @label="Show footer on front" 
+          @id="option-footer-showSet" 
+          @name="frontShowFooter"
+          @checked={{this.frontShowFooter}}
+        />
+      {{/if}}
+
+      {{#if (or this.showSideOptions this.showTopOptions this.frontShowHeader)}}
       <PrintOptionToggle 
-        @label="Show header on front" 
-        @id="option-header-showSet" 
-        @name="frontShowHeader"
-        @checked={{this.frontShowHeader}}
-      />
-      {{#if this.frontShowHeader}}
-      <PrintOptionToggle 
-        @label="Show set on front" 
-        @id="option-front-showSet" 
-        @name="frontShowSet"
-        @checked={{this.frontShowSet}}
-      />
-     <PrintOptionToggle 
         @label="Show SAS house split bar" 
         @id="option-front-showHouseBar" 
         @name="frontShowHouseBar"
         @checked={{this.frontShowHouseBar}}
       />
-      {{#if this.frontShowHouseBar}}
+      {{/if}}
+
+     <p class="smallTitle">
+        Color Options
+      </p>
+      <div>
+        <a class="button option-preset" role="button" {{on "click" (fn this.allColor)}}>
+          All Color
+        </a>
+        <a class="button option-preset" role="button" {{on "click" (fn this.allBlackAndWhite)}}>
+          All Black &amp; White
+        </a>
+
+        <PrintOptionToggle 
+          @label="Use color icons for houses" 
+          @id="option-print-housecolor" 
+          @name="useHouseIconFullColor"
+          @checked={{this.useHouseIconFullColor}}
+        />
+        {{#if this.frontShowHouseBar}}
         <PrintOptionToggle 
           @label="Use color in house split bar" 
           @id="option-front-houseBarColor" 
           @name="frontHouseBarColor"
           @checked={{this.frontHouseBarColor}}
         />
-      {{/if}}
-      
-      {{/if}}
-      <PrintOptionToggle 
-        @label="Show footer on front" 
-        @id="option-footer-showSet" 
-        @name="frontShowFooter"
-        @checked={{this.frontShowFooter}}
-      />
-      {{/if}}
-
-      {{#if (or this.showSideOptions this.showTopOptions)}}
-      <PrintOptionToggle 
-        @label="Show color on set" 
-        @id="option-showSetColor" 
-        @name="showSetColor"
-        @checked={{this.showSetColor}}
-      />
-      {{/if}}
-      
+        {{/if}}
+        {{#if (or this.showSideOptions this.showTopOptions this.frontShowHeader)}}
+        <PrintOptionToggle 
+          @label="Add color on set background" 
+          @id="option-showSetColor" 
+          @name="showSetColor"
+          @checked={{this.showSetColor}}
+        />
+        {{/if}}
+      </div>
 
       <p class="smallTitle">
         Decks Folders

@@ -19,6 +19,10 @@
       <HouseIcon @houseName={{house}} @printOptions={{@printOptions}}/>
       {{/each}}
     </div>
+    {{#if this.showHouseBar}}
+      {{!-- SAS Repartition--}}
+      <HouseRatioBar @data={{@housesRatioBarData}} @useColor={{this.houseBarUseColor}}/>
+    {{/if}}
     {{! SAS Stats }}
     <div class="dok-zone-stat">
       {{@deck.sasRating}}

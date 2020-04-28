@@ -347,6 +347,10 @@ $main-padding: 0;
       height: $house;
       text-align: center;
     }
+    .house-ratio-bar {
+      margin-top: 0.3mm;
+      margin-bottom: -1.2mm;
+    }
   }
 }
 
@@ -377,6 +381,13 @@ $main-padding: 0;
     flex-grow: 1;
     flex-shrink: 1;
     font-size: 3.5mm;
+
+    line-height: 4.3mm;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
   }
 
   .dok-zone-stat {
