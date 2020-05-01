@@ -83,5 +83,53 @@
   </div>
   {{/if}}
 
+  {{#if (eq this.type "box_v")}}
+  <div class="layoutBoxV {{@deckboxFormat.boxClass}}">
+    <table>
+      <tbody>
+        <tr class="vd">
+          <td class="cd"></td><td class="cw">
+            <BoxInsertTop
+              @deck={{this.deck}}
+              @printOptions={{@printOptions}}
+              @deckboxFormat={{@deckboxFormat}}
+              @housesRatioBarData={{this.housesRatioBarData}}
+            />
+          </td><td class="cd"></td>
+        </tr>
+        <tr class="vhs">
+          <td class="cd">
+              <BoxInsertSide
+                @deck={{this.deck}}
+                @printOptions={{@printOptions}}
+                @deckboxFormat={{@deckboxFormat}}
+                @housesRatioBarData={{this.housesRatioBarData}}
+              />
+          </td><td rowspan="2">
+            <BoxInsertFront
+            @deck={{this.deck}}
+            @printOptions={{@printOptions}}
+            @deckboxFormat={{@deckboxFormat}}
+            @housesRatioBarData={{this.housesRatioBarData}}
+          />
+          </td><td></td>
+        </tr>
+        <tr class="vd">
+          <td></td><td></td>
+        </tr>
+        <tr class="vd">
+          <td></td><td></td><td></td>
+        </tr>
+        <tr class="vh">
+          <td></td><td></td><td></td>
+        </tr>
+        <tr class="vd">
+          <td></td><td></td><td></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  {{/if}}
+
 
 {{/if}}

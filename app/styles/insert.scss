@@ -584,3 +584,66 @@ $main-padding: 0;
     }
   }
 }
+
+// Deckboxes
+
+@mixin boxVTable($width, $height, $depth) {
+  width: $width + 2 * $depth;
+  height: 3 * $bt-thin-depth + 2 * $bt-thin-height;
+  $rotateMargin: -1.5mm;
+
+  td{ 
+    border: 1px solid black;
+    padding: 0;
+  }
+
+  tr.vd {
+    height: $depth;
+    max-height: $depth;
+  }
+  tr.vh {
+    height: $height;
+    max-height: $height;
+  }
+  tr.vhs {
+    height: $height - $depth;
+    max-height: $height - $depth;
+  }
+  td.cd {
+    width: $depth;
+    max-width: $depth;
+  }
+  td.cw {
+    width: $width;
+    max-width: $width;
+  }
+
+  .box-insert-side {
+    width: $height - $depth;
+    transform: rotate(-90deg) translate(0, (- $height/2 + $depth ) );
+    border: none;
+  }
+  .box-insert-top {
+    border: none;
+  }
+  .box-insert-front {
+    border: none;
+    margin: auto;
+    .dok-zone-front-main {
+      border: none;
+    }
+    .dok-zone-front-header{
+      border: none;
+      border-bottom: 1px solid black;
+    }
+  }
+}
+
+.layoutBoxV {
+  &.bt-slim {
+    @include boxVTable($bt-thin-width, $bt-thin-height, $bt-thin-depth)
+  }
+  .insertSideCell { 
+    background-color: yellowgreen;
+  }
+}
