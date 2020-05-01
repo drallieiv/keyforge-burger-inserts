@@ -589,7 +589,7 @@ $main-padding: 0;
 
 @mixin boxVTable($width, $height, $depth) {
   width: $width + 2 * $depth;
-  height: 3 * $bt-thin-depth + 2 * $bt-thin-height;
+  height: 3 * $depth + 2 * $height;
   $rotateMargin: -1.5mm;
 
   td{ 
@@ -642,6 +642,12 @@ $main-padding: 0;
 .layoutBoxV {
   &.bt-slim {
     @include boxVTable($bt-thin-width, $bt-thin-height, $bt-thin-depth)
+  }
+  &.bt-large {
+    @include boxVTable($bt-large-width, $bt-large-height, $bt-large-depth)
+  }
+  &.bt-xlarge {
+    @include boxVTable($bt-xlarge-width, $bt-xlarge-height, $bt-xlarge-depth)
   }
   .insertSideCell { 
     background-color: yellowgreen;
