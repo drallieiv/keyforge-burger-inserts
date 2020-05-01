@@ -298,7 +298,7 @@ $button-padding: 0.85em 1em;
 $button-margin: 0 0 $global-margin 0;
 $button-fill: solid;
 $button-background: $primary-color;
-$button-background-hover: scale-color($button-background, $lightness: -15%);
+$button-background-hover: scale-color($button-background, $lightness: +20%); // Drall Custom -15% default
 $button-color: $white;
 $button-color-alt: $black;
 $button-radius: $global-radius;
