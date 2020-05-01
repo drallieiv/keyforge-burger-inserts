@@ -11,6 +11,7 @@ const insertTypes = [
   { id: 'front_top', name: 'Front and Top'},
   { id: 'front_side', name: 'Front and Side'},
   { id: 'all', name: 'Front, Top and Side'},
+  { id: 'box_v', name: 'Deckbox'},
 ];
 
 const deckboxFormats = [
@@ -53,13 +54,13 @@ export default class DecksController extends Controller {
   /*  Print Options */
 
   get showSideOptions() {
-    return ['side', 'front_side', 'all'].includes(this.insertType.id);
+    return ['side', 'front_side', 'all', 'box_v'].includes(this.insertType.id);
   }
   get showTopOptions() {
-    return ['top', 'front_top', 'all'].includes(this.insertType.id);
+    return ['top', 'front_top', 'all', 'box_v'].includes(this.insertType.id);
   }
   get showFrontOptions() {
-    return ['front', 'front_top', 'front_side', 'all'].includes(this.insertType.id);
+    return ['front', 'front_top', 'front_side', 'all', 'box_v'].includes(this.insertType.id);
   }
   
   get sideShowSet() {
