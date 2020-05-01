@@ -32,15 +32,18 @@ module.exports = function(environment) {
     contentSecurityPolicy: {
       'font-src': "'self' fonts.gstatic.com",
       'style-src': "'self' fonts.googleapis.com"
-    }
+    },
+
+    kfapi: "https://keyforge-mastervault-proxy.herokuapp.com/https://www.keyforgegame.com/api/",
+    
+    dok: {
+      sharedApiKey: "57f0d4c3-8101-4f0a-a2cc-b2a39bec622b",
+      lastSasUpdate: 12
+    }      
   };
 
   if (environment === 'development') {
-    // ENV.APP.LOG_RESOLVER = true;
-    // ENV.APP.LOG_ACTIVE_GENERATION = true;
-    // ENV.APP.LOG_TRANSITIONS = true;
-    // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
-    // ENV.APP.LOG_VIEW_LOOKUPS = true;
+    ENV.kfapi = "/mv/api/"
   }
 
   if (environment === 'test') {

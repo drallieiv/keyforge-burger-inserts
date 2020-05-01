@@ -20,16 +20,19 @@
           <HouseRatioBar @data={{@housesRatioBarData}} @useColor={{this.houseBarUseColor}}/>
         {{/if}}
       </div>
+      {{#if this.deckHasSasData}}
       {{!-- SAS Stats --}}
       <div class="dok-zone-stat">
         {{@deck.sasRating}}
         <span class="dok-sas-label">SAS</span>
       </div>
+      {{/if}}
     </div>
   </div>
   {{/if}}
   <div class="dok-zone-front-main">
     <div class="dok-zone-front-colgroup2">
+      {{#if this.deckHasSasData}}
       <div class="dok-zone-front-colgroup2-top">
         {{!-- Left --}}
         <div class="dok-zone-front-col">
@@ -77,6 +80,7 @@
           </div>
         </div>
       </div>
+      {{/if}}
       <div class="dok-zone-front-colgroup2-bottom">
         <div class="notes-legend">
           Notes
@@ -86,6 +90,7 @@
         </div>
       </div>
     </div>
+    {{# if this.deckHasSasData}}
     {{!-- Right --}}
     <div class="dok-zone-front-col">
       <div class="dok-stats-group-wrapper board">
@@ -118,6 +123,7 @@
         </div>
       </div>
     </div>
+    {{/if}}
   </div>
   {{#if this.frontShowFooter}}
   <div class="dok-zone-front-footer">

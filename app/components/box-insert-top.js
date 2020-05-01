@@ -1,10 +1,5 @@
-import Component from '@glimmer/component';
+import BoxInsert from './box-insert-common';
 
-export default class BoxInsertComponent extends Component {
-  get houseBarUseColor() {
-    return this.args.printOptions.get('front_HouseBarUseColor');
-  }
-  get showHouseBar() {
-    return this.args.printOptions.get('front_ShowHouseBar');
-  }
+export default class BoxInsertTopComponent extends BoxInsert {
+
 }

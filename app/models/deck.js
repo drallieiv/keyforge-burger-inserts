@@ -38,5 +38,9 @@ export default class DeckModel extends Model {
   @attr('string') masterVaultLink;
   @attr('string') lastSasUpdate;
 
+  @attr('string') sasVersion;
+
+  @attr('date') creationDate;
+
   @hasMany('deck-folder', { async: true }) folders;
 }
