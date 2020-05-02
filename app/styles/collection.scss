@@ -1,0 +1,31 @@
+.main-body .collection{
+  width: 75%;
+
+  $pendingScanColor: hsl(212, 60%, 50%);
+  $validScanColor: hsl(120, 60%, 50%);
+  $invalidScanColor: hsl(0, 60%, 50%);
+
+  .collection-section {
+    border: 1px solid black;
+    padding: 10px;
+    margin: 20px 0;
+    .title {
+      font-weight: bold;
+    }
+  }
+
+  .webcam-preview {
+    width: 200px;
+    border: 3px solid $pendingScanColor;
+    padding: 2px;
+    &.valid {
+      border-color: $validScanColor;
+    }
+    &.invalid {
+      border-color: $invalidScanColor;
+    }
+    video {
+      display: block;
+    }
+  }
+}

@@ -1,7 +1,37 @@
-<div class="collection">
-  <p>Active Folder</p>
+<div class="center-column collection">
+  <div class="collection-section">
+    <div class="title">Folder Management</div>
+  </div>
 
-  <p>Import New Decks</p>
+  <div class="collection-section">
+    <div class="title">Import Decks</div>
+    <div class="flex-wrapper">
+      <div>
+        <div class="subtitle">
+          Scan QR Code
+        </div>
+        <div>
+          <a class="button tiny" role="button" {{on "click" (fn this.startWebcam)}}>
+            Start using webcam
+          </a>
+          {{#if this.webcamActive}}
+          <div class="webcam-preview {{if this.validCodeFound 'valid'}} {{if this.invalidCodeFound 'invalid'}}">
+            <Tools::LiveCodeScanner
+              @device={{this.camera}}
+              @onScanSuccess={{fn this.onScanSuccess}}
+              @onScanError={{fn this.onScanError}}
+              @onDevicesFound={{fn this.onCamerasFound}}
+              @onDevicesError={{fn this.onCamerasError}}
+            />
+          </div>
+          {{/if}}
 
-  <p>List of Decks</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="collection-section">
+    <div class="title">List of Decks</div>
+  </div>
 </div>
