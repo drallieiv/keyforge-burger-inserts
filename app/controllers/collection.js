@@ -2,30 +2,41 @@ import Controller from '@ember/controller';
 import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
 import { isNotFoundError } from 'ember-ajax/errors';
+import { later } from '@ember/runloop';
 
 export default class CollectionController extends Controller {
   @service ajax;
   
   webcamActive = false;
 
+  activeFolder = undefined;
+
+  get decksInFolder() {
+    return this.activeFolder.decks;
+  }
+
+  get folders() {
+    return this.model.folders;
+  }
+
   addToLog(text) {
     let log = document.getElementById("log-window");
     log.innerHTML = text + '<br>' + log.innerHTML;
   }
   @action
-  clearLog(text) {
+  clearLog() {
     document.getElementById("log-window").innerHTML = '';
   }
 
   flashColor(isValid) {
     if(isValid) {
       this.set('validCodeFound', true);
-      Ember.run.later(() => {
+      later(() => {
         this.set('validCodeFound', false);
       }, 2000);
     } else {
       this.set('invalidCodeFound', true);
-      Ember.run.later(() => {
+      later(() => {
         this.set('invalidCodeFound', false);
       }, 2000);
     }

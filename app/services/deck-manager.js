@@ -56,6 +56,7 @@ export default class DeckManagerService extends Service {
       dokLink: csvData['DoK Link'],
       masterVaultLink: csvData['Master Vault Link'],
       lastSasUpdate: csvData['Last SAS Update'],
+      creationDate: new Date()
     };
 
     return deckData;

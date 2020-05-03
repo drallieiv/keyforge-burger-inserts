@@ -5,9 +5,10 @@ export default class SetComponent extends Component {
   baseIconPath = 'assets/icons/';
 
   setNames = {
-    'CALL_OF_THE_ARCHONS': {short: 'CotA', class:'set-cota'},
-    'AGE_OF_ASCENSION': {short: 'AoA', class:'set-aoa'},
-    'WORLDS_COLLIDE': {short: 'WC', class:'set-wc'},
+    'CALL_OF_THE_ARCHONS': {short: 'CotA', full: 'Call of the Archons', class:'set-cota'},
+    'AGE_OF_ASCENSION': {short: 'AoA', full: 'Age of Ascenscion' ,class:'set-aoa'},
+    'WORLDS_COLLIDE': {short: 'WC', full: 'Worlds Collide', class:'set-wc'},
+    'MASS_MUTATION': {short: 'MM', full: 'Mass Mutation', class:'set-mm'},
   };
 
   get short() {

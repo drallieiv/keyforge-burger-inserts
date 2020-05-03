@@ -97,6 +97,26 @@
   </div>
   
   <div class="collection-section">
-    <div class="title">List of Decks</div>
+    <div class="title">List of Decks in "{{this.activeFolder.name}}"</div>
+    <table>
+      <thead>
+        <tr>
+          <th></th><th>Deck Name</th><th>Set</th><th>Houses</th><th>Master Vault</th><th>Import Date</th><th>DoK SAS stats</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each this.decksInFolder as |deck|}}
+        <tr>
+          <td>[ ]</td>
+          <td>{{deck.name}}</td>
+          <td>{{deck.expansion}}</td>
+          <td>houses</td>
+          <td>mastervault</td>
+          <td>{{#if deck.creationDate}}{{moment-format deck.creationDate "YYYY-MM-DD"}}{{/if}}</td>
+          <td>{{deck.lastSasUpdate}}</td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
   </div>
 </div>
