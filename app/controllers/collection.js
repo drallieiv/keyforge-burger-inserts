@@ -1,11 +1,21 @@
 import Controller from '@ember/controller';
 import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
+import { isNotFoundError } from 'ember-ajax/errors';
 
 export default class CollectionController extends Controller {
   @service ajax;
   
   webcamActive = false;
+
+  addToLog(text) {
+    let log = document.getElementById("log-window");
+    log.innerHTML = text + '<br>' + log.innerHTML;
+  }
+  @action
+  clearLog(text) {
+    document.getElementById("log-window").innerHTML = '';
+  }
 
   flashColor(isValid) {
     if(isValid) {
@@ -26,15 +36,62 @@ export default class CollectionController extends Controller {
    * @param {string} deckId 
    */
   checkDeckOnVault(deckId) {
-    let url = 'https://www.keyforgegame.com/api/decks/codes/'+deckId+'/';
+    let url = '/mv/api/decks/codes/'+deckId+'/';
     this.get('ajax').request(url).then((response) => {
-      console.log(response);
+      let deckName = response.name;
+      this.addDeckByName(deckName);
+      this.flashColor(true);
+    }).catch((error) => {
+      if (isNotFoundError(error)) {
+        console.log('Deck not registered on vault yet');
+      } else {
+        console.error('Unexpected error with vault', error);
+      }
+      this.flashColor(false);
     });
+  }
+
+  getMasterVaultDeckDetails(name) {
+    let url = '/mv/api/decks/?page=1&page_size=10&ordering=-date&search=' + name;
+    return this.get('ajax').request(url);
+  }
+
+  @action
+  addDeckByName(name) {
+    if(name && name.trim().length > 0) {
+      this.getMasterVaultDeckDetails(name).then( vault => {
+        console.debug('Vault Data', vault);
+        this.set('nbDeckFound', vault.count);
+        this.set('decksFound', vault.data);
+        if(vault.count == 1) {
+          this.addDeck(vault.data[0]);
+        }
+      });
+    }    
+  }
+
+  @action
+  selectFoundDeck(deck) {
+    this.set('decksFoundSelected', deck);
+  }
+
+  @action
+  deckNameChanged() {
+    this.set('nbDeckFound', undefined);
+  }
+
+  @action
+  addDeck(deckData) {
+    this.addToLog('WIP: Added deck '+deckData.name);
   }
 
   @action
   startWebcam() {
     this.set('webcamActive',true);
+  }
+  @action
+  stopWebcam() {
+    this.set('webcamActive',false);
   }
   
   @action
@@ -45,7 +102,7 @@ export default class CollectionController extends Controller {
       let deckPrivId = match[1];
       console.log('Valid deck scanned : '+deckPrivId);
       this.checkDeckOnVault(deckPrivId);
-      this.flashColor(true);
+      
     } else {
       this.flashColor(false);
     }
@@ -57,8 +114,14 @@ export default class CollectionController extends Controller {
 
   }
   @action
-  onCamerasFound()  {
-
+  onCamerasFound(cameras)  {
+    console.log(cameras.length + " cameras found", cameras);
+    this.set('cameras', cameras);
+  }
+  @action
+  switchCamera(camera) {
+    this.set('camera', camera);
+    this.set('cameraId', camera.deviceId);
   }
   @action
   onCamerasError()  {

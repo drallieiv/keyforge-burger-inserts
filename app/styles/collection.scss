@@ -5,6 +5,25 @@
   $validScanColor: hsl(120, 60%, 50%);
   $invalidScanColor: hsl(0, 60%, 50%);
 
+  $body-spacing: 5px;
+
+  .flex-wrapper {
+    display: flex;
+    justify-content: space-around;
+    .flex-webcam {
+      flex-basis: 210px;
+    }
+    .flex-search {
+      flex-basis: 360px;
+    }
+    .flex-log {
+      flex-basis: 360px;
+    }
+    .flex-select {
+      flex-grow: 1;
+    }
+  }
+
   .collection-section {
     border: 1px solid black;
     padding: 10px;
@@ -12,10 +31,17 @@
     .title {
       font-weight: bold;
     }
+    .body {
+      margin: $body-spacing;
+    }
+    .log-window {
+      margin-bottom: $body-spacing;
+    }
   }
 
   .webcam-preview {
     width: 200px;
+    height: 153px;
     border: 3px solid $pendingScanColor;
     padding: 2px;
     &.valid {
@@ -27,5 +53,23 @@
     video {
       display: block;
     }
+  }
+
+  .log-window {
+    border: $default-border;
+    width: 350px;
+    height: 120px;
+    font-size: .6em;
+    overflow-y: scroll;
+  }
+
+  input.tiny{
+    height: 1.7rem;
+  }
+
+  // BugFix
+  #decksFound-list>div, .flex-select>div{
+    margin-left: 0;
+    font-size: 0.8em;
   }
 }

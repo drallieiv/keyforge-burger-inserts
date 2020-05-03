@@ -1,5 +1,4 @@
 import CodeScanner from 'ember-scanner/code-scanner/component';
-import { observes } from '@ember-decorators/object';
 
 export default class LiveCodeScanner extends CodeScanner {
 
