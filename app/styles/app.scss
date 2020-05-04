@@ -1,6 +1,7 @@
 @import "settings";
 @import "foundation-sites/foundation";
 @include foundation-everything(true);
+@import "icons";
 @import "decks";
 @import "insert";
 
@@ -40,6 +41,18 @@ $default-border: 1px solid black;
     border: 1px solid black;
     filter: drop-shadow(3px 3px 1px black);
     margin-bottom: 1rem;
+  }
+}
+
+$extLinkBaseColor: $primary-color;
+$extLinkHoverColor: scale-color($primary-color, $lightness: +20%); // -15% on buttons
+
+.extLink {
+  .icon {
+    color: $extLinkBaseColor;
+    &:hover {
+      color: $extLinkHoverColor;
+    }
   }
 }
 

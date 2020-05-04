@@ -1,0 +1,18 @@
+<tr>
+  {{!-- 
+    <td><Input class="checkLine" name="batchDeckCheck" @type="checkbox" @checked={{this.checked}} /></td>
+  --}}
+  <td>{{@deck.name}}</td>
+  <td>{{card-set @deck.expansion 'full'}}</td>
+  <td>{{#each @deck.houses as |house i|}}{{#if (gt i 0)}}, {{/if}}{{house-name house}}{{/each}}</td>
+  <td class="MVIcon">
+    {{#if this.isMvRegistered}}<a class="extLink" href="{{@deck.masterVaultLink}}" target="_blank" rel="noopener noreferrer" >
+      <svg class="icon">
+        <title>Link to Keyforge MasterVault</title>
+        <use xlink:href="assets/icons/ui/symbol-defs.svg#icon-cloud-check"></use>
+      </svg>
+    </a>{{/if}}
+  </td>
+  <td class="nowrap">{{#if @deck.creationDate}}{{moment-format @deck.creationDate "YYYY-MM-DD"}}{{/if}}</td>
+  <td class="nowrap">{{@deck.lastSasUpdate}}</td>
+</tr>

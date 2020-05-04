@@ -168,6 +168,9 @@ $main-padding: 0;
       display: flex;
       flex-direction: column;
       border-right: 1px solid black;
+      &:last-child {
+        border: none;
+      }
       .dok-zone-front-colgroup2-top{
         display: flex;
         border-bottom: 1px solid black;

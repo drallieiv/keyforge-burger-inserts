@@ -26,8 +26,10 @@
 
   .collection-section {
     border: 1px solid black;
-    padding: 10px;
     margin: 20px 0;
+    > * {
+      padding: 10px;
+    }
     .title {
       font-weight: bold;
     }
@@ -36,6 +38,13 @@
     }
     .log-window {
       margin-bottom: $body-spacing;
+    }
+
+    .table-title {
+      display: flex;
+      > * {
+        margin-right: 20px;
+      }
     }
   }
 
@@ -63,11 +72,29 @@
     overflow-y: scroll;
   }
 
-  input.tiny{
+  input.tiny {
     height: 1.7rem;
   }
 
-  // BugFix
+  .deckTable {
+    font-size: 0.7rem;
+    .nowrap {
+      white-space: nowrap;
+    }
+    .MVIcon {
+      text-align: center;
+    }
+    .icon {
+      font-size: 2em;
+    }
+    input.checkLine {
+      margin: 0;
+      display: inline;
+      vertical-align: middle;
+    }
+  }
+
+  // Smaller text for select
   #decksFound-list>div, .flex-select>div{
     margin-left: 0;
     font-size: 0.8em;

@@ -1,122 +1,117 @@
 <div class="center-column collection">
   <div class="collection-section">
-    <div class="title">Folder Management</div>
-  </div>
-
-  <div class="collection-section">
-    <div class="title">Import Decks</div>
-    <div class="flex-wrapper">
-      <div class="flex-webcam">
-        <div class="subtitle">
-          Scan QR Code
-        </div>
-        <div class="body">
-          {{#if this.webcamActive}}
-          <a class="button tiny" role="button" {{on "click" (fn this.stopWebcam)}}>
-            Stop using webcam
-          </a>
-          <div class="webcam-preview {{if this.validCodeFound 'valid'}} {{if this.invalidCodeFound 'invalid'}}">
-            <Tools::LiveCodeScanner
-              @device={{this.cameraId}}
-              @onScanSuccess={{fn this.onScanSuccess}}
-              @onScanError={{fn this.onScanError}}
-              @onDevicesFound={{fn this.onCamerasFound}}
-              @onDevicesError={{fn this.onCamerasError}}
-            />
-          </div>
-          {{#if (gt this.cameras.length 1)}}
-          <div>Change source</div>
-          <PowerSelect 
-            @options={{this.cameras}} 
-            @selected={{this.camera}}
-            @onChange={{fn this.switchCamera}} as |camera|>
-            {{camera.label}}
-          </PowerSelect>
-          {{/if}}
-          {{else}}
-          <a class="button tiny" role="button" {{on "click" (fn this.startWebcam)}}>
-            Start using webcam
-          </a>
-          {{/if}}
-        </div>
-      </div>
-      <div class="flex-search">
-        <div class="subtitle">
-          Add deck by name
-        </div>
-        <div class="body flex-wrapper">
-          <Input class="tiny" name="deckName" @type="text" 
-            @value={{this.deckNameSearch}}
-            @key-down={{fn this.deckNameChanged}}
-          />
-          <a class="button tiny" role="button" {{on "click" (fn this.addDeckByName this.deckNameSearch)}}>
-            Search
-          </a>
-        </div>
-        <div class="body">
-          {{#if (eq this.nbDeckFound 0)}}
-          No deck found
-          {{/if}}
-          {{#if (eq this.nbDeckFound 1)}}
-          Unique deck found
-          {{/if}}
-          {{#if (gt this.nbDeckFound 1)}}
-          {{this.nbDeckFound}} decks found
-          <p>Here are the first 10 results</p>
-          <div class="flex-wrapper">
-            <div class="flex-select">
-              <PowerSelect 
-                @options={{this.decksFound}} 
-                @selected={{this.decksFoundSelected}}
-                @destination="decksFound-list"
-                @onChange={{fn this.selectFoundDeck}} as |deck|>
-                {{deck.name}}
-              </PowerSelect>
-              <div id="decksFound-list"></div>
+    <div>
+      <div class="title">Import Decks</div>
+      <div class="flex-wrapper">
+        <div class="flex-webcam">
+          <div class="subtitle">Scan QR Code</div>
+          <div class="body">
+            {{#if this.webcamActive}}
+            <a class="button tiny" role="button" {{on "click" (fn this.stopWebcam)}}>
+              Stop using webcam
+            </a>
+            <div class="webcam-preview {{if this.validCodeFound 'valid'}} {{if this.invalidCodeFound 'invalid'}}">
+              <Tools::LiveCodeScanner
+                @device={{this.cameraId}}
+                @onScanSuccess={{fn this.onScanSuccess}}
+                @onScanError={{fn this.onScanError}}
+                @onDevicesFound={{fn this.onCamerasFound}}
+                @onDevicesError={{fn this.onCamerasError}}
+              />
             </div>
-            <a class="button tiny" role="button" {{on "click" (fn this.addDeck this.decksFoundSelected)}}>
-              Add
+            {{#if (gt this.cameras.length 1)}}
+            <div>Change source</div>
+            <PowerSelect 
+              @options={{this.cameras}} 
+              @selected={{this.camera}}
+              @onChange={{fn this.switchCamera}} as |camera|>
+              {{camera.label}}
+            </PowerSelect>
+            {{/if}}
+            {{else}}
+            <a class="button tiny" role="button" {{on "click" (fn this.startWebcam)}}>
+              Start using webcam
+            </a>
+            {{/if}}
+          </div>
+        </div>
+        <div class="flex-search">
+          <div class="subtitle">
+            Add deck by name
+          </div>
+          <div class="body flex-wrapper">
+            <Input class="tiny" name="deckName" @type="text" 
+              @value={{this.deckNameSearch}}
+              @key-down={{fn this.deckNameChanged}}
+            />
+            <a class="button tiny" role="button" {{on "click" (fn this.addDeckByName this.deckNameSearch)}}>
+              Search
             </a>
           </div>
-          {{/if}}
-        </div>
-      </div>
-      <div class="flex-log">
-        <div class="subtitle">
-          Import Log
-        </div>
-        <div class="body">
-          <div id="log-window" class="log-window">
+          <div class="body">
+            {{#if (eq this.nbDeckFound 0)}}
+            No deck found
+            {{/if}}
+            {{#if (eq this.nbDeckFound 1)}}
+            Unique deck found
+            {{/if}}
+            {{#if (gt this.nbDeckFound 1)}}
+            {{this.nbDeckFound}} decks found
+            <p>Here are the first 10 results</p>
+            <div class="flex-wrapper">
+              <div class="flex-select">
+                <PowerSelect 
+                  @options={{this.decksFound}} 
+                  @selected={{this.decksFoundSelected}}
+                  @destination="decksFound-list"
+                  @onChange={{fn this.selectFoundDeck}} as |deck|>
+                  {{deck.name}}
+                </PowerSelect>
+                <div id="decksFound-list"></div>
+              </div>
+              <a class="button tiny" role="button" {{on "click" (fn this.addDeck this.decksFoundSelected)}}>
+                Add
+              </a>
+            </div>
+            {{/if}}
           </div>
-          <a class="button tiny" role="button" {{on "click" (fn this.clearLog)}}>
-            Clear Log
-          </a>
+        </div>
+        <div class="flex-log">
+          <div class="subtitle">
+            Import Log
+          </div>
+          <div class="body">
+            <div id="log-window" class="log-window">
+            </div>
+            <a class="button tiny" role="button" {{on "click" (fn this.clearLog)}}>
+              Clear Log
+            </a>
+          </div>
         </div>
       </div>
     </div>
   </div>
   
   <div class="collection-section">
-    <div class="title">List of Decks in "{{this.activeFolder.name}}"</div>
-    <table>
-      <thead>
-        <tr>
-          <th></th><th>Deck Name</th><th>Set</th><th>Houses</th><th>Master Vault</th><th>Import Date</th><th>DoK SAS stats</th>
-        </tr>
-      </thead>
-      <tbody>
-        {{#each this.decksInFolder as |deck|}}
-        <tr>
-          <td>[ ]</td>
-          <td>{{deck.name}}</td>
-          <td>{{deck.expansion}}</td>
-          <td>houses</td>
-          <td>mastervault</td>
-          <td>{{#if deck.creationDate}}{{moment-format deck.creationDate "YYYY-MM-DD"}}{{/if}}</td>
-          <td>{{deck.lastSasUpdate}}</td>
-        </tr>
-        {{/each}}
-      </tbody>
-    </table>
+    <div>
+      <div class="title">Current Folder</div>
+      <div class="currentFolder">{{this.activeFolder.name}}</div>
+    </div>
+    {{#if this.activeFolder }}
+    <div>
+      <div class="table-title">
+        <div class="title">List of {{this.activeFolderDecks.length}} Decks in "{{this.activeFolder.name}}"</div>
+        <div><a class="button tiny" role="button" {{on "click" (fn this.clearDecks)}}>
+          Remove all decks
+        </a></div>
+        <div><FileUpload @name="dokCsvUpload" @accept="text/csv" @onfileadd={{fn this.uploadDokCsv}}>
+          <a class="button tiny" role="button" tabindex="0">
+            Load DoK csv file
+          </a>
+        </FileUpload></div>
+      </div>
+      <Collection::DeckTable @decks={{this.activeFolderDecks}}/>
+    </div>
+    {{/if}}
   </div>
 </div>

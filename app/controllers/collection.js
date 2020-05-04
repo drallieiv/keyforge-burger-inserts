@@ -4,14 +4,18 @@ import { inject as service } from '@ember/service';
 import { isNotFoundError } from 'ember-ajax/errors';
 import { later } from '@ember/runloop';
 
+
 export default class CollectionController extends Controller {
   @service ajax;
+  @service deckManager;
   
   webcamActive = false;
 
+  newDecks = [];
+
   activeFolder = undefined;
 
-  get decksInFolder() {
+  get activeFolderDecks() {
     return this.activeFolder.decks;
   }
 
@@ -54,7 +58,8 @@ export default class CollectionController extends Controller {
       this.flashColor(true);
     }).catch((error) => {
       if (isNotFoundError(error)) {
-        console.log('Deck not registered on vault yet');
+        this.addToLog('New undiscovered deck found : ' + deckId);
+        this.newDecks.pushObject({code: deckId});
       } else {
         console.error('Unexpected error with vault', error);
       }
@@ -93,7 +98,17 @@ export default class CollectionController extends Controller {
 
   @action
   addDeck(deckData) {
-    this.addToLog('WIP: Added deck '+deckData.name);
+    let targetFolder = this.activeFolder;
+    let importedDeck = this.deckManager.getDeckFromVault(deckData);
+
+    this.deckManager.saveOrUpdate(importedDeck).then((deck) => {
+      if (targetFolder.decks.find((d) => d.id === deck.id) === undefined) {
+        targetFolder.decks.pushObject(deck);
+        targetFolder.save();
+      }
+    });   
+
+    this.addToLog('Added deck '+deckData.name);
   }
 
   @action
@@ -111,7 +126,7 @@ export default class CollectionController extends Controller {
     let match = found.text.match(exp);
     if(match){
       let deckPrivId = match[1];
-      console.log('Valid deck scanned : '+deckPrivId);
+      console.debug('Valid deck scanned : '+deckPrivId);
       this.checkDeckOnVault(deckPrivId);
       
     } else {
@@ -119,6 +134,8 @@ export default class CollectionController extends Controller {
     }
     this.set('continueScanning', true);
   }
+
+  // Scan and camera related stuff 
 
   @action
   onScanError()  {
@@ -137,5 +154,20 @@ export default class CollectionController extends Controller {
   @action
   onCamerasError()  {
 
+  }
+
+  // Collection related stuff
+
+  @action
+  clearDecks() {
+    this.deckManager.removeAllDecks();
+  }
+  
+  @action
+  uploadDokCsv(file) {
+    // For now send all to default folder
+    if (file.name.endsWith('.csv')) {
+      this.deckManager.loadFromCsv(file, this.activeFolder);
+    }
   }
 }

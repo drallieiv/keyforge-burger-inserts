@@ -5,11 +5,13 @@
   <div class="dok-zone-name">
     {{@deck.name}}
   </div>
+  {{#if this.deckHasSasData}}
   {{! SAS Stats }}
   <div class="dok-zone-stat">
     {{@deck.sasRating}}
     <span class="dok-sas-label">SAS</span>
   </div>
+  {{/if}}
   {{! HOUSES }}
   <div class="dok-zone-houses">
     {{#each @deck.houses as |house|}}
