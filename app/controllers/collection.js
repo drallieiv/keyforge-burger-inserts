@@ -7,8 +7,8 @@ import { debounce } from '@ember/runloop';
 
 
 export default class CollectionController extends Controller {
-  @service ajax;
   @service deckManager;
+  @service mastervault;
   
   webcamActive = false;
 
@@ -58,8 +58,7 @@ export default class CollectionController extends Controller {
    * @param {string} deckId 
    */
   checkDeckOnVault(deckId) {
-    let url = '/mv/api/decks/codes/'+deckId+'/';
-    this.get('ajax').request(url).then((response) => {
+    return this.get('mastervault').checkDeckCode(deckId).then((response) => {
       let deckName = response.name;
       this.addDeckByName(deckName);
       this.flashColor(true);
@@ -76,8 +75,7 @@ export default class CollectionController extends Controller {
 
   getMasterVaultDeckDetails(name) {
     this.addToLog('Searching deck by name in MasterVault. Please wait.');
-    let url = '/mv/api/decks/?page=1&page_size=10&ordering=-date&search=' + name;
-    return this.get('ajax').request(url);
+    return this.get('mastervault').searchDeckByName(name);
   }
 
   @action
