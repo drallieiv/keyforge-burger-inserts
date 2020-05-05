@@ -1,0 +1,9 @@
+<PowerSelect
+  @options={{this.expList}}
+  @selected={{this.selection}}
+  @placeholder="Select the expansion"
+  @onChange={{fn this.setExp}} 
+  @destination="exp-list" as |exp|>
+  {{exp.full}}
+</PowerSelect>
+<div id="exp-list"></div>

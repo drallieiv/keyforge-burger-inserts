@@ -72,6 +72,38 @@
     overflow-y: scroll;
   }
 
+  .manual-deck-wrapper {
+    display: flex;
+    > * {
+      padding: 5px;
+      &.button-align {
+        padding-top: 30px;
+      }
+    }
+    .name {
+      flex-basis: 400px;
+    }
+    .formpowerselect {
+      flex-basis: 300px;
+      .ember-basic-dropdown-trigger {
+        border-radius: 0;
+        height: 40px;
+        padding: 6px 0;
+        &:focus {
+          outline: none;
+          border: 1px solid #8a8a8a;
+          background-color: #fefefe;
+          box-shadow: 0 0 5px #cacaca;
+          transition: box-shadow 0.5s, border-color 0.25s ease-in-out;
+        }
+      }
+      .ember-power-select-placeholder {
+        font-size: 0.9rem;
+        color: -internal-light-dark-color(black, white);
+      }
+    }
+  }
+
   input.tiny {
     height: 1.7rem;
   }

@@ -1,0 +1,9 @@
+<PowerSelectMultiple
+  @options={{this.houseList}}
+  @selected={{this.selection}}
+  @placeholder="Select 3 houses"
+  @onChange={{fn this.setHouses}} 
+  @destination="house-list" as |house|>
+  {{house.name}}
+</PowerSelectMultiple>
+<div id="house-list"></div>

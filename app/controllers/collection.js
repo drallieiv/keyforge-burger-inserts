@@ -3,6 +3,7 @@ import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
 import { isNotFoundError } from 'ember-ajax/errors';
 import { later } from '@ember/runloop';
+import { debounce } from '@ember/runloop';
 
 
 export default class CollectionController extends Controller {
@@ -14,6 +15,12 @@ export default class CollectionController extends Controller {
   newDecks = [];
 
   activeFolder = undefined;
+
+  customDeck = {
+    name: undefined,
+    exp: undefined,
+    houses: [],
+  }
 
   get activeFolderDecks() {
     return this.activeFolder.decks;
@@ -68,6 +75,7 @@ export default class CollectionController extends Controller {
   }
 
   getMasterVaultDeckDetails(name) {
+    this.addToLog('Searching deck by name in MasterVault. Please wait.');
     let url = '/mv/api/decks/?page=1&page_size=10&ordering=-date&search=' + name;
     return this.get('ajax').request(url);
   }
@@ -75,15 +83,21 @@ export default class CollectionController extends Controller {
   @action
   addDeckByName(name) {
     if(name && name.trim().length > 0) {
-      this.getMasterVaultDeckDetails(name).then( vault => {
-        console.debug('Vault Data', vault);
-        this.set('nbDeckFound', vault.count);
-        this.set('decksFound', vault.data);
-        if(vault.count == 1) {
-          this.addDeck(vault.data[0]);
-        }
-      });
+      debounce(this, this._addDeckByName, name, 500);
     }    
+  }
+
+  _addDeckByName(name) {
+    this.getMasterVaultDeckDetails(name).then( vault => {
+      console.debug('Vault Data', vault);
+      this.set('nbDeckFound', vault.count);
+      this.set('decksFound', vault.data);
+      if(vault.count == 1) {
+        this.addDeck(vault.data[0]);
+      } else {
+        this.addToLog('Multiple decks found, please choose the right one');
+      }
+    });
   }
 
   @action
@@ -96,8 +110,38 @@ export default class CollectionController extends Controller {
     this.set('nbDeckFound', undefined);
   }
 
+  // Custom Deck
+  @action
+  setCustomDeckExp(exp) {
+    this.set('customDeck.exp', exp);
+  }
+
+  @action
+  setCustomDeckHouses(houses) {
+    this.set('customDeck.houses', houses);
+  }
+
+  @action
+  addCustomDeck() {
+    let targetFolder = this.activeFolder;
+    let newCustomDeck = this.deckManager.getCustomDeck(this.customDeck);
+    
+    this.deckManager.saveNew(newCustomDeck).then((deck) => {
+      if (targetFolder.decks.find((d) => d.id === deck.id) === undefined) {
+        targetFolder.decks.pushObject(deck);
+        targetFolder.save();
+      }
+    });   
+
+    this.addToLog('Added custom deck '+newCustomDeck.name);
+  }
+
   @action
   addDeck(deckData) {
+    debounce(this, this._addDeck, deckData, 1000);
+  }
+
+  _addDeck(deckData) {
     let targetFolder = this.activeFolder;
     let importedDeck = this.deckManager.getDeckFromVault(deckData);
 
@@ -126,7 +170,8 @@ export default class CollectionController extends Controller {
     let match = found.text.match(exp);
     if(match){
       let deckPrivId = match[1];
-      console.debug('Valid deck scanned : '+deckPrivId);
+      this.addToLog('Scanned a deck with QR code '+deckPrivId);
+      this.addToLog('Searching in MasterVault. Please wait.');
       this.checkDeckOnVault(deckPrivId);
       
     } else {
@@ -170,4 +215,6 @@ export default class CollectionController extends Controller {
       this.deckManager.loadFromCsv(file, this.activeFolder);
     }
   }
+
+
 }

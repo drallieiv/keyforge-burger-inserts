@@ -11,7 +11,7 @@ module.exports = function(app) {
     console.error(err, req.url);
   });
 
-  app.use(proxyPath, function(req, res, next){
+  app.use(proxyPath, function(req, res){
     proxy.web(req, res, {changeOrigin: true, target: 'http://www.keyforgegame.com' });
   });
 };

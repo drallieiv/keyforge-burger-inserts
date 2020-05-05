@@ -90,6 +90,23 @@
         </div>
       </div>
     </div>
+    <div>
+      <div class="title">Manual Deck Entry</div>
+      <div class="manual-deck-wrapper">
+        <label class="name">Deck Name
+          <Input name="customDeckName" @type="text" @value={{this.customDeck.name}} />
+        </label>
+        <label class="formpowerselect">Expansion
+          <Expansion::ExpPicker @onChange={{fn this.setCustomDeckExp}} />
+        </label>
+        <label class="formpowerselect">Houses
+          <House::HousePicker  @onChange={{fn this.setCustomDeckHouses}}/>
+        </label>
+        <div class="button-align"><a class="button" role="button" {{on "click" (fn this.addCustomDeck)}}>
+          Add custom deck
+        </a></div>
+      </div>
+    </div>
   </div>
   
   <div class="collection-section">

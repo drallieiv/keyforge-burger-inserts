@@ -2,7 +2,6 @@ import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
-import { all } from 'rsvp';
 
 const insertTypes = [
   { id: 'side', name: 'Side Only'},

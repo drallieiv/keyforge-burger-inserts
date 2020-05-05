@@ -63,6 +63,14 @@ export default class DeckManagerService extends Service {
     return deckData;
   }
 
+  getCustomDeck(customDeckData) {
+    return {
+      name: customDeckData.name,
+      houses: customDeckData.houses.map((h) => h.name.replace(/ /g,'')),
+      expansion: customDeckData.exp.csv,
+      creationDate: new Date()
+    };
+  }
 
   getDeckFromVault(vaultData) {
     let deckData = {
@@ -141,6 +149,11 @@ export default class DeckManagerService extends Service {
       let newDeck = this.store.createRecord('deck', deck);
       return newDeck.save();
     });
+  }
+
+  saveNew(deck) {
+    let newDeck = this.store.createRecord('deck', deck);
+    return newDeck.save();
   }
 
   getDecksFolders() {
