@@ -7,15 +7,15 @@
       <th>Deck Name</th>
       <th>Expansion</th>
       <th>Houses</th>
-      <th class="MVIcon">Master Vault</th>
-      <th>Import Date</th>
-      <th>DoK SAS stats</th>
+      <th class="center">Master Vault</th>
+      <th class="center">Import Date</th>
+      <th class="center">DoK SAS stats</th>
     </tr>
   </thead>
   <tbody>
 
     {{#each this.sortedDecks as |deck|}}
-    <Collection::DeckTableLine @deck={{deck}}/>
+    <Collection::DeckTableLine @deck={{deck}} @updateSas={{@updateSas}}/>
     {{/each}}
   </tbody>
 </table>

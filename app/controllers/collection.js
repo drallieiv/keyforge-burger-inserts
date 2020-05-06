@@ -214,5 +214,16 @@ export default class CollectionController extends Controller {
     }
   }
 
+  // get SAS Data for decks
+  @action
+  updateDeckSas(deck, doneCallback) {
+    console.log('Get SAS data for deck', deck);
+    this.deckManager.updateDeckSAS(deck).then(() => {
+      doneCallback({
+        'dokCallSuccess': true,
+        'deckUpdateSuccess': true
+      });
+    });
+  }
 
 }

@@ -5,6 +5,7 @@ import { CardSets, SearchExpansion } from 'burger-inserts/data/keyforge-data';
 
 export default class DeckManagerService extends Service {
   @service store;
+  @service decksofkeyforge;
 
   initDefaultFolders() {
     return this.store.findAll('deckFolder').then((folders) => {
@@ -125,25 +126,7 @@ export default class DeckManagerService extends Service {
   
   saveOrUpdate(deck) {
     return this.store.findRecord('deck', deck.id).then((savedDeck) => {
-      savedDeck.sasRating = deck.sasRating;
-      savedDeck.synergyRating = deck.synergyRating;
-      savedDeck.antisynergyRating = deck.antisynergyRating;
-      savedDeck.sasPercentile = deck.sasPercentile;
-      savedDeck.rawAercScore = deck.rawAercScore;
-      savedDeck.amberControl = deck.amberControl;
-      savedDeck.expectedAember = deck.expectedAember;
-      savedDeck.aemberProtection = deck.aemberProtection;
-      savedDeck.artifactControl = deck.artifactControl;
-      savedDeck.creatureControl = deck.creatureControl;
-      savedDeck.effectivePower = deck.effectivePower;
-      savedDeck.efficiency = deck.efficiency;
-      savedDeck.disruption = deck.disruption;
-      savedDeck.houseCheating = deck.houseCheating;
-      savedDeck.other = deck.other;
-      savedDeck.house1SAS = deck.house1SAS;
-      savedDeck.house2SAS = deck.house2SAS;
-      savedDeck.house3SAS = deck.house3SAS;
-      savedDeck.lastSasUpdate = deck.lastSasUpdate;
+      this._mapDokData(savedDeck, deck);
       return savedDeck.save();
     }).catch(() => {
       let newDeck = this.store.createRecord('deck', deck);
@@ -235,5 +218,52 @@ export default class DeckManagerService extends Service {
       result.push(obj);
     }
     return result;
+  }
+
+  updateDeckSAS(deck) {
+    let deckId = this.extractDeckId(deck.masterVaultLink);
+    return this.get('decksofkeyforge').getDeckStats(deckId).then((dokData) => {
+      let dokDeckData = dokData.deck;
+      deck.sasVersion = dokData.sasVersion;
+
+      this._mapDokData(deck, dokDeckData);
+
+      return this.saveOrUpdate(deck);
+    })
+  }
+
+  // Sync all parameters shared between the 2 objects
+  _mapDokData(destDeck, srcDeck){
+    // static data
+    destDeck.creatureCount = srcDeck.creatureCount;
+    destDeck.actionCount = srcDeck.actionCount;
+    destDeck.artifactCount = srcDeck.artifactCount;
+    destDeck.upgradeCount = srcDeck.upgradeCount;
+    destDeck.rawAmber = srcDeck.rawAmber;
+    destDeck.keyCheatCount =  srcDeck.keyCheatCount;
+    destDeck.cardArchiveCount =  srcDeck.cardArchiveCount;
+    
+    // Computed data
+    destDeck.sasRating = srcDeck.sasRating;
+    destDeck.synergyRating = srcDeck.synergyRating;
+    destDeck.antisynergyRating = srcDeck.antisynergyRating;
+    destDeck.sasPercentile = srcDeck.sasPercentile;
+    destDeck.rawAercScore = srcDeck.rawAercScore;
+    destDeck.artifactControl = srcDeck.artifactControl;
+    destDeck.creatureControl = srcDeck.creatureControl;
+    destDeck.effectivePower = srcDeck.effectivePower;
+    destDeck.efficiency = srcDeck.efficiency;
+    destDeck.disruption = srcDeck.disruption;
+    destDeck.houseCheating = srcDeck.houseCheating;
+    destDeck.other = srcDeck.other;
+    destDeck.house1SAS = srcDeck.house1SAS;
+    destDeck.house2SAS = srcDeck.house2SAS;
+    destDeck.house3SAS = srcDeck.house3SAS;
+    destDeck.lastSasUpdate = srcDeck.lastSasUpdate;
+
+    // Name Mapping (Aember / amber)
+    destDeck.aemberControl = srcDeck.aemberControl || srcDeck.amberControl;
+    destDeck.aemberProtection = srcDeck.aemberProtection || srcDeck.amberProtection;
+    destDeck.expectedAember = srcDeck.expectedAember ||srcDeck.expectedAmber;
   }
 }

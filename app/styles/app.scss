@@ -44,14 +44,25 @@ $default-border: 1px solid black;
   }
 }
 
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% {  transform: rotate(359deg); }
+}
+
 $extLinkBaseColor: $primary-color;
 $extLinkHoverColor: scale-color($primary-color, $lightness: +20%); // -15% on buttons
+$extLinkSpinningColor: rgb(100, 100, 100);
 
 .extLink {
   .icon {
     color: $extLinkBaseColor;
     &:hover {
       color: $extLinkHoverColor;
+    }
+    &.spinning {
+      animation: spin 2s linear infinite;
+      color: $extLinkSpinningColor;
     }
   }
 }

@@ -127,7 +127,7 @@
           </a>
         </FileUpload></div>
       </div>
-      <Collection::DeckTable @decks={{this.activeFolderDecks}}/>
+      <Collection::DeckTable @decks={{this.activeFolderDecks}} @updateSas={{fn this.updateDeckSas}}/>
     </div>
     {{/if}}
   </div>
