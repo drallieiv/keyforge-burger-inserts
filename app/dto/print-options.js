@@ -7,23 +7,30 @@ export default class PrintOptions {
   preferences = null;
 
   constructor(preferences, options) {
+    this.polyFillAssign();
+    
     this.preferences = preferences;
+
+    let defaultOptions = {
+      side_showSet: true,
+      front_showSet: true,
+      front_showHeader: true,
+      front_HouseBarUseColor: true,
+      front_showFooter: false,
+      front_sas_showStats: true,
+      front_sas_showBasic: true,
+      sas_showScore: true,
+      sas_showHouseBar: true,
+      showSetColor: false,
+      spacePrintBlock: false,
+      houseIconsStyle: 'full', // or 'line'
+    }
+
+    this._options = defaultOptions;
+
     if(options) {
       // Given Options
-      this._options = options;
-    }else{
-      // Default
-      this._options = {
-        side_showSet: true,
-        front_showSet: true,
-        front_showHeader: true,
-        front_ShowHouseBar: true,
-        front_HouseBarUseColor: true,
-        front_showFooter: false,
-        showSetColor: false,
-        spacePrintBlock: false,
-        houseIconsStyle: 'full', // or 'line'
-      }
+      Object.assign(this._options, options);
     }
   }
 
@@ -44,5 +51,40 @@ export default class PrintOptions {
 
   toJson() {
     return JSON.stringify(this._options);
+  }
+
+  polyFillAssign() {
+    if (!Object.assign) {
+      Object.defineProperty(Object, 'assign', {
+        enumerable: false,
+        configurable: true,
+        writable: true,
+        value: function(target) {
+          'use strict';
+          if (target === undefined || target === null) {
+            throw new TypeError('Cannot convert first argument to object');
+          }
+    
+          var to = Object(target);
+          for (var i = 1; i < arguments.length; i++) {
+            var nextSource = arguments[i];
+            if (nextSource === undefined || nextSource === null) {
+              continue;
+            }
+            nextSource = Object(nextSource);
+    
+            var keysArray = Object.keys(Object(nextSource));
+            for (var nextIndex = 0, len = keysArray.length; nextIndex < len; nextIndex++) {
+              var nextKey = keysArray[nextIndex];
+              var desc = Object.getOwnPropertyDescriptor(nextSource, nextKey);
+              if (desc !== undefined && desc.enumerable) {
+                to[nextKey] = nextSource[nextKey];
+              }
+            }
+          }
+          return to;
+        }
+      });
+    }
   }
 }
