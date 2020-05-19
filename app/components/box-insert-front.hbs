@@ -20,7 +20,7 @@
           <HouseRatioBar @data={{@housesRatioBarData}} @useColor={{this.houseBarUseColor}}/>
         {{/if}}
       </div>
-      {{#if this.deckHasSasData}}
+      {{#if this.showSasScore}}
       {{!-- SAS Stats --}}
       <div class="dok-zone-stat">
         {{@deck.sasRating}}
@@ -32,7 +32,7 @@
   {{/if}}
   <div class="dok-zone-front-main">
     <div class="dok-zone-front-colgroup2">
-      {{#if this.deckHasSasData}}
+      {{#if this.showSasDataLeft}}
       <div class="dok-zone-front-colgroup2-top">
         {{!-- Left --}}
         <div class="dok-zone-front-col">
@@ -90,9 +90,10 @@
         </div>
       </div>
     </div>
-    {{# if this.deckHasSasData}}
+    {{#if this.showSasDataRight}}
     {{!-- Right --}}
     <div class="dok-zone-front-col">
+      {{#if this.showAllSas}}
       <div class="dok-stats-group-wrapper board">
         <div class="dok-stats-group-legend">
           Board
@@ -112,6 +113,19 @@
           <DokStat @iconClass="other" @legend="Other" @value={{@deck.other}}/>
         </div>
       </div>
+      {{else}}
+      <div class="dok-stats-group-wrapper card-types right">
+        <div class="dok-stats-group-legend">
+          Card Type
+        </div>
+        <div class="dok-stats-group-data">
+          <DokStat @iconClass="creatures" @legend="Creatures" @value={{@deck.creatureCount}}/>
+          <DokStat @iconClass="actions" @legend="Actions" @value={{@deck.actionCount}}/>
+          <DokStat @iconClass="artifacts" @legend="Artifacts" @value={{@deck.artifactCount}}/>
+          <DokStat @iconClass="upgrades" @legend="Upgrades" @value={{@deck.upgradeCount}}/>
+        </div>
+      </div>
+      {{/if}}
       <div class="dok-stats-group-wrapper extra">
         <div class="dok-stats-group-legend">
           Extra

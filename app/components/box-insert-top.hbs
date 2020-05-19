@@ -23,7 +23,7 @@
       {{!-- SAS Repartition--}}
       <HouseRatioBar @data={{@housesRatioBarData}} @useColor={{this.houseBarUseColor}}/>
     {{/if}}
-    {{#if this.deckHasSasData}}
+    {{#if this.showSasScore}}
     {{! SAS Stats }}
     <div class="dok-zone-stat">
       {{@deck.sasRating}}

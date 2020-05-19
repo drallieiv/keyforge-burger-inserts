@@ -83,13 +83,6 @@ export default class DecksController extends Controller {
     this.printOptions.set('front_showHeader', checked);
   }
 
-  get frontShowHouseBar() {
-    return this.printOptions.get('front_ShowHouseBar');
-  }
-  set frontShowHouseBar(checked) {
-    this.printOptions.set('front_ShowHouseBar', checked);
-  }  
-
   get frontHouseBarColor() {
     return this.printOptions.get('front_HouseBarUseColor');
   }
@@ -127,6 +120,33 @@ export default class DecksController extends Controller {
   }
   set useHouseIconFullColor(checked) {
     this.printOptions.set('houseIconsStyle', checked ? 'full' : 'line');
+  }
+
+  // SAS Related Toggles
+
+  get showSasScore() {
+    return this.printOptions.get('sas_showScore');
+  }
+  set showSasScore(checked) {
+    this.printOptions.set('sas_showScore', checked);
+  }
+  get showSasHouseBar() {
+    return this.printOptions.get('sas_showHouseBar');
+  }
+  set showSasHouseBar(checked) {
+    this.printOptions.set('sas_showHouseBar', checked);
+  }
+  get frontShowSasStats() {
+    return this.printOptions.get('front_sas_showStats');
+  }
+  set frontShowSasStats(checked) {
+    this.printOptions.set('front_sas_showStats', checked);
+  }
+  get frontShowBasicCount() {
+    return this.printOptions.get('front_sas_showBasic');
+  }
+  set frontShowBasicCount(checked) {
+    this.printOptions.set('front_sas_showBasic', checked);
   }
 
   @action
@@ -170,6 +190,22 @@ export default class DecksController extends Controller {
     this.set('useHouseIconFullColor', false);
     this.set('frontHouseBarColor', false);
     this.set('showSetColor', false);
+  }
+
+  @action
+  allSAS() {
+    this.set('showSasScore', true);
+    this.set('showSasHouseBar', true);
+    this.set('frontShowBasicCount', true);
+    this.set('frontShowSasStats', true);
+  }
+
+  @action
+  noSAS() {
+    this.set('showSasScore', false);
+    this.set('showSasHouseBar', false);
+    this.set('frontShowBasicCount', false);
+    this.set('frontShowSasStats', false);
   }
 
 }

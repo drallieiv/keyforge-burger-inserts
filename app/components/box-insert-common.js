@@ -15,8 +15,11 @@ export default class BoxInsertComponent extends Component {
     return this.args.printOptions.get('front_HouseBarUseColor');
   }
   get showHouseBar() {
-    return this.deckHasSasData && this.decksHasHouseRatio && this.args.printOptions.get('front_ShowHouseBar');
+    return this.deckHasSasData && this.decksHasHouseRatio && this.args.printOptions.get('sas_showHouseBar');
   }
-      
+
+  get showSasScore() {
+    return this.deckHasSasData && this.args.printOptions.get('sas_showScore');
+  }      
 
 }
