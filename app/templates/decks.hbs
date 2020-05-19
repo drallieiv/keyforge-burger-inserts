@@ -1,6 +1,6 @@
 <div class="decks">
   <div class="grid-x">
-    <div class="cell small-9 left-column deck-inserts">
+    <div class="cell small-order-2 small-12 medium-order-1 medium-9 left-column deck-inserts">
       <div class="print-sheet">
         {{#each this.decksToPrint as |deck|}}
         <div class="print-sheet-block {{this.printSheetBlockStyle}}">
@@ -12,7 +12,22 @@
         {{/each}}
       </div>
     </div>
-    <div class="cell small-3 right-column deck-options">
+    <div class="cell small-order-1 small-12 medium-order-2 medium-3 right-column deck-options">
+      <p class="smallTitle">
+        Quick Import
+      </p>
+      <div class="optionPresetWrapper">
+        <a class="button option-preset" role="button" {{on "click" (fn this.clearDecks)}}>
+          Remove all decks
+        </a>
+        <FileUpload @name="dokCsvUpload" @accept="text/csv" @onfileadd={{fn this.uploadDokCsv}}>
+          <a class="button option-preset" role="button" tabindex="0">
+            Load DoK csv file
+          </a>
+        </FileUpload>
+      </div>
+      <div>Go to "My Decks" for full import features</div>
+      
       <p class="smallTitle">
         Templates
       </p>
@@ -86,26 +101,55 @@
         />
       {{/if}}
 
-      {{#if (or this.showSideOptions this.showTopOptions this.frontShowHeader)}}
+      {{!-- All SAS related options here --}}
+      <p class="smallTitle">
+        SAS / DoK data
+      </p>
+
+      <PrintOptionToggle 
+        @label="Show SAS score" 
+        @id="option-sas-showScore" 
+        @name="showSasScore"
+        @checked={{this.showSasScore}}
+      />
+
       <PrintOptionToggle 
         @label="Show SAS house split bar" 
-        @id="option-front-showHouseBar" 
-        @name="frontShowHouseBar"
-        @checked={{this.frontShowHouseBar}}
+        @id="option-sas-showHouseBar" 
+        @name="showSasHouseBar"
+        @checked={{this.showSasHouseBar}}
       />
+      
+      {{#if this.showFrontOptions}}
+      <PrintOptionToggle 
+        @label="Show SAS stats on front" 
+        @id="option-front-showSasStats" 
+        @name="frontShowSasStats"
+        @checked={{this.frontShowSasStats}}
+      />
+      {{#unless this.frontShowSasStats}}
+      <PrintOptionToggle 
+        @label="Show card count on front" 
+        @id="option-front-showBasicCount" 
+        @name="frontShowBasicCount"
+        @checked={{this.frontShowBasicCount}}
+      />
+      {{/unless}}
       {{/if}}
 
-     <p class="smallTitle">
+      <div class="inlineButtonWrapper">
+        <a class="button option-preset" role="button" {{on "click" (fn this.allSAS)}}>
+          All SAS options
+        </a>
+        <a class="button option-preset" role="button" {{on "click" (fn this.noSAS)}}>
+          No SAS options
+        </a>
+      </div>
+
+      <p class="smallTitle">
         Color Options
       </p>
-      <div>
-        <a class="button option-preset" role="button" {{on "click" (fn this.allColor)}}>
-          All Color
-        </a>
-        <a class="button option-preset" role="button" {{on "click" (fn this.allBlackAndWhite)}}>
-          All Black &amp; White
-        </a>
-
+      <div class="inlineButtonWrapper">
         <PrintOptionToggle 
           @label="Use color icons for houses" 
           @id="option-print-housecolor" 
@@ -128,28 +172,12 @@
           @checked={{this.showSetColor}}
         />
         {{/if}}
-      </div>
-
-      <p class="smallTitle">
-        Decks Folders
-      </p>
-      <div class="deck-folders-list">
-        {{#each @model.folders as |folder|}}
-        <DeckFolder @folder={{folder}} />
-        {{/each}}
-      </div>
-      <a class="button" role="button" {{on "click" (fn this.clearDecks)}}>
-        Remove all decks
-      </a>
-      <p class="smallTitle">
-        Import Decks Data
-      </p>
-      <div>
-        <FileUpload @name="dokCsvUpload" @accept="text/csv" @onfileadd={{fn this.uploadDokCsv}}>
-          <a class="button" role="button" tabindex="0">
-            Load DoK csv file
-          </a>
-        </FileUpload>
+        <a class="button option-preset" role="button" {{on "click" (fn this.allColor)}}>
+          All Color
+        </a>
+        <a class="button option-preset" role="button" {{on "click" (fn this.allBlackAndWhite)}}>
+          All Black &amp; White
+        </a>
       </div>
     </div>
   </div>
