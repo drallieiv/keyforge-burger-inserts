@@ -1,6 +1,6 @@
-import Component from '@glimmer/component';
+import BoxInsert from './box-insert-common';
 
-export default class BoxInsertComponent extends Component {
+export default class BoxInsertFrontComponent extends BoxInsert {
 
   get frontShowSet() {
     return this.args.printOptions.get('front_showSet');
@@ -14,12 +14,20 @@ export default class BoxInsertComponent extends Component {
     return this.args.printOptions.get('front_showFooter');
   }
 
-  get houseBarUseColor() {
-    return this.args.printOptions.get('front_HouseBarUseColor');
+  get showSasDataLeft() {
+    return this.deckHasSasData && this.args.printOptions.get('front_sas_showStats');
   }
 
-  get showHouseBar() {
-    return this.args.printOptions.get('front_ShowHouseBar');
+  get showSasDataRight() {
+    return this.deckHasSasData && 
+    (
+      this.args.printOptions.get('front_sas_showStats')
+      ||
+      this.args.printOptions.get('front_sas_showBasic')
+    );
   }
 
+  get showAllSas() {
+    return this.deckHasSasData && this.args.printOptions.get('front_sas_showStats');
+  }
 }

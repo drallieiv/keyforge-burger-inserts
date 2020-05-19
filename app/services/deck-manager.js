@@ -1,9 +1,11 @@
 import Service from '@ember/service';
 import { inject as service } from '@ember/service';
 import { all } from 'rsvp';
+import { CardSets, SearchExpansion } from 'burger-inserts/data/keyforge-data';
 
 export default class DeckManagerService extends Service {
   @service store;
+  @service decksofkeyforge;
 
   initDefaultFolders() {
     return this.store.findAll('deckFolder').then((folders) => {
@@ -56,7 +58,38 @@ export default class DeckManagerService extends Service {
       dokLink: csvData['DoK Link'],
       masterVaultLink: csvData['Master Vault Link'],
       lastSasUpdate: csvData['Last SAS Update'],
+      creationDate: new Date()
     };
+
+    return deckData;
+  }
+
+  getCustomDeck(customDeckData) {
+    return {
+      name: customDeckData.name,
+      houses: customDeckData.houses.map((h) => h.name.replace(/ /g,'')),
+      expansion: customDeckData.exp.csv,
+      creationDate: new Date()
+    };
+  }
+
+  getDeckFromVault(vaultData) {
+    let deckData = {
+      id: vaultData.id,
+      name: vaultData.name,
+      masterVaultLink: 'https://www.keyforgegame.com/deck-details/' + vaultData.id,
+      creationDate: new Date()
+    };
+
+    let expansion = SearchExpansion(CardSets, vaultData.expansion);
+    if(expansion) {
+      deckData.expansion  = expansion;
+    }
+
+    // Vault House names have spaces
+    let houses = vaultData._links.houses;
+    houses = houses.map((h)=>h.replace(/ /g,''));
+    deckData.houses = houses;
 
     return deckData;
   }
@@ -92,32 +125,18 @@ export default class DeckManagerService extends Service {
   }
   
   saveOrUpdate(deck) {
-
     return this.store.findRecord('deck', deck.id).then((savedDeck) => {
-      savedDeck.sasRating = deck.sasRating;
-      savedDeck.synergyRating = deck.synergyRating;
-      savedDeck.antisynergyRating = deck.antisynergyRating;
-      savedDeck.sasPercentile = deck.sasPercentile;
-      savedDeck.rawAercScore = deck.rawAercScore;
-      savedDeck.amberControl = deck.amberControl;
-      savedDeck.expectedAember = deck.expectedAember;
-      savedDeck.aemberProtection = deck.aemberProtection;
-      savedDeck.artifactControl = deck.artifactControl;
-      savedDeck.creatureControl = deck.creatureControl;
-      savedDeck.effectivePower = deck.effectivePower;
-      savedDeck.efficiency = deck.efficiency;
-      savedDeck.disruption = deck.disruption;
-      savedDeck.houseCheating = deck.houseCheating;
-      savedDeck.other = deck.other;
-      savedDeck.house1SAS = deck.house1SAS;
-      savedDeck.house2SAS = deck.house2SAS;
-      savedDeck.house3SAS = deck.house3SAS;
-      savedDeck.lastSasUpdate = deck.lastSasUpdate;
+      this._mapDokData(savedDeck, deck);
       return savedDeck.save();
     }).catch(() => {
       let newDeck = this.store.createRecord('deck', deck);
       return newDeck.save();
     });
+  }
+
+  saveNew(deck) {
+    let newDeck = this.store.createRecord('deck', deck);
+    return newDeck.save();
   }
 
   getDecksFolders() {
@@ -144,5 +163,107 @@ export default class DeckManagerService extends Service {
         this.store.unloadAll('deck');
       })
     });
+  }
+
+  loadFromCsv(file, targetFolder){
+    return file.readAsText().then((csvdata) => {
+      let jsData = this.csvToJs(csvdata);
+
+      let deckCreationPromises = [];
+
+      jsData.forEach((deckData) => {
+        let importedDeck = this.getDeckFromCsv(deckData);
+        let savePromise = this.saveOrUpdate(importedDeck).then((deck) => {
+          if (targetFolder.decks.find((d) => d.id === deck.id) === undefined) {
+            targetFolder.decks.pushObject(deck);
+          }
+        });
+        deckCreationPromises.push(savePromise);
+      });
+
+      return all(deckCreationPromises).then(() => {
+        // Update Folder Size
+        targetFolder.save();
+      });
+    })
+  }
+
+  // CSV TO JS LIB From https://greywyvern.com/?post=258
+  csvToJs(csv, splitter = ',', eol = '\n') {
+    String.prototype.splitCSV = function (sep) {
+      for (var foo = this.split(sep = sep || ","), x = foo.length - 1, tl; x >= 0; x--) {
+        if (foo[x].replace(/"\s+$/, '"').charAt(foo[x].length - 1) == '"') {
+          if ((tl = foo[x].replace(/^\s+"/, '"')).length > 1 && tl.charAt(0) == '"') {
+            foo[x] = foo[x].replace(/^\s*"|"\s*$/g, '').replace(/""/g, '"');
+          } else if (x) {
+            foo.splice(x - 1, 2, [foo[x - 1], foo[x]].join(sep));
+          } else foo = foo.shift().split(sep).concat(foo);
+        } else foo[x].replace(/""/g, '"');
+      } return foo;
+    };
+
+    let lines = csv.split(eol);
+    let headers = lines[0].splitCSV(splitter);
+
+    let result = [];
+
+    for (var i = 1; i < lines.length; i++) {
+      let obj = {};
+      var currentline = lines[i].splitCSV(splitter);
+
+      for (var j = 0; j < headers.length; j++) {
+        obj[headers[j]] = currentline[j];
+      }
+
+      result.push(obj);
+    }
+    return result;
+  }
+
+  updateDeckSAS(deck) {
+    let deckId = this.extractDeckId(deck.masterVaultLink);
+    return this.get('decksofkeyforge').getDeckStats(deckId).then((dokData) => {
+      let dokDeckData = dokData.deck;
+      deck.sasVersion = dokData.sasVersion;
+
+      this._mapDokData(deck, dokDeckData);
+
+      return this.saveOrUpdate(deck);
+    })
+  }
+
+  // Sync all parameters shared between the 2 objects
+  _mapDokData(destDeck, srcDeck){
+    // static data
+    destDeck.creatureCount = srcDeck.creatureCount;
+    destDeck.actionCount = srcDeck.actionCount;
+    destDeck.artifactCount = srcDeck.artifactCount;
+    destDeck.upgradeCount = srcDeck.upgradeCount;
+    destDeck.rawAmber = srcDeck.rawAmber;
+    destDeck.keyCheatCount =  srcDeck.keyCheatCount;
+    destDeck.cardArchiveCount =  srcDeck.cardArchiveCount;
+    
+    // Computed data
+    destDeck.sasRating = srcDeck.sasRating;
+    destDeck.synergyRating = srcDeck.synergyRating;
+    destDeck.antisynergyRating = srcDeck.antisynergyRating;
+    destDeck.sasPercentile = srcDeck.sasPercentile;
+    destDeck.rawAercScore = srcDeck.rawAercScore;
+    destDeck.artifactControl = srcDeck.artifactControl;
+    destDeck.creatureControl = srcDeck.creatureControl;
+    destDeck.effectivePower = srcDeck.effectivePower;
+    destDeck.efficiency = srcDeck.efficiency;
+    destDeck.disruption = srcDeck.disruption;
+    destDeck.houseCheating = srcDeck.houseCheating;
+    destDeck.other = srcDeck.other;
+    destDeck.house1SAS = srcDeck.house1SAS;
+    destDeck.house2SAS = srcDeck.house2SAS;
+    destDeck.house3SAS = srcDeck.house3SAS;
+    destDeck.lastSasUpdate = srcDeck.lastSasUpdate;
+
+    // Name Mapping (Aember / amber)
+    destDeck.aemberControl = srcDeck.aemberControl || srcDeck.amberControl;
+    destDeck.aemberProtection = srcDeck.aemberProtection || srcDeck.amberProtection;
+    destDeck.expectedAember = srcDeck.expectedAember ||srcDeck.expectedAmber;
   }
 }

@@ -13,6 +13,9 @@ export default class BoxInsertComponent extends Component {
   }
 
   get housesRatioBarData() {
+    if(this.args.deck.house1SAS == null){
+      return null;
+    }
     return [parseFloat(this.args.deck.house1SAS), parseFloat(this.args.deck.house2SAS), parseFloat(this.args.deck.house3SAS)];
   }
 

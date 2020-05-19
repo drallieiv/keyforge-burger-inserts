@@ -1,0 +1,21 @@
+<table class="deckTable">
+  <thead>
+    <tr>
+      {{!-- 
+      <th><Input class="checkLine" name="batchDeckCheck" @type="checkbox" @checked={{this.allChecked}} /></th>
+      --}}
+      <th>Deck Name</th>
+      <th>Expansion</th>
+      <th>Houses</th>
+      <th class="center">Master Vault</th>
+      <th class="center">Import Date</th>
+      <th class="center">DoK SAS stats</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    {{#each this.sortedDecks as |deck|}}
+    <Collection::DeckTableLine @deck={{deck}} @updateSas={{@updateSas}}/>
+    {{/each}}
+  </tbody>
+</table>

@@ -168,6 +168,9 @@ $main-padding: 0;
       display: flex;
       flex-direction: column;
       border-right: 1px solid black;
+      &:last-child {
+        border: none;
+      }
       .dok-zone-front-colgroup2-top{
         display: flex;
         border-bottom: 1px solid black;
@@ -198,6 +201,7 @@ $main-padding: 0;
       display: flex;
       flex-direction: column;
 
+
       &.card-types, &.aember {
         flex-grow: 3;
       }
@@ -210,6 +214,10 @@ $main-padding: 0;
       }
       &.misc {
         flex-grow: 2;
+      }
+
+      &.card-types.right{
+        flex-grow: 4;
       }
 
       .dok-stats-group-legend {
@@ -368,6 +376,8 @@ $main-padding: 0;
   // Rules
   width: $width;
   height: $height;
+  
+  $nameLineClip: 1;
 
   .dok-zone-set {
     flex-basis: $set;
@@ -386,7 +396,7 @@ $main-padding: 0;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: $nameLineClip;
     -webkit-box-orient: vertical;
   }
 
@@ -439,12 +449,28 @@ $main-padding: 0;
     $height:  $bt-large-depth - 2 * $cut-margin;
     width: $width;
     height: $height;
+
+    .dok-zone-top-left {
+      .dok-zone-name {
+        $nameLineClip: 2;
+        $fontSize: 3.5mm;
+        max-height: $fontSize * $nameLineClip * 4;
+        -webkit-line-clamp: $nameLineClip;
+      }
+    }
   }
   &.box-insert-side {
     $width: $bt-large-height - 2 * $cut-margin;
     $height: $bt-large-depth - 2 * $cut-margin;
     width: $width;
     height: $height;
+
+    .dok-zone-name {
+      $nameLineClip: 3;
+      $fontSize: 3.5mm;
+      max-height: $fontSize * $nameLineClip * 4;
+      -webkit-line-clamp: $nameLineClip;
+    }
   }
 }
 
@@ -460,12 +486,28 @@ $main-padding: 0;
     $height:  $bt-xlarge-depth - 2 * $cut-margin;
     width: $width;
     height: $height;
+
+    .dok-zone-top-left {
+      .dok-zone-name {
+        $nameLineClip: 3;
+        $fontSize: 3.5mm;
+        max-height: $fontSize * $nameLineClip * 4;
+        -webkit-line-clamp: $nameLineClip;
+      }
+    }
   }
   &.box-insert-side {
     $width: $bt-xlarge-height - 2 * $cut-margin;
     $height: $bt-xlarge-depth - 2 * $cut-margin;
     width: $width;
     height: $height;
+
+    .dok-zone-name {
+      $nameLineClip: 3;
+      $fontSize: 3.5mm;
+      max-height: $fontSize * $nameLineClip * 4;
+      -webkit-line-clamp: $nameLineClip;
+    }
   }
 }
 

@@ -2,7 +2,6 @@ import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
-import { all } from 'rsvp';
 
 const insertTypes = [
   { id: 'side', name: 'Side Only'},
@@ -84,13 +83,6 @@ export default class DecksController extends Controller {
     this.printOptions.set('front_showHeader', checked);
   }
 
-  get frontShowHouseBar() {
-    return this.printOptions.get('front_ShowHouseBar');
-  }
-  set frontShowHouseBar(checked) {
-    this.printOptions.set('front_ShowHouseBar', checked);
-  }  
-
   get frontHouseBarColor() {
     return this.printOptions.get('front_HouseBarUseColor');
   }
@@ -130,6 +122,33 @@ export default class DecksController extends Controller {
     this.printOptions.set('houseIconsStyle', checked ? 'full' : 'line');
   }
 
+  // SAS Related Toggles
+
+  get showSasScore() {
+    return this.printOptions.get('sas_showScore');
+  }
+  set showSasScore(checked) {
+    this.printOptions.set('sas_showScore', checked);
+  }
+  get showSasHouseBar() {
+    return this.printOptions.get('sas_showHouseBar');
+  }
+  set showSasHouseBar(checked) {
+    this.printOptions.set('sas_showHouseBar', checked);
+  }
+  get frontShowSasStats() {
+    return this.printOptions.get('front_sas_showStats');
+  }
+  set frontShowSasStats(checked) {
+    this.printOptions.set('front_sas_showStats', checked);
+  }
+  get frontShowBasicCount() {
+    return this.printOptions.get('front_sas_showBasic');
+  }
+  set frontShowBasicCount(checked) {
+    this.printOptions.set('front_sas_showBasic', checked);
+  }
+
   @action
   setInsertType(type) {
     this.preferences.set('insertTypeId', type.id);
@@ -149,32 +168,13 @@ export default class DecksController extends Controller {
 
   @action
   uploadDokCsv(file) {
+    // For now send all to default folder
+    let targetFolder = this.model.folders.firstObject;
     if (file.name.endsWith('.csv')) {
-      file.readAsText().then((csvdata) => {
-        let jsData = this.csvToJs(csvdata);
-
-        // For now send all to default folder
-        let targetFolder = this.model.folders.firstObject;
-
-        let deckCreationPromises = [];
-
-        jsData.forEach((deckData) => {
-          let importedDeck = this.deckManager.getDeckFromCsv(deckData);
-          let savePromise = this.deckManager.saveOrUpdate(importedDeck).then((deck) => {
-            if (targetFolder.decks.find((d) => d.id === deck.id) === undefined) {
-              targetFolder.decks.pushObject(deck);
-            }
-          });
-          deckCreationPromises.push(savePromise);
-        });
-
-        all(deckCreationPromises).then(() => {
-          // Update Folder Size
-          targetFolder.save();
-          // Force Refresh
-          this.set('model.folders', this.get('model.folders'));
-        });
-      })
+      this.deckManager.loadFromCsv(file, targetFolder).then(() => {
+        // Force Refresh
+        this.set('model.folders', this.get('model.folders'));
+      });
     }
   }
 
@@ -192,35 +192,20 @@ export default class DecksController extends Controller {
     this.set('showSetColor', false);
   }
 
-  csvToJs(csv, splitter = ',', eol = '\n') {
-    // From https://greywyvern.com/?post=258
-    String.prototype.splitCSV = function (sep) {
-      for (var foo = this.split(sep = sep || ","), x = foo.length - 1, tl; x >= 0; x--) {
-        if (foo[x].replace(/"\s+$/, '"').charAt(foo[x].length - 1) == '"') {
-          if ((tl = foo[x].replace(/^\s+"/, '"')).length > 1 && tl.charAt(0) == '"') {
-            foo[x] = foo[x].replace(/^\s*"|"\s*$/g, '').replace(/""/g, '"');
-          } else if (x) {
-            foo.splice(x - 1, 2, [foo[x - 1], foo[x]].join(sep));
-          } else foo = foo.shift().split(sep).concat(foo);
-        } else foo[x].replace(/""/g, '"');
-      } return foo;
-    };
-
-    let lines = csv.split(eol);
-    let headers = lines[0].splitCSV(splitter);
-
-    let result = [];
-
-    for (var i = 1; i < lines.length; i++) {
-      let obj = {};
-      var currentline = lines[i].splitCSV(splitter);
-
-      for (var j = 0; j < headers.length; j++) {
-        obj[headers[j]] = currentline[j];
-      }
-
-      result.push(obj);
-    }
-    return result;
+  @action
+  allSAS() {
+    this.set('showSasScore', true);
+    this.set('showSasHouseBar', true);
+    this.set('frontShowBasicCount', true);
+    this.set('frontShowSasStats', true);
   }
+
+  @action
+  noSAS() {
+    this.set('showSasScore', false);
+    this.set('showSasHouseBar', false);
+    this.set('frontShowBasicCount', false);
+    this.set('frontShowSasStats', false);
+  }
+
 }
