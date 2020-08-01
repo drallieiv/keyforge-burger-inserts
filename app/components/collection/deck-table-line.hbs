@@ -1,43 +1,47 @@
-<tr {{did-insert this.autoSasImport @deck this.updateSas}}>
-  {{!-- 
-    <td><Input class="checkLine" name="batchDeckCheck" @type="checkbox" @checked={{this.checked}} /></td>
-  --}}
-  <td>{{@deck.name}}</td>
-  <td>{{card-set @deck.expansion 'full'}}</td>
-  <td>{{#each @deck.houses as |house i|}}{{#if (gt i 0)}}, {{/if}}{{house-name house}}{{/each}}</td>
-  <td class="center">
-    {{#if this.isMvRegistered}}<a class="extLink" href="{{@deck.masterVaultLink}}" target="_blank" rel="noopener noreferrer" >
-      <svg class="icon">
-        <title>Link to Keyforge MasterVault</title>
-        <use xlink:href="assets/icons/ui/symbol-defs.svg#icon-cloud-check"></use>
-      </svg>
-    </a>{{/if}}
-  </td>
-  <td class="nowrap center">{{#if @deck.creationDate}}{{moment-format @deck.creationDate "YYYY-MM-DD"}}{{/if}}</td>
-  <td class="nowrap center">
-    {{#if @deck.sasVersion}}
-    v{{@deck.sasVersion}}
-    {{else}}
-    {{#if @deck.lastSasUpdate}}{{@deck.lastSasUpdate}} {{/if}}
-    {{/if}}
-    {{#if this.shouldRefreshSas}}
-      {{#if this.isSasUpdating}}
-        {{!-- Spinner--}}
-        <div class="extLink">
-          <svg class="icon spinning">
-            <title>Loading SAS data from DoK</title>
-            <use xlink:href="assets/icons/ui/symbol-defs.svg#icon-repeat"></use>
-          </svg>
-        </div>
-      {{else}}
-        {{!-- Button --}}
-        <a class="extLink" role="button" {{on "click" (fn this.updateSas @deck)}}>
-          <svg class="icon">
-            <title>Get SAS from DoK</title>
-            <use xlink:href="assets/icons/ui/symbol-defs.svg#icon-repeat"></use>
-          </svg>
-        </a>
+{{#if @deck.name}}
+  <tr {{did-insert this.autoSasImport @deck this.updateSas}}>
+    {{!-- 
+      <td><Input class="checkLine" name="batchDeckCheck" @type="checkbox" @checked={{this.checked}} /></td>
+    --}}
+    <td>{{@deck.name}}</td>
+    <td>{{card-set @deck.expansion 'full'}}</td>
+    <td>{{#each @deck.houses as |house i|}}{{#if (gt i 0)}}, {{/if}}{{house-name house}}{{/each}}</td>
+    <td class="center">
+      {{#if this.isMvRegistered}}<a class="extLink" href="{{@deck.masterVaultLink}}" target="_blank" rel="noopener noreferrer" >
+        <svg class="icon">
+          <title>Link to Keyforge MasterVault</title>
+          <use xlink:href="assets/icons/ui/symbol-defs.svg#icon-cloud-check"></use>
+        </svg>
+      </a>{{/if}}
+    </td>
+    <td class="nowrap center">{{#if @deck.creationDate}}{{moment-format @deck.creationDate "YYYY-MM-DD"}}{{/if}}</td>
+    <td class="nowrap center">
+      <div class="info-or-action">
+        {{#if @deck.sasVersion}}
+        v{{@deck.sasVersion}}
+        {{else}}
+        {{#if @deck.lastSasUpdate}}{{@deck.lastSasUpdate}} {{/if}}
+        {{/if}}
+        {{#if this.shouldRefreshSas}}
+        {{#if this.isSasUpdating}}
+          {{!-- Spinner--}}
+          <div class="extLink">
+            <svg class="icon spinning">
+              <title>Loading SAS data from DoK</title>
+              <use xlink:href="assets/icons/ui/symbol-defs.svg#icon-repeat"></use>
+            </svg>
+          </div>
+        {{else}}
+          {{!-- Button --}}
+          <a class="extLink" role="button" {{on "click" (fn this.updateSas @deck)}}>
+            <svg class="icon">
+              <title>Get SAS from DoK</title>
+              <use xlink:href="assets/icons/ui/symbol-defs.svg#icon-repeat"></use>
+            </svg>
+          </a>
+        {{/if}}
       {{/if}}
-    {{/if}}
-  </td>
-</tr>
+      </div>
+    </td>
+  </tr>
+{{/if}}

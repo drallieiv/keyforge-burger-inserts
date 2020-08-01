@@ -214,6 +214,11 @@ export default class CollectionController extends Controller {
     }
   }
 
+  @action
+  dokResync() {
+    this.deckManager.resyncAllDecks();
+  }
+
   // get SAS Data for decks
   @action
   updateDeckSas(deck, doneCallback) {

@@ -39,7 +39,7 @@
           <div class="subtitle">
             Add deck by name
           </div>
-          <div class="body flex-wrapper">
+          <div class="body">
             <Input class="tiny" name="deckName" @type="text" 
               @value={{this.deckNameSearch}}
               @key-down={{fn this.deckNameChanged}}
@@ -92,7 +92,7 @@
     </div>
     <div>
       <div class="title">Manual Deck Entry</div>
-      <div class="manual-deck-wrapper">
+      <div class="manual-deck-wrapper hidden">
         <label class="name">Deck Name
           <Input name="customDeckName" @type="text" @value={{this.customDeck.name}} />
         </label>
@@ -103,7 +103,7 @@
           <House::HousePicker  @onChange={{fn this.setCustomDeckHouses}}/>
         </label>
         <div class="button-align"><a class="button" role="button" {{on "click" (fn this.addCustomDeck)}}>
-          Add custom deck
+          Add
         </a></div>
       </div>
     </div>
@@ -126,8 +126,13 @@
             Load DoK csv file
           </a>
         </FileUpload></div>
+        <div><a class="button tiny" role="button" {{on "click" (fn this.dokResync)}}>
+          Update all expired SAS data from DoK
+        </a></div>
       </div>
-      <Collection::DeckTable @decks={{this.activeFolderDecks}} @updateSas={{fn this.updateDeckSas}}/>
+      <div class="deck-table-wrapper">
+        <Collection::DeckTable @decks={{this.activeFolderDecks}} @updateSas={{fn this.updateDeckSas}}/>
+      </div>
     </div>
     {{/if}}
   </div>

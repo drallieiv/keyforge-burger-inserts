@@ -12,7 +12,7 @@ export default class DeckModel extends Model {
   @attr('number') rawAercScore;
   @attr('number') aemberControl;
   @attr('number') expectedAember;
-  @attr('number') aemberProtection;
+  @attr('number') creatureProtection;
   @attr('number') artifactControl;
   @attr('number') creatureControl;
   @attr('number') effectivePower;
