@@ -126,6 +126,9 @@
             Load DoK csv file
           </a>
         </FileUpload></div>
+        <div><a class="button tiny" role="button" {{on "click" (fn this.dokResync)}}>
+          Update all expired SAS data from DoK
+        </a></div>
       </div>
       <div class="deck-table-wrapper">
         <Collection::DeckTable @decks={{this.activeFolderDecks}} @updateSas={{fn this.updateDeckSas}}/>

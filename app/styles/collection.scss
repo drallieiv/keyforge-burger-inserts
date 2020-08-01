@@ -134,6 +134,18 @@
       display: inline;
       vertical-align: middle;
     }
+    .info-or-action{
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: center;
+      justify-content: space-around;
+      a{
+        margin-bottom: 0;
+      }
+      .icon {
+        font-size: 1rem;
+      }
+    }
   }
 
   // Smaller text for select
@@ -151,4 +163,5 @@
       }
     }
   }
+
 }
