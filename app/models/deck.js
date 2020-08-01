@@ -9,7 +9,7 @@ export default class DeckModel extends Model {
   @attr('number') synergyRating;
   @attr('number') antisynergyRating;
   @attr('number') sasPercentile
-  @attr('number') rawAercScore;
+  @attr('number') aercScore;
   @attr('number') aemberControl;
   @attr('number') expectedAember;
   @attr('number') creatureProtection;
