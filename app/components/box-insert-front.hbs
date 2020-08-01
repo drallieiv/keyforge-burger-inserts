@@ -67,6 +67,7 @@
             <div class="dok-stats-group-data">
               <DokStat @iconClass="aemberControl" @legend="Aember Control" @value={{@deck.aemberControl}}/>
               <DokStat @iconClass="expectedAember" @legend="Expected Aember" @value={{@deck.expectedAember}}/>
+              <DokStat @iconClass="rawAmber" @legend="Bonus Aember" @value={{@deck.rawAmber}}/>
             </div>
           </div>
           <div class="dok-stats-group-wrapper speed">
@@ -76,15 +77,6 @@
             <div class="dok-stats-group-data">
               <DokStat @iconClass="efficiency" @legend="Efficiency" @value={{@deck.efficiency}}/>
               <DokStat @iconClass="disruption" @legend="Disruption" @value={{@deck.disruption}}/>
-            </div>
-          </div>
-          <div class="dok-stats-group-wrapper misc">
-            <div class="dok-stats-group-legend">
-              Misc
-            </div>
-            <div class="dok-stats-group-data">
-              <DokStat @iconClass="houseCheating" @legend="House Cheating" @value={{@deck.houseCheating}}/>
-              <DokStat @iconClass="other" @legend="Other" @value={{@deck.other}}/>
             </div>
           </div>
         </div>
@@ -118,7 +110,7 @@
         </div>
         <div class="dok-stats-group-data">
           <DokStat @iconClass="effectivePower" @legend="Effective Power" @value={{@deck.effectivePower}}/>
-          <DokStat @iconClass="creatureProtection" @legend="Creature Protection" @value={{@deck.effectivePower}}/>
+          <DokStat @iconClass="creatureProtection" @legend="Creature Protection" @value={{@deck.creatureProtection}}/>
         </div>
       </div>
       {{else}}
@@ -139,7 +131,7 @@
           Extra
         </div>
         <div class="dok-stats-group-data">
-          <DokStat @iconClass="rawAmber" @legend="Bonus Aember" @value={{@deck.rawAmber}}/>
+          <DokStat @iconClass="other" @legend="Other" @value={{@deck.other}}/>
           <DokStat @iconClass="keyCheat" @legend="Key Cheat" @value={{@deck.keyCheatCount}}/>
           <DokStat @iconClass="archive" @legend="Archive" @value={{@deck.cardArchiveCount}}/>
         </div>

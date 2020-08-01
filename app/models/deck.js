@@ -18,7 +18,6 @@ export default class DeckModel extends Model {
   @attr('number') effectivePower;
   @attr('number') efficiency;
   @attr('number') disruption;
-  @attr('number') houseCheating;
   @attr('number') other;
   @attr('number') house1SAS;
   @attr('number') house2SAS;

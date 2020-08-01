@@ -42,7 +42,6 @@ export default class DeckManagerService extends Service {
       effectivePower: csvData['Effective Power'],
       efficiency: csvData['Efficiency'],
       disruption: csvData['Disruption'],
-      houseCheating: csvData['House Cheating'],
       other: csvData['Other'],
       house1SAS: csvData['House 1 SAS'],
       house2SAS: csvData['House 2 SAS'],
