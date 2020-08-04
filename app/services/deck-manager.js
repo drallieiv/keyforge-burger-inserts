@@ -1,6 +1,6 @@
 import Service from '@ember/service';
 import { inject as service } from '@ember/service';
-import { all } from 'rsvp';
+import { all, allSettled } from 'rsvp';
 import { CardSets, SearchExpansion } from 'burger-inserts/data/keyforge-data';
 import ENV from 'burger-inserts/config/environment';
 import moment from 'moment';
@@ -59,7 +59,8 @@ export default class DeckManagerService extends Service {
       dokLink: csvData['DoK Link'],
       masterVaultLink: csvData['Master Vault Link'],
       lastSasUpdate: csvData['Last SAS Update'],
-      creationDate: new Date()
+      creationDate: new Date(),
+      source: 'csv'
     };
 
     return deckData;
@@ -79,7 +80,8 @@ export default class DeckManagerService extends Service {
       id: vaultData.id,
       name: vaultData.name,
       masterVaultLink: 'https://www.keyforgegame.com/deck-details/' + vaultData.id,
-      creationDate: new Date()
+      creationDate: new Date(),
+      source: 'vault'
     };
 
     let expansion = SearchExpansion(CardSets, vaultData.expansion);
@@ -168,12 +170,13 @@ export default class DeckManagerService extends Service {
 
   resyncAllDecks() {
     return this.store.findAll('deck').then((decks) => {
-      decks.filter(this.shouldRefreshSas).forEach((deck) => {
-        console.log('Updating DoK data for ' + deck.name);
-        this.updateDeckSAS(deck).then((syncedDeck) => {
+      let allPromises = decks.filter(this.shouldRefreshSas).map((deck) => {
+        return this.updateDeckSAS(deck).then((syncedDeck) => {
           deck = syncedDeck;
         })
       });
+
+      return allSettled(allPromises);
     });
   }
 

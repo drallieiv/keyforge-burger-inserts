@@ -24,9 +24,9 @@ export default class DeckTableLineComponent extends Component {
   autoSasImport(element, options) {
     let [ deck, updateSas] = options;
     // Check if scanned deck
-    if(deck.masterVaultLink) {
+    if(deck.masterVaultLink && deck.source !== 'csv') {
       let secSinceAdded = moment().diff(deck.creationDate, 'seconds');
-      if(secSinceAdded < 300) { // 10s max
+      if(secSinceAdded < 5) { // 5s max
         updateSas(deck);
       }
     }

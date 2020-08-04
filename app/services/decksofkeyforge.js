@@ -2,7 +2,6 @@ import Service from '@ember/service';
 import { inject as service } from '@ember/service';
 import ENV from 'burger-inserts/config/environment';
 import moment from 'moment';
-import { schedule } from '@ember/runloop';
 
 export default class DecksofkeyforgeService extends Service {
   @service ajax;
@@ -13,14 +12,17 @@ export default class DecksofkeyforgeService extends Service {
 
   updateQueue = [];
 
+  nbSkipOnThrottle = 5;
+  decksLoopPeriod = 2000;
+  throttleCount = 0;
+
   constructor() {
     super(...arguments);
     // By default use shared API Key
     this.set('apiKey', ENV.dok.sharedApiKey);
 
     // Start call loop
-    let decksLoopPeriod = 2000;
-    setInterval(this.ticketsQueueLoop.bind(this), decksLoopPeriod);
+    setInterval(this.ticketsQueueLoop.bind(this), this.decksLoopPeriod);
   }
 
   _headers(){
@@ -43,7 +45,12 @@ export default class DecksofkeyforgeService extends Service {
   }
 
   ticketsQueueLoop() {
-    if(this.updateQueue.lengh == 0) {
+    if(this.updateQueue.length == 0) {
+      return;
+    }
+
+    if(this.throttleCount > 0) {
+      this.throttleCount--;
       return;
     }
 
@@ -65,7 +72,8 @@ export default class DecksofkeyforgeService extends Service {
       this.updateQueue.shift();
       ticket.resolve(data);
     }).catch((error) => {
-      ticket.reject(error);
+      console.warn('Call failed', error);
+      this.throttleCount = this.nbSkipOnThrottle;
     });
   }
 

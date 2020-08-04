@@ -41,5 +41,7 @@ export default class DeckModel extends Model {
 
   @attr('date') creationDate;
 
+  @attr('string') source;
+
   @hasMany('deck-folder', { async: true }) folders;
 }
