@@ -1,184 +1,182 @@
 <div class="decks">
-  <div class="grid-x">
-    <div class="cell small-order-2 small-12 medium-order-1 medium-9 left-column deck-inserts">
-      <div class="print-sheet">
-        {{#each this.decksToPrint as |deck|}}
-        <div class="print-sheet-block {{this.printSheetBlockStyle}}">
-          <BoxInsert @type="side" @deck={{deck}} 
-            @printOptions={{this.printOptions}} 
-            @insertType={{this.insertType}} 
-            @deckboxFormat={{this.deckboxFormat}}/>
-        </div>
-        {{/each}}
+  <div class="deck-inserts">
+    <div class="print-sheet">
+      {{#each this.decksToPrint as |deck|}}
+      <div class="print-sheet-block {{this.printSheetBlockStyle}}">
+        <BoxInsert @type="side" @deck={{deck}} 
+          @printOptions={{this.printOptions}} 
+          @insertType={{this.insertType}} 
+          @deckboxFormat={{this.deckboxFormat}}/>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+  <div class="deck-options">
+    <p class="smallTitle">
+      Quick Import
+    </p>
+    <div class="optionPresetWrapper">
+      <a class="button option-preset" role="button" {{on "click" (fn this.clearDecks)}}>
+        Remove all decks
+      </a>
+      <FileUpload @name="dokCsvUpload" @accept="text/csv" @onfileadd={{fn this.uploadDokCsv}}>
+        <a class="button option-preset" role="button" tabindex="0">
+          Load DoK csv file
+        </a>
+      </FileUpload>
+    </div>
+    <div>Go to "My Decks" for full import features</div>
+    
+    <p class="smallTitle">
+      Templates
+    </p>
+
+    <div class="print-option">
+      <div class="print-option-label">
+        Deckbox Format
+      </div>
+      <div class="print-option-select">
+        <PowerSelect @options={{this.deckboxFormats}} @selected={{this.deckboxFormat}} @destination="deckboxFormats-list"
+          @onChange={{fn this.setDeckboxFormat}} as |box|>
+          {{box.name}}
+        </PowerSelect>
+        <div id="deckboxFormats-list"></div>
       </div>
     </div>
-    <div class="cell small-order-1 small-12 medium-order-2 medium-3 right-column deck-options">
-      <p class="smallTitle">
-        Quick Import
-      </p>
-      <div class="optionPresetWrapper">
-        <a class="button option-preset" role="button" {{on "click" (fn this.clearDecks)}}>
-          Remove all decks
-        </a>
-        <FileUpload @name="dokCsvUpload" @accept="text/csv" @onfileadd={{fn this.uploadDokCsv}}>
-          <a class="button option-preset" role="button" tabindex="0">
-            Load DoK csv file
-          </a>
-        </FileUpload>
+
+    <div class="print-option">
+      <div class="print-option-label">
+        Insert Type
       </div>
-      <div>Go to "My Decks" for full import features</div>
-      
-      <p class="smallTitle">
-        Templates
-      </p>
-
-      <div class="print-option">
-        <div class="print-option-label">
-          Deckbox Format
-        </div>
-        <div class="print-option-select">
-          <PowerSelect @options={{this.deckboxFormats}} @selected={{this.deckboxFormat}} @destination="deckboxFormats-list"
-            @onChange={{fn this.setDeckboxFormat}} as |box|>
-            {{box.name}}
-          </PowerSelect>
-          <div id="deckboxFormats-list"></div>
-        </div>
+      <div class="print-option-select">
+        <PowerSelect @options={{this.insertTypes}} @selected={{this.insertType}} @destination="insertTypes-list"
+          @onChange={{fn this.setInsertType}} as |type|>
+          {{type.name}}
+        </PowerSelect>
+        <div id="insertTypes-list"></div>
       </div>
+    </div>
 
-      <div class="print-option">
-        <div class="print-option-label">
-          Insert Type
-        </div>
-        <div class="print-option-select">
-          <PowerSelect @options={{this.insertTypes}} @selected={{this.insertType}} @destination="insertTypes-list"
-            @onChange={{fn this.setInsertType}} as |type|>
-            {{type.name}}
-          </PowerSelect>
-          <div id="insertTypes-list"></div>
-        </div>
-      </div>
+    <p class="smallTitle">
+      Printing Options
+    </p>
 
-      <p class="smallTitle">
-        Printing Options
-      </p>
+    <PrintOptionToggle 
+      @label="Print with spacing" 
+      @id="option-print-spaced" 
+      @name="printSheetBlockSpaced"
+      @checked={{this.printSheetBlockSpaced}}
+    />
 
+    {{#if this.showSideOptions}}
+    <PrintOptionToggle 
+      @label="Show set on side" 
+      @id="option-side-showSet" 
+      @name="sideShowSet"
+      @checked={{this.sideShowSet}}
+    />
+    {{/if}}
+
+    {{#if this.showFrontOptions}}
       <PrintOptionToggle 
-        @label="Print with spacing" 
-        @id="option-print-spaced" 
-        @name="printSheetBlockSpaced"
-        @checked={{this.printSheetBlockSpaced}}
+        @label="Show header on front" 
+        @id="option-header-showSet" 
+        @name="frontShowHeader"
+        @checked={{this.frontShowHeader}}
       />
-
-      {{#if this.showSideOptions}}
+      {{#if this.frontShowHeader}}
       <PrintOptionToggle 
-        @label="Show set on side" 
-        @id="option-side-showSet" 
-        @name="sideShowSet"
-        @checked={{this.sideShowSet}}
+        @label="Show set on front" 
+        @id="option-front-showSet" 
+        @name="frontShowSet"
+        @checked={{this.frontShowSet}}
       />
       {{/if}}
+      <PrintOptionToggle 
+        @label="Show footer on front" 
+        @id="option-footer-showSet" 
+        @name="frontShowFooter"
+        @checked={{this.frontShowFooter}}
+      />
+    {{/if}}
 
-      {{#if this.showFrontOptions}}
-        <PrintOptionToggle 
-          @label="Show header on front" 
-          @id="option-header-showSet" 
-          @name="frontShowHeader"
-          @checked={{this.frontShowHeader}}
-        />
-        {{#if this.frontShowHeader}}
-        <PrintOptionToggle 
-          @label="Show set on front" 
-          @id="option-front-showSet" 
-          @name="frontShowSet"
-          @checked={{this.frontShowSet}}
-        />
-        {{/if}}
-        <PrintOptionToggle 
-          @label="Show footer on front" 
-          @id="option-footer-showSet" 
-          @name="frontShowFooter"
-          @checked={{this.frontShowFooter}}
-        />
+    {{!-- All SAS related options here --}}
+    <p class="smallTitle">
+      SAS / DoK data
+    </p>
+
+    <PrintOptionToggle 
+      @label="Show SAS score" 
+      @id="option-sas-showScore" 
+      @name="showSasScore"
+      @checked={{this.showSasScore}}
+    />
+
+    <PrintOptionToggle 
+      @label="Show SAS house split bar" 
+      @id="option-sas-showHouseBar" 
+      @name="showSasHouseBar"
+      @checked={{this.showSasHouseBar}}
+    />
+    
+    {{#if this.showFrontOptions}}
+    <PrintOptionToggle 
+      @label="Show SAS stats on front" 
+      @id="option-front-showSasStats" 
+      @name="frontShowSasStats"
+      @checked={{this.frontShowSasStats}}
+    />
+    {{#unless this.frontShowSasStats}}
+    <PrintOptionToggle 
+      @label="Show card count on front" 
+      @id="option-front-showBasicCount" 
+      @name="frontShowBasicCount"
+      @checked={{this.frontShowBasicCount}}
+    />
+    {{/unless}}
+    {{/if}}
+
+    <div class="inlineButtonWrapper">
+      <a class="button option-preset" role="button" {{on "click" (fn this.allSAS)}}>
+        All SAS options
+      </a>
+      <a class="button option-preset" role="button" {{on "click" (fn this.noSAS)}}>
+        No SAS options
+      </a>
+    </div>
+
+    <p class="smallTitle">
+      Color Options
+    </p>
+    <div class="inlineButtonWrapper">
+      <PrintOptionToggle 
+        @label="Use color icons for houses" 
+        @id="option-print-housecolor" 
+        @name="useHouseIconFullColor"
+        @checked={{this.useHouseIconFullColor}}
+      />
+      {{#if this.frontShowHouseBar}}
+      <PrintOptionToggle 
+        @label="Use color in house split bar" 
+        @id="option-front-houseBarColor" 
+        @name="frontHouseBarColor"
+        @checked={{this.frontHouseBarColor}}
+      />
       {{/if}}
-
-      {{!-- All SAS related options here --}}
-      <p class="smallTitle">
-        SAS / DoK data
-      </p>
-
+      {{#if (or this.showSideOptions this.showTopOptions this.frontShowHeader)}}
       <PrintOptionToggle 
-        @label="Show SAS score" 
-        @id="option-sas-showScore" 
-        @name="showSasScore"
-        @checked={{this.showSasScore}}
+        @label="Add color on set background" 
+        @id="option-showSetColor" 
+        @name="showSetColor"
+        @checked={{this.showSetColor}}
       />
-
-      <PrintOptionToggle 
-        @label="Show SAS house split bar" 
-        @id="option-sas-showHouseBar" 
-        @name="showSasHouseBar"
-        @checked={{this.showSasHouseBar}}
-      />
-      
-      {{#if this.showFrontOptions}}
-      <PrintOptionToggle 
-        @label="Show SAS stats on front" 
-        @id="option-front-showSasStats" 
-        @name="frontShowSasStats"
-        @checked={{this.frontShowSasStats}}
-      />
-      {{#unless this.frontShowSasStats}}
-      <PrintOptionToggle 
-        @label="Show card count on front" 
-        @id="option-front-showBasicCount" 
-        @name="frontShowBasicCount"
-        @checked={{this.frontShowBasicCount}}
-      />
-      {{/unless}}
       {{/if}}
-
-      <div class="inlineButtonWrapper">
-        <a class="button option-preset" role="button" {{on "click" (fn this.allSAS)}}>
-          All SAS options
-        </a>
-        <a class="button option-preset" role="button" {{on "click" (fn this.noSAS)}}>
-          No SAS options
-        </a>
-      </div>
-
-      <p class="smallTitle">
-        Color Options
-      </p>
-      <div class="inlineButtonWrapper">
-        <PrintOptionToggle 
-          @label="Use color icons for houses" 
-          @id="option-print-housecolor" 
-          @name="useHouseIconFullColor"
-          @checked={{this.useHouseIconFullColor}}
-        />
-        {{#if this.frontShowHouseBar}}
-        <PrintOptionToggle 
-          @label="Use color in house split bar" 
-          @id="option-front-houseBarColor" 
-          @name="frontHouseBarColor"
-          @checked={{this.frontHouseBarColor}}
-        />
-        {{/if}}
-        {{#if (or this.showSideOptions this.showTopOptions this.frontShowHeader)}}
-        <PrintOptionToggle 
-          @label="Add color on set background" 
-          @id="option-showSetColor" 
-          @name="showSetColor"
-          @checked={{this.showSetColor}}
-        />
-        {{/if}}
-        <a class="button option-preset" role="button" {{on "click" (fn this.allColor)}}>
-          All Color
-        </a>
-        <a class="button option-preset" role="button" {{on "click" (fn this.allBlackAndWhite)}}>
-          All Black &amp; White
-        </a>
-      </div>
+      <a class="button option-preset" role="button" {{on "click" (fn this.allColor)}}>
+        All Color
+      </a>
+      <a class="button option-preset" role="button" {{on "click" (fn this.allBlackAndWhite)}}>
+        All Black &amp; White
+      </a>
     </div>
   </div>
 </div>

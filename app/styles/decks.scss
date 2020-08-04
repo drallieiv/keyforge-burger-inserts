@@ -1,29 +1,34 @@
-
-
+$option-fixed-size: 320px;
 
 .decks {
-  // Print Layout
+  display: flex;
+  flex-wrap: wrap;
 
-  @media print {
-    .right-column {
-      display: none;
+  .deck-inserts {
+    flex: 1 0 0;
+  }
+  .deck-options {
+    font-size: 0.75em;
+    padding: 0.5em;   
+    flex: 0 0 $option-fixed-size;
+  }
+  @media screen and (max-width: 600px) {
+    .deck-options {
+      order: 1;
+      flex: 0 0 100%;
     }
-    .left-column {
-      width: 100%;
-    }
-    .print-sheet-block {
-      page-break-inside: avoid;
+    .deck-inserts {
+      order: 2;
     }
   }
 
-  // Right Side : Deck Inserts
-
   .print-sheet {
-    display: block;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
   .print-sheet-block {
-    float: left;
     &.space {
       margin: 1mm;
     }
@@ -35,18 +40,23 @@
     flex-shrink: 0;
   }
 
-  // Right Side : Deck Options
-  .deck-options {
-    font-size: 0.75em;
-    padding: 0.5em;   
-  }
-  @media screen and (min-width: 800px) {
+
+  // Print Layout
+  @media print {
+    display: block;
+
     .deck-options {
-      min-width: 300px;
+      display: none;
     }
     .deck-inserts {
-      width: 0;
-      flex-grow: 1;
+      flex: 0 0 100%;
+    }
+    .print-sheet {
+      display: block;
+    }
+    .print-sheet-block {
+      page-break-inside: avoid;
+      float: left;
     }
   }
 

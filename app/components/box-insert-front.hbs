@@ -52,6 +52,7 @@
               SAS
             </div>
             <div class="dok-stats-group-data">
+              <DokStat @iconClass="aerc" @legend="Base AERC" @value={{@deck.aercScore}}/>
               <DokStat @iconClass="synergy" @legend="Synergy" @value={{@deck.synergyRating}}/>
               <DokStat @iconClass="antiSynergy" @legend="Anti-Synergy" @value={{@deck.antisynergyRating}}/>
             </div>
@@ -66,7 +67,7 @@
             <div class="dok-stats-group-data">
               <DokStat @iconClass="aemberControl" @legend="Aember Control" @value={{@deck.aemberControl}}/>
               <DokStat @iconClass="expectedAember" @legend="Expected Aember" @value={{@deck.expectedAember}}/>
-              <DokStat @iconClass="aemberProtection" @legend="Aember Protection" @value={{@deck.aemberProtection}}/>
+              <DokStat @iconClass="rawAmber" @legend="Bonus Aember" @value={{@deck.rawAmber}}/>
             </div>
           </div>
           <div class="dok-stats-group-wrapper speed">
@@ -94,23 +95,22 @@
     {{!-- Right --}}
     <div class="dok-zone-front-col">
       {{#if this.showAllSas}}
+      <div class="dok-stats-group-wrapper control">
+        <div class="dok-stats-group-legend">
+          Control
+        </div>
+        <div class="dok-stats-group-data">
+          <DokStat @iconClass="artifactControl" @legend="Artifact Control" @value={{@deck.artifactControl}}/>
+          <DokStat @iconClass="creatureControl" @legend="Creature Control" @value={{@deck.creatureControl}}/>
+        </div>
+      </div>
       <div class="dok-stats-group-wrapper board">
         <div class="dok-stats-group-legend">
           Board
         </div>
         <div class="dok-stats-group-data">
-          <DokStat @iconClass="artifactControl" @legend="Artifact Control" @value={{@deck.artifactControl}}/>
-          <DokStat @iconClass="creatureControl" @legend="Creature Control" @value={{@deck.creatureControl}}/>
           <DokStat @iconClass="effectivePower" @legend="Effective Power" @value={{@deck.effectivePower}}/>
-        </div>
-      </div>
-      <div class="dok-stats-group-wrapper misc">
-        <div class="dok-stats-group-legend">
-          Misc
-        </div>
-        <div class="dok-stats-group-data">
-          <DokStat @iconClass="houseCheating" @legend="House Cheating" @value={{@deck.houseCheating}}/>
-          <DokStat @iconClass="other" @legend="Other" @value={{@deck.other}}/>
+          <DokStat @iconClass="creatureProtection" @legend="Creature Protection" @value={{@deck.creatureProtection}}/>
         </div>
       </div>
       {{else}}
@@ -131,7 +131,7 @@
           Extra
         </div>
         <div class="dok-stats-group-data">
-          <DokStat @iconClass="rawAmber" @legend="Bonus Aember" @value={{@deck.rawAmber}}/>
+          <DokStat @iconClass="other" @legend="Other" @value={{@deck.other}}/>
           <DokStat @iconClass="keyCheat" @legend="Key Cheat" @value={{@deck.keyCheatCount}}/>
           <DokStat @iconClass="archive" @legend="Archive" @value={{@deck.cardArchiveCount}}/>
         </div>

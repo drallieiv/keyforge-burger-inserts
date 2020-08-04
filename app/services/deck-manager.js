@@ -1,7 +1,9 @@
 import Service from '@ember/service';
 import { inject as service } from '@ember/service';
-import { all } from 'rsvp';
+import { all, allSettled } from 'rsvp';
 import { CardSets, SearchExpansion } from 'burger-inserts/data/keyforge-data';
+import ENV from 'burger-inserts/config/environment';
+import moment from 'moment';
 
 export default class DeckManagerService extends Service {
   @service store;
@@ -31,16 +33,15 @@ export default class DeckManagerService extends Service {
       synergyRating: csvData['Synergy Rating'],
       antisynergyRating: csvData['Antisynergy Rating'],
       sasPercentile: csvData['Sas Percentile'],
-      rawAercScore: csvData['Raw Aerc Score'],
+      aercScore: csvData['Raw Aerc Score'],
       aemberControl: csvData['Amber Control'],
       expectedAember: csvData['Expected Amber'],
-      aemberProtection: csvData['Aember Protection'],
+      creatureProtection: csvData['Creature Protection'],
       artifactControl: csvData['Artifact Control'],
       creatureControl: csvData['Creature Control'],
       effectivePower: csvData['Effective Power'],
       efficiency: csvData['Efficiency'],
       disruption: csvData['Disruption'],
-      houseCheating: csvData['House Cheating'],
       other: csvData['Other'],
       house1SAS: csvData['House 1 SAS'],
       house2SAS: csvData['House 2 SAS'],
@@ -58,7 +59,8 @@ export default class DeckManagerService extends Service {
       dokLink: csvData['DoK Link'],
       masterVaultLink: csvData['Master Vault Link'],
       lastSasUpdate: csvData['Last SAS Update'],
-      creationDate: new Date()
+      creationDate: new Date(),
+      source: 'csv'
     };
 
     return deckData;
@@ -78,7 +80,8 @@ export default class DeckManagerService extends Service {
       id: vaultData.id,
       name: vaultData.name,
       masterVaultLink: 'https://www.keyforgegame.com/deck-details/' + vaultData.id,
-      creationDate: new Date()
+      creationDate: new Date(),
+      source: 'vault'
     };
 
     let expansion = SearchExpansion(CardSets, vaultData.expansion);
@@ -165,6 +168,18 @@ export default class DeckManagerService extends Service {
     });
   }
 
+  resyncAllDecks() {
+    return this.store.findAll('deck').then((decks) => {
+      let allPromises = decks.filter(this.shouldRefreshSas).map((deck) => {
+        return this.updateDeckSAS(deck).then((syncedDeck) => {
+          deck = syncedDeck;
+        })
+      });
+
+      return allSettled(allPromises);
+    });
+  }
+
   loadFromCsv(file, targetFolder){
     return file.readAsText().then((csvdata) => {
       let jsData = this.csvToJs(csvdata);
@@ -225,45 +240,78 @@ export default class DeckManagerService extends Service {
     return this.get('decksofkeyforge').getDeckStats(deckId).then((dokData) => {
       let dokDeckData = dokData.deck;
       deck.sasVersion = dokData.sasVersion;
+      deck.aercVersion = dokData.aercVersion;
 
       this._mapDokData(deck, dokDeckData);
 
       return this.saveOrUpdate(deck);
-    })
+    }).catch((error) => {
+      console.log('Error upading Deck SAS', error);
+      return null;
+    });
   }
 
   // Sync all parameters shared between the 2 objects
   _mapDokData(destDeck, srcDeck){
-    // static data
-    destDeck.creatureCount = srcDeck.creatureCount;
+    // Main Card type count
     destDeck.actionCount = srcDeck.actionCount;
     destDeck.artifactCount = srcDeck.artifactCount;
+    destDeck.creatureCount = srcDeck.creatureCount;
     destDeck.upgradeCount = srcDeck.upgradeCount;
-    destDeck.rawAmber = srcDeck.rawAmber;
-    destDeck.keyCheatCount =  srcDeck.keyCheatCount;
+
+    // Totals
+    destDeck.totalArmor = srcDeck.totalArmor;
+    destDeck.totalPower = srcDeck.totalPower;
+
+    // By Effect count
     destDeck.cardArchiveCount =  srcDeck.cardArchiveCount;
+    destDeck.cardDrawCount =  srcDeck.cardDrawCount;
+    destDeck.keyCheatCount =  srcDeck.keyCheatCount;
+    
+    // Just Aember
+    // destDeck.rawAmber > See AE>A Mmapping
     
     // Computed data
-    destDeck.sasRating = srcDeck.sasRating;
-    destDeck.synergyRating = srcDeck.synergyRating;
+    destDeck.aercScore = srcDeck.aercScore;
     destDeck.antisynergyRating = srcDeck.antisynergyRating;
-    destDeck.sasPercentile = srcDeck.sasPercentile;
-    destDeck.rawAercScore = srcDeck.rawAercScore;
     destDeck.artifactControl = srcDeck.artifactControl;
     destDeck.creatureControl = srcDeck.creatureControl;
+    destDeck.creatureProtection = srcDeck.creatureProtection;
+    destDeck.disruption = srcDeck.disruption;
     destDeck.effectivePower = srcDeck.effectivePower;
     destDeck.efficiency = srcDeck.efficiency;
-    destDeck.disruption = srcDeck.disruption;
-    destDeck.houseCheating = srcDeck.houseCheating;
+    destDeck.sasPercentile = srcDeck.sasPercentile;
+    destDeck.sasRating = srcDeck.sasRating;
+    destDeck.synergyRating = srcDeck.synergyRating;
     destDeck.other = srcDeck.other;
+
+    // SAS Specific Data
+    destDeck.lastSasUpdate = srcDeck.lastSasUpdate;   
+
+    // Data only available in csv export
     destDeck.house1SAS = srcDeck.house1SAS;
     destDeck.house2SAS = srcDeck.house2SAS;
     destDeck.house3SAS = srcDeck.house3SAS;
-    destDeck.lastSasUpdate = srcDeck.lastSasUpdate;
 
-    // Name Mapping (Aember / amber)
+    // OP Data such as chains / power ... is skipped
+
+    // Name Mapping override (Aember / amber)
     destDeck.aemberControl = srcDeck.aemberControl || srcDeck.amberControl;
-    destDeck.aemberProtection = srcDeck.aemberProtection || srcDeck.amberProtection;
-    destDeck.expectedAember = srcDeck.expectedAember ||srcDeck.expectedAmber;
+    destDeck.expectedAember = srcDeck.expectedAember || srcDeck.expectedAmber;
+    destDeck.rawAmber = srcDeck.rawAember || srcDeck.rawAmber;
+  }
+
+  shouldRefreshSas(deck) {
+    // If no sas at all refresh
+    if(!deck.lastSasUpdate  && !deck.sasVersion) {
+      return true;
+    }
+    // Check on version first
+    if(deck.sasVersion) { 
+      return parseInt(deck.sasVersion) < ENV.dok.lastSasVersion;
+    }
+
+    // Else  on date
+    return !deck.lastSasUpdate || moment(deck.lastSasUpdate).isBefore(moment(ENV.dok.lastSasUpdate));
   }
 }

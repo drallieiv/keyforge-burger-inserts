@@ -48,9 +48,6 @@
     &.expectedAember {
       content: url("icons/svg/stat/expected-amber.svg");
     }
-    &.aemberProtection {
-      content: url("icons/svg/stat/amber-protection.svg");
-    }
     &.efficiency {
       content: url("icons/svg/stat/efficiency.svg");
     }
@@ -66,8 +63,8 @@
     &.effectivePower {
       content: url("icons/svg/stat/power.svg");
     }
-    &.houseCheating {
-      content: url("icons/svg/stat/house-cheating.svg");
+    &.creatureProtection {
+      content: url("icons/svg/stat/creature-protection.svg");
     }
     &.other {
       content: url("icons/svg/stat/other.svg");
@@ -80,6 +77,9 @@
     }
     &.archive {
       content: url("icons/svg/stat/archive-icon.svg");
+    }
+    &.aerc  {
+      content: url("icons/svg/stat/aerc.svg");
     }
   }
 }

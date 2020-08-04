@@ -1,26 +1,36 @@
 .main-body .collection{
-  width: 75%;
-
   $pendingScanColor: hsl(212, 60%, 50%);
   $validScanColor: hsl(120, 60%, 50%);
   $invalidScanColor: hsl(0, 60%, 50%);
 
   $body-spacing: 5px;
 
+  input, button, a {
+    margin-bottom: 5px;
+  }
+
   .flex-wrapper {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    // 778
     .flex-webcam {
       flex-basis: 210px;
     }
     .flex-search {
-      flex-basis: 360px;
+      flex-basis: 280px;
     }
     .flex-log {
-      flex-basis: 360px;
+      flex-basis: 250px;
     }
     .flex-select {
       flex-grow: 1;
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    .flex-wrapper {
+      justify-content: start;
     }
   }
 
@@ -50,7 +60,6 @@
 
   .webcam-preview {
     width: 200px;
-    height: 153px;
     border: 3px solid $pendingScanColor;
     padding: 2px;
     &.valid {
@@ -66,14 +75,15 @@
 
   .log-window {
     border: $default-border;
-    width: 350px;
-    height: 120px;
+    width: 240px;
+    height: 80px;
     font-size: .6em;
     overflow-y: scroll;
   }
 
   .manual-deck-wrapper {
     display: flex;
+    flex-wrap: wrap;
     > * {
       padding: 5px;
       &.button-align {
@@ -124,6 +134,18 @@
       display: inline;
       vertical-align: middle;
     }
+    .info-or-action{
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: center;
+      justify-content: space-around;
+      a{
+        margin-bottom: 0;
+      }
+      .icon {
+        font-size: 1rem;
+      }
+    }
   }
 
   // Smaller text for select
@@ -131,4 +153,15 @@
     margin-left: 0;
     font-size: 0.8em;
   }
+
+  .deck-table-wrapper{
+    overflow-x: auto;
+    > table {
+      min-width: 750px;
+      tbody td {
+        padding: 0 0.5rem;
+      }
+    }
+  }
+
 }

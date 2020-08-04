@@ -9,16 +9,15 @@ export default class DeckModel extends Model {
   @attr('number') synergyRating;
   @attr('number') antisynergyRating;
   @attr('number') sasPercentile
-  @attr('number') rawAercScore;
+  @attr('number') aercScore;
   @attr('number') aemberControl;
   @attr('number') expectedAember;
-  @attr('number') aemberProtection;
+  @attr('number') creatureProtection;
   @attr('number') artifactControl;
   @attr('number') creatureControl;
   @attr('number') effectivePower;
   @attr('number') efficiency;
   @attr('number') disruption;
-  @attr('number') houseCheating;
   @attr('number') other;
   @attr('number') house1SAS;
   @attr('number') house2SAS;
@@ -41,6 +40,8 @@ export default class DeckModel extends Model {
   @attr('string') sasVersion;
 
   @attr('date') creationDate;
+
+  @attr('string') source;
 
   @hasMany('deck-folder', { async: true }) folders;
 }

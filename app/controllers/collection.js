@@ -4,13 +4,15 @@ import { inject as service } from '@ember/service';
 import { isNotFoundError } from 'ember-ajax/errors';
 import { later } from '@ember/runloop';
 import { debounce } from '@ember/runloop';
-
+import { tracked } from '@glimmer/tracking';
 
 export default class CollectionController extends Controller {
   @service deckManager;
   @service mastervault;
   
   webcamActive = false;
+
+  @tracked isResyncAllDecksPending = false;
 
   newDecks = [];
 
@@ -212,6 +214,15 @@ export default class CollectionController extends Controller {
     if (file.name.endsWith('.csv')) {
       this.deckManager.loadFromCsv(file, this.activeFolder);
     }
+  }
+
+  @action
+  dokResync() {
+    this.isResyncAllDecksPending = true;
+    this.deckManager.resyncAllDecks().then(() =>{
+      console.log("resyncAllDecks DONE");
+      this.isResyncAllDecksPending = false;
+    })
   }
 
   // get SAS Data for decks
