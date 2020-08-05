@@ -383,8 +383,7 @@ $main-padding: 0;
     flex-basis: $set;
     font-size: 3.5mm;
     text-align: center;
-    border-right: 1px solid black;
-    margin-right: 1mm;
+    margin: 0 1mm;
   }
 
   .dok-zone-name {
@@ -536,27 +535,21 @@ $main-padding: 0;
     }
   }
 
-  $setSaturation: 100%;
-  // Pastel
-  // $setLuminance: 70%;
-  // Dark
-  $setLuminance: 30%;
-
-  .dok-zone-set.set-cota {
-    color: white;
-    background-color: hsl(0,$setSaturation,$setLuminance);
-  }
-  .dok-zone-set.set-aoa {
-    color: white;
-    background-color: hsl(201,$setSaturation,$setLuminance);
-  }
-  .dok-zone-set.set-wc {
-    color: white;
-    background-color: hsl(296,$setSaturation,$setLuminance);
-  }
-  .dok-zone-set.set-mm {
-    color: white;
-    background-color: hsl(186,$setSaturation,$setLuminance);
+  .dok-zone-set {
+    overflow: hidden;
+    .backgroundColor {
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      overflow: hidden;
+    }
+    .withBackgroundColor {
+      color: white !important;
+    }
   }
 }
 
