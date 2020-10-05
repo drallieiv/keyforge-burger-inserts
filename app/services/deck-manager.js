@@ -254,36 +254,36 @@ export default class DeckManagerService extends Service {
   // Sync all parameters shared between the 2 objects
   _mapDokData(destDeck, srcDeck){
     // Main Card type count
-    destDeck.actionCount = srcDeck.actionCount;
-    destDeck.artifactCount = srcDeck.artifactCount;
-    destDeck.creatureCount = srcDeck.creatureCount;
-    destDeck.upgradeCount = srcDeck.upgradeCount;
+    destDeck.actionCount = srcDeck.actionCount || 0;
+    destDeck.artifactCount = srcDeck.artifactCount || 0;
+    destDeck.creatureCount = srcDeck.creatureCount || 0;
+    destDeck.upgradeCount = srcDeck.upgradeCount || 0;
 
     // Totals
-    destDeck.totalArmor = srcDeck.totalArmor;
-    destDeck.totalPower = srcDeck.totalPower;
+    destDeck.totalArmor = srcDeck.totalArmor || 0;
+    destDeck.totalPower = srcDeck.totalPower || 0;
 
     // By Effect count
-    destDeck.cardArchiveCount =  srcDeck.cardArchiveCount;
-    destDeck.cardDrawCount =  srcDeck.cardDrawCount;
-    destDeck.keyCheatCount =  srcDeck.keyCheatCount;
+    destDeck.cardArchiveCount = srcDeck.cardArchiveCount || 0;
+    destDeck.cardDrawCount = srcDeck.cardDrawCount || 0;
+    destDeck.keyCheatCount = srcDeck.keyCheatCount || 0;
     
     // Just Aember
     // destDeck.rawAmber > See AE>A Mmapping
     
     // Computed data
-    destDeck.aercScore = srcDeck.aercScore;
-    destDeck.antisynergyRating = srcDeck.antisynergyRating;
-    destDeck.artifactControl = srcDeck.artifactControl;
-    destDeck.creatureControl = srcDeck.creatureControl;
-    destDeck.creatureProtection = srcDeck.creatureProtection;
-    destDeck.disruption = srcDeck.disruption;
-    destDeck.effectivePower = srcDeck.effectivePower;
-    destDeck.efficiency = srcDeck.efficiency;
-    destDeck.sasPercentile = srcDeck.sasPercentile;
-    destDeck.sasRating = srcDeck.sasRating;
-    destDeck.synergyRating = srcDeck.synergyRating;
-    destDeck.other = srcDeck.other;
+    destDeck.aercScore = srcDeck.aercScore || 0;
+    destDeck.antisynergyRating = srcDeck.antisynergyRating || 0;
+    destDeck.artifactControl = srcDeck.artifactControl || 0;
+    destDeck.creatureControl = srcDeck.creatureControl || 0;
+    destDeck.creatureProtection = srcDeck.creatureProtection || 0;
+    destDeck.disruption = srcDeck.disruption || 0;
+    destDeck.effectivePower = srcDeck.effectivePower || 0;
+    destDeck.efficiency = srcDeck.efficiency || 0;
+    destDeck.sasPercentile = srcDeck.sasPercentile || 0;
+    destDeck.sasRating = srcDeck.sasRating || 0;
+    destDeck.synergyRating = srcDeck.synergyRating || 0;
+    destDeck.other = srcDeck.other || 0;
 
     // SAS Specific Data
     destDeck.lastSasUpdate = srcDeck.lastSasUpdate;   

@@ -27,8 +27,5 @@ module('Integration | Component | set', function(hooks) {
 
     await render(hbs`<Set @set={{deckSet}} @printOptions={{this.printOptions}}/>`);
     assert.equal(this.element.textContent.trim(), 'CotA');
-
-    let className = this.element.querySelector('.dok-zone-set').className
-    assert.ok(className.match(/\bset-cota\b/));
   });
 });
