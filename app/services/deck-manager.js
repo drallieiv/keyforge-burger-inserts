@@ -41,6 +41,7 @@ export default class DeckManagerService extends Service {
       creatureControl: csvData['Creature Control'],
       effectivePower: csvData['Effective Power'],
       efficiency: csvData['Efficiency'],
+      recursion: csvData['Recursion'],
       disruption: csvData['Disruption'],
       other: csvData['Other'],
       house1SAS: csvData['House 1 SAS'],
@@ -56,6 +57,7 @@ export default class DeckManagerService extends Service {
       cardArchiveCount: csvData['Card Archive Count'],
       totalPower: csvData['Total Power'],
       totalArmor: csvData['Total Armor'],
+      meta: csvData['META Score'],
       dokLink: csvData['DoK Link'],
       masterVaultLink: csvData['Master Vault Link'],
       lastSasUpdate: csvData['Last SAS Update'],
@@ -280,10 +282,12 @@ export default class DeckManagerService extends Service {
     destDeck.disruption = srcDeck.disruption || 0;
     destDeck.effectivePower = srcDeck.effectivePower || 0;
     destDeck.efficiency = srcDeck.efficiency || 0;
+    destDeck.recursion = srcDeck.recursion || 0;
     destDeck.sasPercentile = srcDeck.sasPercentile || 0;
     destDeck.sasRating = srcDeck.sasRating || 0;
     destDeck.synergyRating = srcDeck.synergyRating || 0;
     destDeck.other = srcDeck.other || 0;
+    destDeck.meta = srcDeck.meta || "?";
 
     // SAS Specific Data
     destDeck.lastSasUpdate = srcDeck.lastSasUpdate;   

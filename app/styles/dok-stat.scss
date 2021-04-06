@@ -3,7 +3,7 @@
   flex-grow: 1;
   .dok-stat-info {
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
   }
   .dok-stat-icon {
     width: $iconSize;
@@ -51,6 +51,9 @@
     &.efficiency {
       content: url("icons/svg/stat/efficiency.svg");
     }
+    &.recursion {
+      content: url("icons/svg/stat/recursion.svg");
+    }
     &.disruption {
       content: url("icons/svg/stat/disruption.svg");
     }
@@ -78,8 +81,11 @@
     &.archive {
       content: url("icons/svg/stat/archive-icon.svg");
     }
-    &.aerc  {
+    &.aerc {
       content: url("icons/svg/stat/aerc.svg");
+    }
+    &.meta {
+      content: url("icons/svg/stat/meta.svg");
     }
   }
 }

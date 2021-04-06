@@ -38,8 +38,8 @@ module.exports = function(environment) {
     
     dok: {
       sharedApiKey: "57f0d4c3-8101-4f0a-a2cc-b2a39bec622b",
-      lastSasUpdate: "2020-07-22",
-      lastSasVersion: 21
+      lastSasUpdate: "2021-04-06",
+      lastSasVersion: 37
     }      
   };
 
