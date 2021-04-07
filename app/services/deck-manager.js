@@ -287,7 +287,7 @@ export default class DeckManagerService extends Service {
     destDeck.sasRating = srcDeck.sasRating || 0;
     destDeck.synergyRating = srcDeck.synergyRating || 0;
     destDeck.other = srcDeck.other || 0;
-    destDeck.meta = srcDeck.meta || "?";
+    destDeck.meta = srcDeck.meta || (destDeck.sasRating - destDeck.synergyRating + destDeck.antisynergyRating - destDeck.aercScore) || "?";
 
     // SAS Specific Data
     destDeck.lastSasUpdate = srcDeck.lastSasUpdate;   
