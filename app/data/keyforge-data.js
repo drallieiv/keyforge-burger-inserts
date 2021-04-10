@@ -3,6 +3,7 @@ const CardSets = {
   'AGE_OF_ASCENSION': {short: 'AoA', full: 'Age of Ascenscion' ,class:'set-aoa', hue:'201',  exp: 435},
   'WORLDS_COLLIDE': {short: 'WC', full: 'Worlds Collide', class:'set-wc', hue:'296',  exp: 452},
   'MASS_MUTATION': {short: 'MM', full: 'Mass Mutation', class:'set-mm', hue:'186',  exp: 479},
+  'DARK_TIDINGS': {short: 'DT', full: 'Dark Tidings', class:'set-dt', hue:'245',  exp: 496},
 };
 
 let SearchExpansion =  function(sets, exp) {
@@ -19,6 +20,7 @@ const ExpansionList = [
   {csv: 'AGE_OF_ASCENSION', short: 'AoA', full: 'Age of Ascenscion' ,class:'set-aoa', exp: 435},
   {csv: 'WORLDS_COLLIDE', short: 'WC', full: 'Worlds Collide', class:'set-wc', exp: 452},
   {csv: 'MASS_MUTATION', short: 'MM', full: 'Mass Mutation', class:'set-mm', exp: 479},
+  {csv: 'DARK_TIDINGS', short: 'DT', full: 'Dark Tidings', class:'set-dt', exp: 496},
 ];
 
 const HouseList = [
@@ -31,6 +33,7 @@ const HouseList = [
   { name:'Untamed', defaultIconPath: 'assets/icons/svg/house/Untamed.svg'},
   { name:'Star Alliance', defaultIconPath: 'assets/icons/svg/house/StarAlliance.svg'},
   { name:'Saurian', defaultIconPath: 'assets/icons/svg/house/Saurian.svg'},
+  { name:'Unfathomable', defaultIconPath: 'assets/icons/svg/house/Unfathomable.svg'},
 ]
 
 export { CardSets, SearchExpansion, HouseList, ExpansionList };

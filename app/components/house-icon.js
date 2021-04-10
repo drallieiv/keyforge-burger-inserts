@@ -14,6 +14,7 @@ export default class HouseIconComponent extends Component {
     'Untamed': 'Untamed.svg',
     'StarAlliance': 'StarAlliance.svg',
     'Saurian': 'Saurian.svg',
+    'Unfathomable': 'Unfathomable.svg',
   };
 
   get imgSrc() {

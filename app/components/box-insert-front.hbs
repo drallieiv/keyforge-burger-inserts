@@ -53,8 +53,8 @@
             </div>
             <div class="dok-stats-group-data">
               <DokStat @iconClass="aerc" @legend="Base AERC" @value={{@deck.aercScore}}/>
-              <DokStat @iconClass="synergy" @legend="Synergy" @value={{@deck.synergyRating}}/>
-              <DokStat @iconClass="antiSynergy" @legend="Anti-Synergy" @value={{@deck.antisynergyRating}}/>
+              <DokStat @iconClass="synergy" @legend="Synergy" @value={{@deck.synergyCombo}}/>
+              <DokStat @iconClass="meta" @legend="Meta" @value={{@deck.meta}}/>
             </div>
           </div>
         </div>
@@ -76,6 +76,7 @@
             </div>
             <div class="dok-stats-group-data">
               <DokStat @iconClass="efficiency" @legend="Efficiency" @value={{@deck.efficiency}}/>
+              <DokStat @iconClass="recursion" @legend="Recursion" @value={{@deck.recursion}}/>
               <DokStat @iconClass="disruption" @legend="Disruption" @value={{@deck.disruption}}/>
             </div>
           </div>

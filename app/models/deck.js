@@ -17,6 +17,7 @@ export default class DeckModel extends Model {
   @attr('number') creatureControl;
   @attr('number') effectivePower;
   @attr('number') efficiency;
+  @attr('number') recursion;
   @attr('number') disruption;
   @attr('number') other;
   @attr('number') house1SAS;
@@ -32,6 +33,7 @@ export default class DeckModel extends Model {
   @attr('number') cardArchiveCount;
   @attr('number') totalPower;
   @attr('number') totalArmor;
+  @attr('number') meta;
 
   @attr('string') dokLink;
   @attr('string') masterVaultLink;
@@ -44,4 +46,13 @@ export default class DeckModel extends Model {
   @attr('string') source;
 
   @hasMany('deck-folder', { async: true }) folders;
+
+  get synergyCombo() {
+    let text = this.synergyRating;
+    if (this.antisynergyRating > 0) {
+      text = text + " - " + this.antisynergyRating;
+    }
+    return text;
+  }
+  
 }
