@@ -86,6 +86,11 @@
             <a class="button tiny" role="button" {{on "click" (fn this.clearLog)}}>
               Clear Log
             </a>
+            {{#if this.hasNewDecks}}
+              <a class="button tiny" role="button" {{on "click" (fn this.copyNewDecks)}}>
+                Copy all new deck codes
+              </a>
+            {{/if}}
           </div>
         </div>
       </div>

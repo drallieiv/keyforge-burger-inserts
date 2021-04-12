@@ -5,6 +5,7 @@ import { isNotFoundError } from 'ember-ajax/errors';
 import { later } from '@ember/runloop';
 import { debounce } from '@ember/runloop';
 import { tracked } from '@glimmer/tracking';
+import { notEmpty } from '@ember/object/computed';
 
 export default class CollectionController extends Controller {
   @service deckManager;
@@ -13,6 +14,8 @@ export default class CollectionController extends Controller {
   webcamActive = false;
 
   @tracked isResyncAllDecksPending = false;
+
+  @notEmpty('newDecks') hasNewDecks;
 
   newDecks = [];
 
@@ -166,7 +169,7 @@ export default class CollectionController extends Controller {
   
   @action
   onScanSuccess(found)  {
-    let exp = 'https://www.keyforgegame.com/deck/([0-9A-Z]{5}-[0-9A-Z]{5}-[0-9A-Z]{5})';
+    let exp = '(?:https://www.keyforgegame.com/deck/)?([0-9A-Z]{5}-[0-9A-Z]{5}-[0-9A-Z]{5})';
     let match = found.text.match(exp);
     if(match){
       let deckPrivId = match[1];
@@ -235,6 +238,42 @@ export default class CollectionController extends Controller {
         'deckUpdateSuccess': true
       });
     });
+  }
+
+  @action
+  copyNewDecks() {
+
+    let text = this.get('newDecks').map(d => d.code).join(", ");
+
+    if (!navigator.clipboard) {
+      var textArea = document.createElement("textarea");
+      textArea.value = text;
+      
+      // Avoid scrolling to bottom
+      textArea.style.top = "0";
+      textArea.style.left = "0";
+      textArea.style.position = "fixed";
+    
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+    
+      try {
+        var successful = document.execCommand('copy');
+        var msg = successful ? 'successful' : 'unsuccessful';
+        console.log('Fallback: Copying text command was ' + msg);
+      } catch (err) {
+        console.error('Fallback: Oops, unable to copy', err);
+      }
+    
+      document.body.removeChild(textArea);
+    } else {
+      navigator.clipboard.writeText(text).then(function() {
+        console.log('Async: Copying to clipboard was successful!');
+      }, function(err) {
+        console.error('Async: Could not copy text: ', err);
+      });
+    }
   }
 
 }
