@@ -41,7 +41,7 @@ export default class HouseRatioBarComponent extends Component {
           let scaleHue = colorConfig.colorHueMax - colorConfig.colorHueMin;
           hue = avgHue + ((ratio-avgRatio) / scaleRatio) * scaleHue
         }
-        house.style.style.setProperty("background-color", 'hsl('+hue+','+colorConfig.colorSat+','+colorConfig.colorLum+')', "important");
+        house.style.setProperty("background-color", 'hsl('+hue+','+colorConfig.colorSat+','+colorConfig.colorLum+')', "important");
       } else{
         house.style.backgroundColor = 'inherit';
       }
