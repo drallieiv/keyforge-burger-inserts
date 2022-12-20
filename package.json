@@ -1,8 +1,8 @@
 {
   "name": "burger-inserts",
-  "version": "0.0.0",
+  "version": "21.4.1",
   "private": true,
-  "description": "Insert Gernator for Burget Token Boxes",
+  "description": "Insert Generator for Burger Token Boxes",
   "repository": "",
   "license": "MIT",
   "author": "",

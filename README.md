@@ -14,3 +14,9 @@ Reach me on discord at Drallieiv#4274 if you want to help contribute
 
 
 Feel free to submit any feature request or bug in the issue section.
+
+## Local Electron Build
+
+`ember electron:package -dev` with additional `-s` to skip build
+
+`ember electron:make -dev`  with additional `-sb` to skip build

@@ -44,7 +44,8 @@ module.exports = function(environment) {
   };
 
   if (environment === 'development') {
-    ENV.kfapi = "/mv/api/"
+    // ENV.kfapi = "/mv/api/"
+    ENV.kfapi = "https://www.keyforgegame.com/api/"
   }
 
   if (environment === 'test') {
