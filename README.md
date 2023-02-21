@@ -7,8 +7,8 @@ Current size includes Burger Token boxes.
 Hosting at https://keyforge-burger-inserts.herokuapp.com has been discontinued.
 Project is still available as open source if you want to build it and run it locally.
 
-Might work on converting it to a rich application you can run locally.
-Future is also depending on the lifespan of MasterVault with the transition to GhostGalaxy
+it has been converted to a rich application you can run locally. You can build it yourself or download the pre built one (link in https://github.com/drallieiv/keyforge-burger-inserts/releases)
+Transition of MasterVault GhostGalaxy is still working exactly the same, but might require API subscription if you have intensive usage.
 
 Reach me on discord at Drallieiv#4274 if you want to help contribute
 
