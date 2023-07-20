@@ -16,7 +16,7 @@ export default class HouseIconComponent extends Component {
     'Saurian': 'Saurian.svg',
     'Unfathomable': 'Unfathomable.svg',
     'Ekwidon': 'Ekwidon.svg',
-    'Ghestoid': 'Ghestoid.svg',
+    'Gestoid': 'Gestoid.svg',
   };
 
   get imgSrc() {
