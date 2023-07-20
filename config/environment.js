@@ -4,8 +4,8 @@ module.exports = function(environment) {
   let ENV = {
     modulePrefix: 'burger-inserts',
     environment,
-    rootURL: '/',
-    locationType: 'auto',
+    rootURL: process.env.EMBER_CLI_ELECTRON ? '' : '/',
+    locationType: process.env.EMBER_CLI_ELECTRON ? 'hash' : 'auto',
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
@@ -34,7 +34,7 @@ module.exports = function(environment) {
       'style-src': "'self' fonts.googleapis.com"
     },
 
-    kfapi: "https://keyforge-mastervault-proxy.herokuapp.com/https://www.keyforgegame.com/api/",
+    kfapi: "https://www.keyforgegame.com/api/",
     
     dok: {
       sharedApiKey: "57f0d4c3-8101-4f0a-a2cc-b2a39bec622b",
@@ -44,7 +44,8 @@ module.exports = function(environment) {
   };
 
   if (environment === 'development') {
-    ENV.kfapi = "/mv/api/"
+    // ENV.kfapi = "/mv/api/"
+    ENV.kfapi = "https://www.keyforgegame.com/api/"
   }
 
   if (environment === 'test') {
