@@ -34,7 +34,7 @@ module.exports = function(environment) {
       'style-src': "'self' fonts.googleapis.com"
     },
 
-    kfapi: "https://keyforge-mastervault-proxy.herokuapp.com/https://www.keyforgegame.com/api/",
+    kfapi: "https://www.keyforgegame.com/api/",
     
     dok: {
       sharedApiKey: "57f0d4c3-8101-4f0a-a2cc-b2a39bec622b",

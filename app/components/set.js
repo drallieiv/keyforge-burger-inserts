@@ -21,6 +21,12 @@ export default class SetComponent extends Component {
     if(!this.args.printOptions.get('showSetColor') || !CardSets[this.args.set]){
       return '';
     }
-    return htmlSafe("fill:hsl("+CardSets[this.args.set].hue+",100%,30%)");
+    
+    let hue = CardSets[this.args.set].hue;
+    if ( hue != '') {
+      return htmlSafe("fill:hsl("+CardSets[this.args.set].hue+",100%,30%)");
+    }
+    // all black
+    return htmlSafe("fill:hsl(0,0%,0%)");
   }
 }
