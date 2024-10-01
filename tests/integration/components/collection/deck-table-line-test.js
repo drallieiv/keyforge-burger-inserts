@@ -17,7 +17,7 @@ module('Integration | Component | collection/deck-table-line', function(hooks) {
     };
 
     this.set('deck', deck);
-    await render(hbs`<Collection::DeckTableLine @deck={{deck}}/>`);
+    await render(hbs`<Collection::DeckTableLine @deck={{this.deck}}/>`);
 
     let tableFields = this.element.querySelectorAll('td');
     

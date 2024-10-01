@@ -18,7 +18,7 @@ module('Integration | Component | collection/deck-table', function(hooks) {
     this.set('decks', decks);
 
     await render(hbs`
-      <Collection::DeckTable @decks={{decks}}/>
+      <Collection::DeckTable @decks={{this.decks}}/>
     `);
 
     let deckNamesCells = this.element.querySelectorAll('tbody tr > td:nth-child(1)');

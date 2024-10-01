@@ -9,7 +9,7 @@ module('Integration | Component | deck-folder', function(hooks) {
   test('Show folder name and count', async function(assert) {
     this.set('folder', {name:'DeckName', count:42});
 
-    await render(hbs`<DeckFolder @folder={{folder}} />`);
+    await render(hbs`<DeckFolder @folder={{this.folder}} />`);
 
     assert.equal(this.element.textContent.trim(), 'DeckName (42)');
   });

@@ -11,7 +11,7 @@ module('Integration | Component | print-option-toggle', function(hooks) {
     // Handle any actions with this.set('myAction', function(val) { ... });
     let id = 'inputId';
     this.set('id', id);
-    await render(hbs`<PrintOptionToggle @id={{id}}/>`);
+    await render(hbs`<PrintOptionToggle @id={{this.id}}/>`);
 
     assert.ok(this.element.querySelectorAll('input#'+id).length > 0);
   });

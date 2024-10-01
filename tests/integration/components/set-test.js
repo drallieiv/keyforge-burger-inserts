@@ -25,7 +25,7 @@ module('Integration | Component | set', function(hooks) {
     printOptions.set('showSetColor', true);
     this.set('printOptions', printOptions);
 
-    await render(hbs`<Set @set={{deckSet}} @printOptions={{this.printOptions}}/>`);
+    await render(hbs`<Set @set={{this.deckSet}} @printOptions={{this.printOptions}}/>`);
     assert.equal(this.element.textContent.trim(), 'CotA');
   });
 });
