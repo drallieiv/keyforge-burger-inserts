@@ -4,16 +4,13 @@ const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 
 module.exports = function (defaults) {
   let app = new EmberApp(defaults, {
-    outputPaths: {
-      app: {
-        css: {
-          app: "/assets/burger-inserts.css"
-        },
-      },
-    },
-    // Add options here
-    'ember-cli-foundation-6-sass': {
-      'foundationJs': 'all'
+    sassOptions: {
+      implementation: require('sass'), // Use dart-sass
+      includePaths: [
+        'app/styles', // Default styles path
+        'node_modules/foundation-sites/scss', // Add your custom load path here
+        'node_modules/foundation-sites/scss/util',
+      ]
     },
     fingerprint: {
       extensions: ['js', 'css']

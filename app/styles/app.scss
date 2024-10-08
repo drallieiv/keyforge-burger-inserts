@@ -1,6 +1,5 @@
 @import "settings";
-@import "foundation-sites/foundation";
-@include foundation-everything(true);
+@import "foundation";
 @import "icons";
 @import "decks";
 @import "insert";
